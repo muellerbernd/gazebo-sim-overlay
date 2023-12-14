@@ -53,6 +53,7 @@ with self.lib; {
 
     rendering = self.callPackage ./ignition/rendering/8.nix { };
     gui = self.libsForQt5.callPackage ./ignition/gui/8.nix { };
+    sensors = self.callPackage ./ignition/sensors/8.nix { };
   };
   # sdformat_9 = self.callPackage ./sdformat/9.nix { };
   # sdformat_13 = self.callPackage ./sdformat/13.nix { };

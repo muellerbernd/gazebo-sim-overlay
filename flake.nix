@@ -8,9 +8,11 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
+    nixgl.url = "github:guibou/nixGL";
+
   };
   # flake-utils.lib.eachDefaultSystem (system:
-  outputs = { self, nixpkgs, flake-utils, ... }:
+  outputs = { self, nixpkgs, flake-utils, nixgl, ... }:
     with nixpkgs.lib;
     with flake-utils.lib;
 
@@ -18,14 +20,18 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ self.overlays.default ];
+          overlays = [ self.overlays.default nixgl.overlay ];
         };
       in {
 
         # let pkgs = nixpkgs.outputs.legacyPackages.${system};
-        packages.ignition-gazebo = pkgs.libsForQt5.callPackage ./pkgs/ignition-gazebo { };
+        packages.ignition-gazebo =
+          pkgs.libsForQt5.callPackage ./pkgs/ignition-gazebo { };
         packages.default = self.outputs.packages.${system}.ignition-gazebo;
 
+        devShells = {
+          default = import ./shell.nix { inherit pkgs; };
+        };
       }) // {
         overlays.default = import ./overlay.nix;
 
