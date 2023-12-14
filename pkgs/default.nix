@@ -44,6 +44,9 @@ with self.lib; {
     utils1 = self.callPackage ./ignition/utils { };
     utils2 = self.callPackage ./ignition/utils/2.nix { };
     utils = self.ignition.utils2;
+
+    plugin2 = self.callPackage ./ignition/plugin/2.nix { };
+    plugin = self.ignition.plugin2;
   };
   # sdformat_9 = self.callPackage ./sdformat/9.nix { };
   # sdformat_13 = self.callPackage ./sdformat/13.nix { };

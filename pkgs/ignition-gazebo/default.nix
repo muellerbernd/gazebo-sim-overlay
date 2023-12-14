@@ -4,7 +4,7 @@
 , ignition, ignition-cmake ? ignition.cmake, ignition-common ? ignition.common
 , ignition-math ? ignition.math, ignition-transport ? ignition.transport
 , ignition-msgs ? ignition.msgs, ignition-fuel-tools ? ignition.fuel-tools
-, wrapQtAppsHook, sdformat
+, ignition-plugin ? ignition.plugin, wrapQtAppsHook, sdformat
 
 , bullet, withBulletEngineSupport ? false }:
 
@@ -40,6 +40,7 @@ stdenv.mkDerivation rec {
     graphviz
     ignition-cmake
     ignition-common
+    ignition-plugin
     libsForQt5.qwt
   ] ++ lib.optional withBulletEngineSupport bullet;
 
