@@ -58,5 +58,6 @@ with self.lib; {
   sdformat_14 = self.callPackage ./sdformat/14.nix { };
   sdformat = self.sdformat_14;
 
+  ogre1_9 = self.callPackage ./ogre/1.9.nix { };
 }
 

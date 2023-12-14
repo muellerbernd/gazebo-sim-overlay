@@ -1,8 +1,8 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
 , majorVersion ? "8", version ? "8.0.0"
 , srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-plugin, ignition-common, ignition-math, ignition-cmake, ogre, eigen
-, freeimage, libGL, ... }:
+, ignition-plugin, ignition-common, ignition-math, ignition-cmake, ogre1_9
+, eigen, freeimage, libGL, libGLU, xorg, boost, ... }:
 
 stdenv.mkDerivation rec {
   pname = "gz-rendering${majorVersion}";
@@ -19,15 +19,18 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   # pkg-config is needed to use some CMake modules in this package
   propagatedBuildInputs = [ pkg-config ];
-  propagatedNativeBuildInputs = [ ignition-cmake ogre ];
+  propagatedNativeBuildInputs = [ ignition-cmake ];
   buildInputs = [
     ignition-math
     ignition-plugin
     ignition-common
-    ogre
+    ogre1_9
     eigen
     freeimage
     libGL
+    xorg.libX11.dev
+    boost
+    libGLU
   ];
 
   meta = with lib; {

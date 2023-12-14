@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     boost
     protobuf
     tbb
-    # ogre1_9
+    ogre1_9
     sdformat
     ffmpeg
     ignition-math
