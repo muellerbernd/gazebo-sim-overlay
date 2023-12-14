@@ -1,9 +1,10 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
 , majorVersion ? "2", version ? "2.17.1"
-, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4=", ... }:
+, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4=", python3, ...
+}:
 
 stdenv.mkDerivation rec {
-  pname = if (majorVersion <= "2") then
+  pname = if (majorVersion < "3") then
     "ignition-cmake${majorVersion}"
   else
     "gz-cmake${majorVersion}";
@@ -27,7 +28,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ];
+  propagatedBuildInputs = [ pkg-config ]
+    ++ lib.optional (lib.versionAtLeast version "3") [ python3 ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/cmake";

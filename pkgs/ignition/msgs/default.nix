@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ]
-    ++ lib.optional (lib.versionAtLeast version "5") [
+    ++ lib.optional (lib.versionAtLeast version "8") [
       gz-cmake_3
       gz-math_7
       gz-utils_2
