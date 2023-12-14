@@ -7,8 +7,8 @@
 , ignition-fuel-tools ? ignition.fuel-tools, ignition-plugin ? ignition.plugin
 , ignition-physics ? ignition.physics, ignition-rendering ? ignition.rendering
 , ignition-gui ? ignition.gui, ignition-sensors ? ignition.sensors
-, wrapQtAppsHook, sdformat, bullet, eigen, python311Packages
-, withBulletEngineSupport ? false }:
+, ignition-tools ? ignition.tools, wrapQtAppsHook, sdformat, bullet, eigen
+, python311Packages, withBulletEngineSupport ? false }:
 
 stdenv.mkDerivation rec {
   pname = "gazebo-sim";
@@ -47,6 +47,7 @@ stdenv.mkDerivation rec {
     ignition-rendering
     ignition-gui
     ignition-sensors
+    ignition-tools
     qwt
     qtbase
     qtquickcontrols2
@@ -67,6 +68,8 @@ stdenv.mkDerivation rec {
     ignition-msgs
     ignition-fuel-tools
     ignition-physics
+    ignition-tools
+    ignition-gui
   ];
 
   qtWrapperArgs = [
@@ -78,6 +81,10 @@ stdenv.mkDerivation rec {
     # As is the case with RViz2, OGRE does not yet support it.
     "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
   ];
+
+  postInstall = ''
+    export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
+  '';
 
   meta = with lib; {
     homepage = "http://gazebosim.org/";

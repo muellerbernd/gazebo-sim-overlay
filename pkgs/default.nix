@@ -34,7 +34,7 @@ with self.lib; {
     msgs10 = self.callPackage ./ignition/msgs/10.nix { };
     msgs = self.ignition.msgs10;
 
-    tools = self.callPackage ./ignition/tools { };
+    tools = self.callPackage ./ignition/tools/2.nix { };
 
     # transport8 = self.callPackage ./ignition/transport/8.nix { };
     # transport11 = self.callPackage ./ignition/transport { };

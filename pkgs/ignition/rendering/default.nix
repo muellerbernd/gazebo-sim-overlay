@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     eigen
     freeimage
     libGL
-    xorg.libX11.dev
+    xorg.libX11
     boost
     libGLU
   ];
