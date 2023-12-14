@@ -1,7 +1,7 @@
 { pkgs }:
 let
   nixgl = [ pkgs.nixgl.nixGLIntel ];
-  extra = [ pkgs.gazebo_sim ];
+  extra = [ pkgs.gazebo_sim pkgs.ignition.gui ];
 in pkgs.mkShell {
   name = "Gz sim development";
   buildInputs = if pkgs.lib.strings.hasInfix "/run/current-system/sw"

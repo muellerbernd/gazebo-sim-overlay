@@ -7,7 +7,8 @@
 , ignition-fuel-tools ? ignition.fuel-tools, ignition-plugin ? ignition.plugin
 , ignition-physics ? ignition.physics, ignition-rendering ? ignition.rendering
 , ignition-gui ? ignition.gui, ignition-sensors ? ignition.sensors
-, wrapQtAppsHook, sdformat, bullet, eigen, withBulletEngineSupport ? false }:
+, wrapQtAppsHook, sdformat, bullet, eigen, python311Packages
+, withBulletEngineSupport ? false }:
 
 stdenv.mkDerivation rec {
   pname = "gazebo-sim";
@@ -50,6 +51,7 @@ stdenv.mkDerivation rec {
     qtbase
     qtquickcontrols2
     eigen
+    python311Packages.pybind11
   ] ++ lib.optional withBulletEngineSupport bullet;
 
   propagatedBuildInputs = [
@@ -67,15 +69,15 @@ stdenv.mkDerivation rec {
     ignition-physics
   ];
 
-  # qtWrapperArgs = [
-  #   # Let the gazebo binary see neighboring binaries.
-  #   # It attempts to run gzclient from PATH.
-  #   "--prefix PATH : ${placeholder "out"}/bin"
-  #
-  #   # Prevent Gazebo from attempting to use Wayland.
-  #   # As is the case with RViz2, OGRE does not yet support it.
-  #   "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
-  # ];
+  qtWrapperArgs = [
+    # Let the gazebo binary see neighboring binaries.
+    # It attempts to run gzclient from PATH.
+    "--prefix PATH : ${placeholder "out"}/bin"
+
+    # Prevent Gazebo from attempting to use Wayland.
+    # As is the case with RViz2, OGRE does not yet support it.
+    "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
+  ];
 
   meta = with lib; {
     homepage = "http://gazebosim.org/";
