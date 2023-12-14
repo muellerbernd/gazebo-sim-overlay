@@ -4,7 +4,8 @@
 , ignition, ignition-cmake ? ignition.cmake, ignition-common ? ignition.common
 , ignition-math ? ignition.math, ignition-transport ? ignition.transport
 , ignition-msgs ? ignition.msgs, ignition-fuel-tools ? ignition.fuel-tools
-, ignition-plugin ? ignition.plugin, wrapQtAppsHook, sdformat
+, ignition-plugin ? ignition.plugin, ignition-physics ? ignition.physics
+, ignition-rendering ? ignition.rendering, wrapQtAppsHook, sdformat
 
 , bullet, withBulletEngineSupport ? false }:
 
@@ -41,7 +42,10 @@ stdenv.mkDerivation rec {
     ignition-cmake
     ignition-common
     ignition-plugin
+    ignition-physics
+    ignition-rendering
     libsForQt5.qwt
+    qtbase
   ] ++ lib.optional withBulletEngineSupport bullet;
 
   propagatedBuildInputs = [
@@ -56,6 +60,7 @@ stdenv.mkDerivation rec {
     ignition-transport
     ignition-msgs
     ignition-fuel-tools
+    ignition-physics
   ];
 
   qtWrapperArgs = [

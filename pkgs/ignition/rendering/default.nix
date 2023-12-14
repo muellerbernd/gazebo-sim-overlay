@@ -1,41 +1,40 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
-, majorVersion ? "7", version ? "7.0.0"
+, majorVersion ? "8", version ? "8.0.0"
 , srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-cmake, ignition-utils, ignition-plugin, ignition-common, sdformat
-, dart, bullet, eigen, ... }:
+, ignition-plugin, ignition-common, ignition-math, ignition-cmake, ogre, eigen
+, freeimage, libGL, ... }:
 
 stdenv.mkDerivation rec {
-  pname = "gz-physics${majorVersion}";
+  pname = "gz-rendering${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
     name = "${rev}-source";
     owner = "gazebosim";
-    repo = "gz-physics";
+    repo = "gz-rendering";
     rev = "${pname}_${version}";
     hash = srcHash;
   };
 
   nativeBuildInputs = [ cmake ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ignition-common ];
-  propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
+  propagatedBuildInputs = [ pkg-config ];
+  propagatedNativeBuildInputs = [ ignition-cmake ogre ];
   buildInputs = [
-    sdformat
-    ignition-cmake
-    ignition-utils
+    ignition-math
     ignition-plugin
     ignition-common
-    # dart
-    # bullet
+    ogre
     eigen
+    freeimage
+    libGL
   ];
 
   meta = with lib; {
-    homepage = "https://ignitionrobotics.org/libs/physics";
+    homepage = "https://ignitionrobotics.org/libs/rendering";
     description = ''
-      Abstract physics interface designed to support simulation and rapid
-      development of robot applications.'';
+            C++ library designed to provide an abstraction for different rendering
+      engines. It offers unified APIs for creating 3D graphics applications.'';
     license = licenses.asl20;
     maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.all;

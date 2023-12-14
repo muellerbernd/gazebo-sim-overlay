@@ -47,6 +47,11 @@ with self.lib; {
 
     plugin2 = self.callPackage ./ignition/plugin/2.nix { };
     plugin = self.ignition.plugin2;
+
+    physics7 = self.callPackage ./ignition/physics/7.nix { };
+    physics = self.ignition.physics7;
+
+    rendering = self.callPackage ./ignition/rendering/8.nix { };
   };
   # sdformat_9 = self.callPackage ./sdformat/9.nix { };
   # sdformat_13 = self.callPackage ./sdformat/13.nix { };
