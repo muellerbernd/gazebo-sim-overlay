@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
+  # cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
 
   nativeBuildInputs = [ cmake pkg-config ronn wrapQtAppsHook ];
 
@@ -67,15 +67,15 @@ stdenv.mkDerivation rec {
     ignition-physics
   ];
 
-  qtWrapperArgs = [
-    # Let the gazebo binary see neighboring binaries.
-    # It attempts to run gzclient from PATH.
-    "--prefix PATH : ${placeholder "out"}/bin"
-
-    # Prevent Gazebo from attempting to use Wayland.
-    # As is the case with RViz2, OGRE does not yet support it.
-    "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
-  ];
+  # qtWrapperArgs = [
+  #   # Let the gazebo binary see neighboring binaries.
+  #   # It attempts to run gzclient from PATH.
+  #   "--prefix PATH : ${placeholder "out"}/bin"
+  #
+  #   # Prevent Gazebo from attempting to use Wayland.
+  #   # As is the case with RViz2, OGRE does not yet support it.
+  #   "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
+  # ];
 
   meta = with lib; {
     homepage = "http://gazebosim.org/";
