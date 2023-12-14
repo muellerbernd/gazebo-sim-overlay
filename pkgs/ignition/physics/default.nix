@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
 , majorVersion ? "7", version ? "7.0.0"
-, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
+, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4=", ignition-math
 , ignition-cmake, ignition-utils, ignition-plugin, ignition-common, sdformat
 , dart, bullet, eigen, ... }:
 
@@ -23,6 +23,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     sdformat
     ignition-cmake
+    ignition-math
     ignition-utils
     ignition-plugin
     ignition-common

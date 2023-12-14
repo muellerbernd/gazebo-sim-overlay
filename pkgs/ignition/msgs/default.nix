@@ -1,8 +1,8 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, cmake, tinyxml-2, ignition
 , ignition-cmake ? ignition.cmake, protobuf, ignition-math ? ignition.math
-, majorVersion ? "10", version ? "10.0.0"
-, srcHash ? "sha256-hG4UJfcq6DsyMqTWIcUQ15UCQNfdzTzwvJBpR9kmu84=", gz-cmake_3
-, gz-math_7, gz-utils_2, python3, ... }:
+, ignition-utils ? ignition.utils, majorVersion ? "10", version ? "10.0.0"
+, srcHash ? "sha256-hG4UJfcq6DsyMqTWIcUQ15UCQNfdzTzwvJBpR9kmu84=", python3, ...
+}:
 
 stdenv.mkDerivation rec {
   pname = if (lib.versionAtLeast version "8") then
@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ]
     ++ lib.optional (lib.versionAtLeast version "8") [
-      gz-cmake_3
-      gz-math_7
-      gz-utils_2
+      ignition-cmake
+      ignition-math
+      ignition-utils
       python3
     ];
   propagatedNativeBuildInputs = [ ignition-cmake ];

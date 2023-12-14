@@ -82,9 +82,9 @@ stdenv.mkDerivation rec {
     "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
   ];
 
-  postInstall = ''
-    export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
-  '';
+  # postInstall = ''
+  #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
+  # '';
 
   meta = with lib; {
     homepage = "http://gazebosim.org/";

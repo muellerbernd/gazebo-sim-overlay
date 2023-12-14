@@ -8,4 +8,5 @@ callPackage ./. ({
   ignition-utils = ignition.utils;
   ignition-plugin = ignition.plugin;
   ignition-common = ignition.common;
+  ignition-math = ignition.math;
 } // args)
