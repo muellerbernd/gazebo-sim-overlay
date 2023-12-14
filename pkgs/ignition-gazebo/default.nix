@@ -5,9 +5,8 @@
 , ignition-math ? ignition.math, ignition-transport ? ignition.transport
 , ignition-msgs ? ignition.msgs, ignition-fuel-tools ? ignition.fuel-tools
 , ignition-plugin ? ignition.plugin, ignition-physics ? ignition.physics
-, ignition-rendering ? ignition.rendering, wrapQtAppsHook, sdformat
-
-, bullet, withBulletEngineSupport ? false }:
+, ignition-rendering ? ignition.rendering, ignition-gui ? ignition.gui
+, wrapQtAppsHook, sdformat, bullet, withBulletEngineSupport ? false }:
 
 stdenv.mkDerivation rec {
   pname = "gazebo-sim";
@@ -44,6 +43,7 @@ stdenv.mkDerivation rec {
     ignition-plugin
     ignition-physics
     ignition-rendering
+    ignition-gui
     libsForQt5.qwt
     qtbase
   ] ++ lib.optional withBulletEngineSupport bullet;

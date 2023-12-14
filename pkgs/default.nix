@@ -52,6 +52,7 @@ with self.lib; {
     physics = self.ignition.physics7;
 
     rendering = self.callPackage ./ignition/rendering/8.nix { };
+    gui = self.libsForQt5.callPackage ./ignition/gui/8.nix { };
   };
   # sdformat_9 = self.callPackage ./sdformat/9.nix { };
   # sdformat_13 = self.callPackage ./sdformat/13.nix { };

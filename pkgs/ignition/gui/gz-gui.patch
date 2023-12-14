@@ -1,0 +1,16 @@
+diff --git a/src/plugins/grid_config/CMakeLists.txt b/src/plugins/grid_config/CMakeLists.txt
+index 101e6ede..8b238d6f 100644
+--- a/src/plugins/grid_config/CMakeLists.txt
++++ b/src/plugins/grid_config/CMakeLists.txt
+@@ -8,7 +8,7 @@ gz_gui_add_plugin(GridConfig
+ )
+ 
+ # Also install as Grid3D, which was a legacy plugin with a subset of features
+-install (
+-  FILES $<TARGET_FILE:GridConfig>
+-  RENAME ${CMAKE_SHARED_LIBRARY_PREFIX}Grid3D${CMAKE_SHARED_LIBRARY_SUFFIX}
+-  DESTINATION ${GZ_GUI_PLUGIN_INSTALL_DIR})
++# install (
++#   FILES $<TARGET_FILE:GridConfig>
++#   RENAME ${CMAKE_SHARED_LIBRARY_PREFIX}Grid3D${CMAKE_SHARED_LIBRARY_SUFFIX}
++#   DESTINATION ${GZ_GUI_PLUGIN_INSTALL_DIR})
