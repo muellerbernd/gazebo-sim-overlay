@@ -1,6 +1,6 @@
 { pkgs, lib, fetchurl, stdenv, cmake, git, pkg-config, ronn, libGL, openal, hdf5
 , curl, tinyxml, tinyxml-2, libtar, gts, libusb1, qtbase, gdal, libuuid
-, graphviz, qwt, qtquickcontrols2, freeimage, boost, protobuf, tbb, ogre1_9
+, graphviz, qwt, qtquickcontrols2, freeimage, boost, protobuf, tbb, ogre
 , ffmpeg, ignition, ignition-cmake ? ignition.cmake
 , ignition-common ? ignition.common, ignition-math ? ignition.math
 , ignition-transport ? ignition.transport, ignition-msgs ? ignition.msgs

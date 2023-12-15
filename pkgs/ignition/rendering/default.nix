@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
 , majorVersion ? "8", version ? "8.0.0"
 , srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-plugin, ignition-common, ignition-math, ignition-cmake, ogre1_9
+, ignition-plugin, ignition-common, ignition-math, ignition-cmake, ogre
 , eigen, freeimage, libGL, libGLU, xorg, boost, ... }:
 
 stdenv.mkDerivation rec {
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     ignition-math
     ignition-plugin
     ignition-common
-    ogre1_9
+    ogre
     eigen
     freeimage
     libGL
