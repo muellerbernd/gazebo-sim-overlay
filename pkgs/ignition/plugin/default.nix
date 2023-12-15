@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ ignition-cmake ignition-utils ];
 
   meta = with lib; {
-    homepage = "https://ignitionrobotics.org/libs/cmake";
+    homepage = "https://ignitionrobotics.org/libs/plugin";
     description = "Cross-platform C++ library for dynamically loading plugins.";
     license = licenses.asl20;
     maintainers = with maintainers; [ muellerbernd ];

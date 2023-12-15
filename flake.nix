@@ -25,9 +25,9 @@
       in {
 
         # let pkgs = nixpkgs.outputs.legacyPackages.${system};
-        packages.ignition-gazebo =
-          pkgs.libsForQt5.callPackage ./pkgs/ignition-gazebo { };
-        packages.default = self.outputs.packages.${system}.ignition-gazebo;
+        # packages.ignition-gazebo =
+        #   pkgs.libsForQt5.callPackage ./pkgs/ignition-gazebo { };
+        # packages.default = self.outputs.packages.${system}.ignition-gazebo;
 
         devShells = {
           default = import ./shell.nix { inherit pkgs; };

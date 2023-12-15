@@ -12,7 +12,7 @@ in pkgs.mkShell {
     nixgl
   ];
   shellHook = ''
-    export GZ_CONFIG_PATH=${pkgs.ignition.fuel-tools}/share/gz:${pkgs.ignition.gui}/share/gz:${pkgs.gazebo_sim}/share/gz:$GZ_CONFIG_PATH
+    export GZ_CONFIG_PATH=${pkgs.ignition.tools}/share/gz:${pkgs.ignition.msgs}/share/gz:${pkgs.ignition.plugin}/share/gz:${pkgs.ignition.fuel-tools}/share/gz:${pkgs.ignition.gui}/share/gz:${pkgs.gazebo_sim}/share/gz:$GZ_CONFIG_PATH
   '';
 }
 

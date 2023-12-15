@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
+  cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
 
   nativeBuildInputs = [ cmake pkg-config ronn wrapQtAppsHook ];
 
@@ -47,7 +47,12 @@ stdenv.mkDerivation rec {
     ignition-rendering
     ignition-gui
     ignition-sensors
-    ignition-tools
+    sdformat
+    ignition-math
+    ignition-transport
+    ignition-msgs
+    ignition-fuel-tools
+    ignition-physics
     qwt
     qtbase
     qtquickcontrols2
@@ -60,27 +65,26 @@ stdenv.mkDerivation rec {
     boost
     protobuf
     tbb
-    ogre1_9
-    sdformat
+    ogre
     ffmpeg
-    ignition-math
-    ignition-transport
-    ignition-msgs
-    ignition-fuel-tools
-    ignition-physics
+    # ignition-gui
+    # ignition-cmake
+    # ignition-common
+    # ignition-plugin
+    # ignition-rendering
+    # ignition-sensors
     ignition-tools
-    ignition-gui
   ];
 
-  qtWrapperArgs = [
-    # Let the gazebo binary see neighboring binaries.
-    # It attempts to run gzclient from PATH.
-    "--prefix PATH : ${placeholder "out"}/bin"
-
-    # Prevent Gazebo from attempting to use Wayland.
-    # As is the case with RViz2, OGRE does not yet support it.
-    "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
-  ];
+  # qtWrapperArgs = [
+  #   # Let the gazebo binary see neighboring binaries.
+  #   # It attempts to run gzclient from PATH.
+  #   "--prefix PATH : ${placeholder "out"}/bin"
+  #
+  #   # Prevent Gazebo from attempting to use Wayland.
+  #   # As is the case with RViz2, OGRE does not yet support it.
+  #   "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
+  # ];
 
   # postInstall = ''
   #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
