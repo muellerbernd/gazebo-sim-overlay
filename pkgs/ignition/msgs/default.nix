@@ -38,6 +38,15 @@ stdenv.mkDerivation rec {
   propagatedNativeBuildInputs = [ ignition-cmake ];
   propagatedBuildInputs = [ protobuf ignition-math tinyxml-2 ];
 
+  # postInstall = ''
+  #   mkdir ~/.gz/tools/configs -p
+  #   cd ~/.gz/tools/configs/
+  #   ln -s $out/share/gz/*.yaml .
+  # '';
+  postInstall = ''
+    export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
+  '';
+
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/msgs";
     description = "Protobuf messages and functions for robot applications.";

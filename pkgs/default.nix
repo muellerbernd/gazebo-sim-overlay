@@ -2,11 +2,11 @@ self: super:
 with self.lib; {
   gazebo_sim = self.libsForQt5.callPackage ./ignition-gazebo { };
 
-  gz-cmake_3 = self.callPackage ./ignition-gazebo/gz-cmake/3.nix { };
+  # gz-cmake_3 = self.callPackage ./gz-cmake/3.nix { };
 
-  gz-math_7 = self.callPackage ./ignition-gazebo/gz-math/7.nix { };
-
-  gz-utils_2 = self.callPackage ./ignition-gazebo/gz-utils/2.nix { };
+  # gz-math_7 = self.callPackage ./gz-math/7.nix { };
+  #
+  # gz-utils_2 = self.callPackage ./gz-utils/2.nix { };
 
   ignition = {
     # cmake0 = self.callPackage ./ignition/cmake/0.nix { };

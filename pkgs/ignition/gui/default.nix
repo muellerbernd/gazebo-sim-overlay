@@ -49,6 +49,15 @@ stdenv.mkDerivation rec {
   #   "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
   # ];
 
+  # postInstall = ''
+  #   mkdir ~/.gz/tools/configs -p
+  #   cd ~/.gz/tools/configs/
+  #   ln -s $out/share/gz/*.yaml .
+  # '';
+  postInstall = ''
+    export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
+  '';
+
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/gui";
     description = ''
