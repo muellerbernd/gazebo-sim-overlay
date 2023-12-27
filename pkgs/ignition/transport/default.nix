@@ -40,9 +40,9 @@ stdenv.mkDerivation rec {
   #   cd ~/.gz/tools/configs/
   #   ln -s $out/share/gz/*.yaml .
   # '';
-  postInstall = ''
-    export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
-  '';
+  # postInstall = ''
+  #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
+  # '';
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/transport";
