@@ -5,4 +5,5 @@ callPackage ./. ({
   version = "4.0.0";
   srcHash = "sha256-GDydOD/n8Ip6cVCBsLhgzweCgRVQjJCwVqIbV1lvfKM=";
   ignition-cmake = ignition.cmake0;
+  ignition-utils = ignition.utils1;
 } // args)

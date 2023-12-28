@@ -1,12 +1,40 @@
-{ lib, mkDerivation, fetchurl, cmake, pkg-config, ronn, libGL
-, openal, hdf5, curl, tinyxml, tinyxml-2, libtar, gts, libusb1, qtbase, gdal
-, libuuid, graphviz, libsForQt5, freeimage, boost, protobuf, sdformat, tbb
-, ogre1_9, ffmpeg, ignition, ignition-cmake ? ignition.cmake0
-, ignition-common ? ignition.common3, ignition-math ? ignition.math4
-, ignition-transport ? ignition.transport8, ignition-msgs ? ignition.msgs5
+{ lib
+, mkDerivation
+, fetchurl
+, cmake
+, pkg-config
+, ronn
+, libGL
+, openal
+, hdf5
+, curl
+, tinyxml
+, tinyxml-2
+, libtar
+, gts
+, libusb1
+, qtbase
+, gdal
+, libuuid
+, graphviz
+, libsForQt5
+, freeimage
+, boost
+, protobuf
+, sdformat_9
+, tbb
+, ogre1_9
+, ffmpeg
+, ignition
+, ignition-cmake ? ignition.cmake2
+, ignition-common ? ignition.common3
+, ignition-math ? ignition.math6
+, ignition-transport ? ignition.transport8
+, ignition-msgs ? ignition.msgs5
 , ignition-fuel-tools ? ignition.fuel-tools4
-
-, bullet, withBulletEngineSupport ? false }:
+, bullet
+, withBulletEngineSupport ? false
+}:
 
 mkDerivation rec {
   pname = "gazebo";
@@ -39,6 +67,7 @@ mkDerivation rec {
     graphviz
     ignition-cmake
     ignition-common
+    ignition-msgs
     libsForQt5.qwt
   ] ++ lib.optional withBulletEngineSupport bullet;
 
@@ -46,7 +75,7 @@ mkDerivation rec {
     freeimage
     boost
     protobuf
-    sdformat
+    sdformat_9
     tbb
     ogre1_9
     ffmpeg

@@ -30,7 +30,8 @@
         # packages.default = self.outputs.packages.${system}.ignition-gazebo;
 
         devShells = {
-          default = import ./shell.nix { inherit pkgs; };
+          default = import ./shells/gazebo-ignition.nix { inherit pkgs; };
+          classic = import ./shells/gazebo-classic.nix { inherit pkgs; };
         };
       }) // {
         overlays.default = import ./overlay.nix;

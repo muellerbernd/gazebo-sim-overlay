@@ -5,7 +5,7 @@ callPackage ./. ({
   majorVersion = "5";
   version = "5.4.2";
   srcHash = "sha256-vq7JMho7wSDkIRiptfwK5kT6wYLcaLIpfYBTFHQFJYk=";
-  gz-cmake = ignition.cmake;
-  gz-math = ignition.math;
-  gz-utils = ignition.utils;
+  ignition-math = ignition.math;
+  ignition-utils = ignition.utils;
+  ignition-cmake = ignition.cmake;
 } // args)

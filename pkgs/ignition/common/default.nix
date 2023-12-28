@@ -1,15 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, ignition
-, ignition-cmake ? ignition.cmake, ignition-math ? ignition.math
-, ignition-utils ? ignition.utils, libuuid, tinyxml-2, freeimage, gts, ffmpeg
-, majorVersion ? "4", version ? "4.6.2"
-, srcHash ? "sha256-VyvpTeCCwX2WBJdVd6lZrN7QomdOQnxGZFXXnT3ct0s=", gz-cmake
-, gz-math, gz-utils, assimp, gdal, ... }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, fetchpatch
+, cmake
+, pkg-config
+, ignition
+, ignition-cmake
+, ignition-math
+, ignition-utils
+, libuuid
+, tinyxml-2
+, freeimage
+, gts
+, ffmpeg
+, majorVersion ? "4"
+, version ? "4.6.2"
+, srcHash ? "sha256-VyvpTeCCwX2WBJdVd6lZrN7QomdOQnxGZFXXnT3ct0s="
+, assimp
+, gdal
+, ...
+}:
 
 stdenv.mkDerivation rec {
-  pname = if (majorVersion <= "4") then
-    "ignition-common${majorVersion}"
-  else
-    "gz-common${majorVersion}";
+  pname =
+    if (lib.versionAtLeast version "5") then
+      "gz-common${majorVersion}"
+    else
+      "ignition-common${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -31,12 +48,12 @@ stdenv.mkDerivation rec {
   buildInputs = [ ignition-math tinyxml-2 ignition-math gts freeimage ffmpeg ]
     ++ lib.optional (lib.versionAtLeast version "4") ignition-utils
     ++ lib.optional (lib.versionAtLeast version "5") [
-      gz-cmake
-      gz-math
-      gz-utils
-      assimp
-      gdal
-    ];
+    ignition-cmake
+    ignition-math
+    ignition-utils
+    assimp
+    gdal
+  ];
   propagatedBuildInputs = [ libuuid ];
 
   meta = with lib; {

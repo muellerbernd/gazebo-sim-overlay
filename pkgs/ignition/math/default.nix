@@ -2,27 +2,23 @@
 , stdenv
 , fetchFromGitHub
 , cmake
-, ignition
-, ignition-cmake ? ignition.cmake
-, ignition-utils ? ignition.utils
+# , ignition
+, ignition-cmake
+, ignition-utils
   # ,ignition-math ? ignition.math
 , majorVersion ? "6"
 , version ? "6.13.0"
 , srcHash ? "sha256-4kWbHdsDCCEgXHy3Dv4oZKdVBY4eJLKovYu+HUgkSjE="
 , eigen
-  # , gz-cmake_3
-  # , gz-math_7
-  # , gz-utils_2
 , ...
 }:
 
 stdenv.mkDerivation rec {
-
   pname =
-    if (majorVersion <= "6") then
-      "ignition-math${majorVersion}"
+    if (lib.versionAtLeast version "7") then
+      "gz-math${majorVersion}"
     else
-      "gz-math${majorVersion}";
+      "ignition-math${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {

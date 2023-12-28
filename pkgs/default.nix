@@ -16,7 +16,7 @@ with self.lib; {
     cmake = self.ignition.cmake3;
 
     common3 = self.callPackage ./ignition/common/3.nix { };
-    # common4 = self.callPackage ./ignition/common { };
+    common4 = self.callPackage ./ignition/common/4.nix { };
     common5 = self.callPackage ./ignition/common/5.nix { };
     common = self.ignition.common5;
 
@@ -42,7 +42,7 @@ with self.lib; {
     transport13 = self.callPackage ./ignition/transport/13.nix { };
     transport = self.ignition.transport13;
 
-    utils1 = self.callPackage ./ignition/utils { };
+    utils1 = self.callPackage ./ignition/utils/1.nix { };
     utils2 = self.callPackage ./ignition/utils/2.nix { };
     utils = self.ignition.utils2;
 

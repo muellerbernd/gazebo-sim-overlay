@@ -3,9 +3,9 @@
 , fetchFromGitHub
 , cmake
 , ignition
-, ignition-cmake ? ignition.cmake
-, ignition-common ? ignition.common
-, ignition-msgs ? ignition.msgs
+, ignition-cmake
+, ignition-common
+, ignition-msgs
 , tinyxml-2
 , curl
 , jsoncpp
@@ -19,10 +19,10 @@
 
 stdenv.mkDerivation rec {
   pname =
-    if (majorVersion <= "8") then
-      "ignition-fuel-tools${majorVersion}"
+    if (lib.versionAtLeast version "9") then
+      "gz-fuel-tools${majorVersion}"
     else
-      "gz-fuel-tools${majorVersion}";
+      "ignition-fuel-tools${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
