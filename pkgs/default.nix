@@ -26,7 +26,7 @@ with self.lib; {
     fuel-tools = self.ignition.fuel-tools9;
 
     math4 = self.callPackage ./ignition/math/4.nix { };
-    # math6 = self.callPackage ./ignition/math { };
+    math6 = self.callPackage ./ignition/math/6.nix { };
     math7 = self.callPackage ./ignition/math/7.nix { };
     math = self.ignition.math7;
 

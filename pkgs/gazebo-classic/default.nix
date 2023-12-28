@@ -2,7 +2,7 @@
 , openal, hdf5, curl, tinyxml, tinyxml-2, libtar, gts, libusb1, qtbase, gdal
 , libuuid, graphviz, libsForQt5, freeimage, boost, protobuf, sdformat, tbb
 , ogre1_9, ffmpeg, ignition, ignition-cmake ? ignition.cmake0
-, ignition-common ? ignition.common, ignition-math ? ignition.math4
+, ignition-common ? ignition.common3, ignition-math ? ignition.math4
 , ignition-transport ? ignition.transport8, ignition-msgs ? ignition.msgs5
 , ignition-fuel-tools ? ignition.fuel-tools4
 

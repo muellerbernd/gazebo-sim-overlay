@@ -1,16 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ignition
-, ignition-cmake ? ignition.cmake, ignition-math ? ignition.math
-, ignition-msgs ? ignition.msgs, ignition-utils ? ignition.utils, protobuf
-, libuuid, sqlite, libsodium, cppzmq, zeromq, majorVersion ? "11"
+{ lib
+, stdenv
+, fetchFromGitHub
+, fetchpatch
+, cmake
+, ignition
+, ignition-cmake ? ignition.cmake
+, ignition-math ? ignition.math
+, ignition-msgs ? ignition.msgs
+, ignition-utils ? ignition.utils
+, protobuf
+, libuuid
+, sqlite
+, libsodium
+, cppzmq
+, zeromq
+, majorVersion ? "11"
 , version ? "11.4.1"
-, srcHash ? "sha256-wQ/ugKYopWgSaa6tqPrp8oQexPpnA6fa28L383OGNXM=", python3, ...
+, srcHash ? "sha256-wQ/ugKYopWgSaa6tqPrp8oQexPpnA6fa28L383OGNXM="
+, python3
+, ...
 }:
 
 stdenv.mkDerivation rec {
-  pname = if (majorVersion < "13") then
-    "ignition-transport${majorVersion}"
-  else
-    "gz-transport${majorVersion}";
+  pname =
+    if (lib.versionAtLeast version "13.0.0") then
+      "gz-transport${majorVersion}"
+    else
+      "ignition-transport${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
