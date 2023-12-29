@@ -1,4 +1,4 @@
-{ callPackage, ignition, ... } @ args :
+{ callPackage, ignition, ffmpeg_5, ... } @ args :
 
 callPackage ./. ({
   majorVersion = "3";
@@ -7,4 +7,5 @@ callPackage ./. ({
   ignition-math = ignition.math6;
   ignition-utils = ignition.utils1;
   ignition-cmake = ignition.cmake2;
+  ffmpeg = ffmpeg_5;
 } // args)
