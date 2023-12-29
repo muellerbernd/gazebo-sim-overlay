@@ -106,12 +106,12 @@ stdenv.mkDerivation rec {
     tbb
     ogre
     ffmpeg
-    # ignition-gui
-    # ignition-cmake
-    # ignition-common
-    # ignition-plugin
-    # ignition-rendering
-    # ignition-sensors
+    ignition-gui
+    ignition-cmake
+    ignition-common
+    ignition-plugin
+    ignition-rendering
+    ignition-sensors
     ignition-tools
   ];
 

@@ -1,9 +1,29 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
-, majorVersion ? "8", version ? "8.0.0"
+{ lib
+, stdenv
+, fetchFromGitHub
+, fetchpatch
+, cmake
+, pkg-config
+, majorVersion ? "8"
+, version ? "8.0.0"
 , srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-plugin, ignition-common, ignition-math, ignition-cmake, protobuf
-, tinyxml-2, ignition-transport, ignition-rendering, ignition-msgs
-, ignition-tools, eigen, qtbase, qtquickcontrols2, qwt, wrapQtAppsHook, ... }:
+, ignition-plugin
+, ignition-common
+, ignition-math
+, ignition-cmake
+, protobuf
+, tinyxml-2
+, ignition-transport
+, ignition-rendering
+, ignition-msgs
+, ignition-tools
+, eigen
+, qtbase
+, qtquickcontrols2
+, qwt
+, wrapQtAppsHook
+, ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "gz-gui${majorVersion}";
@@ -19,7 +39,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake wrapQtAppsHook ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ];
+  propagatedBuildInputs = [
+    pkg-config
+    ignition-math
+    ignition-common
+    ignition-plugin
+    ignition-transport
+    ignition-rendering
+    ignition-msgs
+    ignition-tools
+  ];
   propagatedNativeBuildInputs = [ ignition-cmake ];
   buildInputs = [
     eigen
