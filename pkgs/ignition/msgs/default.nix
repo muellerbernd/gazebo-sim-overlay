@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   };
 
   # Don't require Protobuf 3
-  patches = lib.optional (majorVersion == "8") [
+  patches = lib.optional (majorVersion != "10") [
     (fetchpatch {
       url =
         "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch";

@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  patches = lib.optional (majorVersion == "3") (fetchpatch {
+  patches = lib.optional (majorVersion != "5") (fetchpatch {
     url =
       "https://github.com/gazebosim/gz-common/commit/dedc51888e0af28267a87a2ce888aa4189efacf4.patch";
     hash = "sha256-p+EEHIYaxQ0aZ7wMyz/TuDWUQmHfIB4vOPwrUSsZ+DE=";
