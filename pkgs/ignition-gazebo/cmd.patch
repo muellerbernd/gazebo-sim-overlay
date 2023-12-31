@@ -1,0 +1,13 @@
+diff --git a/src/cmd/CMakeLists.txt b/src/cmd/CMakeLists.txt
+index facaaca43..250f9d6e4 100644
+--- a/src/cmd/CMakeLists.txt
++++ b/src/cmd/CMakeLists.txt
+@@ -14,7 +14,7 @@ else()
+   set(plugin_location ${CMAKE_INSTALL_LIBDIR})
+ endif()
+ 
+-set(library_location "../../../${plugin_location}/$<TARGET_FILE_NAME:${gz_lib_target}>")
++set(library_location "${plugin_location}/$<TARGET_FILE_NAME:${gz_lib_target}>")
+ 
+ configure_file(
+   "cmd${GZ_DESIGNATION}.rb.in"

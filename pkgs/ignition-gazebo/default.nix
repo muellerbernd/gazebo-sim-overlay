@@ -109,6 +109,10 @@ stdenv.mkDerivation rec {
     sdformat
   ];
 
+  patches = [ ./cmd.patch ];
+
+  # QT_QPA_PLATFORM_PLUGIN_PATH="${qtbase.bin}/lib/qt-${qtbase.version}/plugins";
+  qtWrapperArgs = [ "--set QT_QPA_PLATFORM xcb" ];
   # qtWrapperArgs = [
   #   # Let the gazebo binary see neighboring binaries.
   #   # It attempts to run gzclient from PATH.

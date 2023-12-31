@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ];
+  # propagatedBuildInputs = [ pkg-config ];
   propagatedNativeBuildInputs = [
     ignition-cmake
     # ignition-math
@@ -67,17 +67,10 @@ stdenv.mkDerivation rec {
     ignition-tools
   ];
 
-  patches = [ ./gz-gui.patch ];
+  patches = [ ./gz-gui.patch ./cmd.patch ];
 
-  # qtWrapperArgs = [
-  #   # Let the gazebo binary see neighboring binaries.
-  #   # It attempts to run gzclient from PATH.
-  #   "--prefix PATH : ${placeholder "out"}/bin"
-  #
-  #   # Prevent Gazebo from attempting to use Wayland.
-  #   # As is the case with RViz2, OGRE does not yet support it.
-  #   "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
-  # ];
+  # QT_QPA_PLATFORM_PLUGIN_PATH="${qtbase.bin}/lib/qt-${qtbase.version}/plugins";
+  qtWrapperArgs = [ "--set QT_QPA_PLATFORM xcb" ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/gui";

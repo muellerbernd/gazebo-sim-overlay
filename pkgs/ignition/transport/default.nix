@@ -36,6 +36,7 @@ stdenv.mkDerivation rec {
     rev = "${pname}_${version}";
     hash = srcHash;
   };
+  # src = builtins.fetchGit "/home/bernd/git/gz-transport";
 
   patches =
     # Fix compatibility with protobuf 22
@@ -43,7 +44,7 @@ stdenv.mkDerivation rec {
       url =
         "https://github.com/gazebosim/gz-transport/commit/3d68f46329ec6e4efe20c5125caceae83d4f8e45.patch";
       hash = "sha256-23qSKsMSVL4sXFQrTggyUmxBJm/6RsKsB5EI09GRNKQ=";
-    });
+    }) ++ lib.optional (lib.versionAtLeast version "13") [ ./cmd.patch ];
 
   nativeBuildInputs = [ cmake ];
   # propagatedNativeBuildInputs = [ ignition-cmake ];

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config eigen ];
+  propagatedBuildInputs = [ eigen ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
   buildInputs = [
     sdformat

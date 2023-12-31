@@ -1,7 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
-, majorVersion ? "2", version ? "2.0.0"
+{ lib
+, stdenv
+, fetchFromGitHub
+, fetchpatch
+, cmake
+, pkg-config
+, majorVersion ? "2"
+, version ? "2.0.0"
 , srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-cmake, ruby, ronn, ... }:
+, ignition-cmake
+, ruby
+, ronn
+, wrapQtAppsHook
+, ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "gz-tools${majorVersion}";
@@ -15,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
   # pkg-config is needed to use some CMake modules in this package
   propagatedBuildInputs = [ pkg-config ];
   propagatedNativeBuildInputs = [ ignition-cmake ];

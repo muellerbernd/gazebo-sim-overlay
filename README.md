@@ -80,3 +80,12 @@ Library error: libgz-tools2-backward.so not found. Improved backtrace generation
 gz param -l
 Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
 Library error for [/nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/lib/libgz-transport13-parameters.so.13.0.0]: /nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/lib/libgz-transport13-parameters.so.13.0.0: cannot open shared object file: No such file or directory
+
+## current errors
+
+```bash
+gz sim
+Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
+qt.qpa.plugin: Could not find the Qt platform plugin "xcb" in ""
+This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+```

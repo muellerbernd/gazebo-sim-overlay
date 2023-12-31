@@ -3,6 +3,7 @@ self: super:
   gazebo_sim = self.libsForQt5.callPackage ./ignition-gazebo { };
   gazebo_classic = self.libsForQt5.callPackage ./gazebo-classic { };
   gazebo_new = self.callPackage ./gazebo-new { };
+  gazebo_test = self.libsForQt5.callPackage ./test { };
 
   # gz-cmake_3 = self.callPackage ./gz-cmake/3.nix { };
 
@@ -36,7 +37,7 @@ self: super:
     msgs10 = self.callPackage ./ignition/msgs/10.nix { };
     msgs = self.ignition.msgs10;
 
-    tools = self.callPackage ./ignition/tools/2.nix { };
+    tools = self.libsForQt5.callPackage ./ignition/tools/2.nix { };
 
     transport8 = self.callPackage ./ignition/transport/8.nix { };
     # transport11 = self.callPackage ./ignition/transport { };

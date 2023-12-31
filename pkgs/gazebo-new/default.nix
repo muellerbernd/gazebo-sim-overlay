@@ -25,16 +25,16 @@ pkgs.symlinkJoin {
     ignition-common
     ignition-msgs
     ignition-plugin
-    ignition-physics
     ignition-rendering
-    ignition-gui
     ignition-sensors
     ignition-tools
     ignition-math
     ignition-transport
     ignition-fuel-tools
+    ignition-physics
+    ignition-gui
     gazebo_sim
-    gz-launch
+    # gz-launch
   ];
 
   meta = with lib; {
