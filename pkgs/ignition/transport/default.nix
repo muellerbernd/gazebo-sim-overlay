@@ -46,10 +46,11 @@ stdenv.mkDerivation rec {
     });
 
   nativeBuildInputs = [ cmake ];
-  propagatedNativeBuildInputs = [ ignition-cmake ];
-  buildInputs = [ ignition-math sqlite libsodium ignition-utils ]
+  # propagatedNativeBuildInputs = [ ignition-cmake ];
+  buildInputs = [ ignition-math sqlite libsodium ignition-utils ignition-cmake ignition-msgs ]
     ++ lib.optional (lib.versionAtLeast version "13") [ python3 ];
-  propagatedBuildInputs = [ protobuf cppzmq zeromq libuuid ignition-msgs ];
+  propagatedBuildInputs = [ protobuf cppzmq zeromq libuuid ];
+  # ++ lib.optional (lib.versionAtLeast version "13") [ ignition-utils ];
 
   # postInstall = ''
   #   mkdir ~/.gz/tools/configs -p

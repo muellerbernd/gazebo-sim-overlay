@@ -1,14 +1,50 @@
-{ pkgs, lib, fetchurl, stdenv, cmake, git, pkg-config, ronn, libGL, openal, hdf5
-, curl, tinyxml, tinyxml-2, libtar, gts, libusb1, qtbase, gdal, libuuid
-, graphviz, qwt, qtquickcontrols2, freeimage, boost, protobuf, tbb, ogre, ffmpeg
-, ignition, ignition-cmake ? ignition.cmake, ignition-common ? ignition.common
-, ignition-math ? ignition.math, ignition-transport ? ignition.transport
-, ignition-msgs ? ignition.msgs, ignition-fuel-tools ? ignition.fuel-tools
-, ignition-plugin ? ignition.plugin, ignition-physics ? ignition.physics
-, ignition-rendering ? ignition.rendering, ignition-gui ? ignition.gui
-, ignition-sensors ? ignition.sensors, ignition-tools ? ignition.tools
-, wrapQtAppsHook, sdformat, bullet, eigen, python311Packages
-, withBulletEngineSupport ? false }:
+{ lib
+, fetchurl
+, stdenv
+, cmake
+, pkg-config
+, ronn
+, libGL
+, openal
+, hdf5
+, curl
+, tinyxml
+, tinyxml-2
+, libtar
+, gts
+, libusb1
+, qtbase
+, gdal
+, libuuid
+, graphviz
+, qwt
+, qtquickcontrols2
+, freeimage
+, boost
+, protobuf
+, tbb
+, ogre
+, ffmpeg
+, ignition
+, ignition-cmake ? ignition.cmake
+, ignition-common ? ignition.common
+, ignition-math ? ignition.math
+, ignition-transport ? ignition.transport
+, ignition-msgs ? ignition.msgs
+, ignition-fuel-tools ? ignition.fuel-tools
+, ignition-plugin ? ignition.plugin
+, ignition-physics ? ignition.physics
+, ignition-rendering ? ignition.rendering
+, ignition-gui ? ignition.gui
+, ignition-sensors ? ignition.sensors
+, ignition-tools ? ignition.tools
+, wrapQtAppsHook
+, sdformat
+, bullet
+, eigen
+, python311Packages
+, withBulletEngineSupport ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "gazebo-sim";
@@ -68,28 +104,20 @@ stdenv.mkDerivation rec {
     tbb
     ogre
     ffmpeg
-    ignition-gui
-    ignition-cmake
-    ignition-common
-    ignition-plugin
-    ignition-rendering
-    ignition-sensors
-    ignition-tools
-    ignition-math
-    ignition-transport
-    ignition-msgs
     ignition-fuel-tools
+    ignition-physics
+    sdformat
   ];
 
-  qtWrapperArgs = [
-    # Let the gazebo binary see neighboring binaries.
-    # It attempts to run gzclient from PATH.
-    "--prefix PATH : ${placeholder "out"}/bin"
-
-    # Prevent Gazebo from attempting to use Wayland.
-    # As is the case with RViz2, OGRE does not yet support it.
-    "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
-  ];
+  # qtWrapperArgs = [
+  #   # Let the gazebo binary see neighboring binaries.
+  #   # It attempts to run gzclient from PATH.
+  #   "--prefix PATH : ${placeholder "out"}/bin"
+  #
+  #   # Prevent Gazebo from attempting to use Wayland.
+  #   # As is the case with RViz2, OGRE does not yet support it.
+  #   "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
+  # ];
 
   # postInstall = ''
   #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH

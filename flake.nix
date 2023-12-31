@@ -13,7 +13,6 @@
     nixgl.url = "github:guibou/nixGL";
 
   };
-  # flake-utils.lib.eachDefaultSystem (system:
   outputs = { self, nixpkgs, flake-utils, nixgl, ... }:
     with nixpkgs.lib;
     with flake-utils.lib;
@@ -39,22 +38,6 @@
           };
         }) // {
       overlays.default = import ./overlay.nix;
-
-      # overlays.default = final: prev: {
-      #   inherit (self.packages.${final.system}) rofi-music-rs;
-      # };
     };
-  # nixConfig = {
-  #   extra-substituters = [
-  #     # "http://192.168.178.142:5000" # my home server
-  #     # "http://192.168.1.28" # EIS-machine
-  #     "http://192.168.1.111" # EIS-buildserver
-  #   ];
-  #   extra-trusted-public-keys = [
-  #     # "192.168.178.142:3qJNJbeIjoWRcb+E0YEoek2Bpumh/4IXrAkyk96izqQ=%" # my home server
-  #     # "192.168.1.28:w7i6RsBxxkKqAcPkNDbQznnOmb+ps1XvaQFlLw7YgvY=#" # EIS-machine
-  #     "192.168.1.111:Rmrfo6TPC1rUxh4ik2m5zt6yaCSVZABbrPSDADxIbak=#" # EIS-buildserver
-  #   ];
-  # };
 }
 

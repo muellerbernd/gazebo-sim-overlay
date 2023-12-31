@@ -1,9 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
-, majorVersion ? "8", version ? "8.0.0"
+{ lib
+, stdenv
+, fetchFromGitHub
+, fetchpatch
+, cmake
+, pkg-config
+, majorVersion ? "8"
+, version ? "8.0.0"
 , srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-plugin, ignition-common, ignition-math, ignition-cmake, protobuf
-, tinyxml-2, ignition-transport, ignition-rendering, ignition-msgs
-, ignition-tools, eigen, qtbase, qtquickcontrols2, qwt, wrapQtAppsHook, ... }:
+, ignition-plugin
+, ignition-common
+, ignition-math
+, ignition-cmake
+, protobuf
+, tinyxml-2
+, ignition-transport
+, ignition-rendering
+, ignition-msgs
+, ignition-tools
+, eigen
+, qtbase
+, qtquickcontrols2
+, qwt
+, wrapQtAppsHook
+, xorg
+, ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "gz-gui${majorVersion}";
@@ -22,12 +43,12 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ pkg-config ];
   propagatedNativeBuildInputs = [
     ignition-cmake
-    ignition-math
-    ignition-common
-    ignition-plugin
-    ignition-transport
-    ignition-rendering
-    ignition-msgs
+    # ignition-math
+    # ignition-common
+    # ignition-plugin
+    # ignition-transport
+    # ignition-rendering
+    # ignition-msgs
     ignition-tools
   ];
   buildInputs = [
@@ -57,15 +78,6 @@ stdenv.mkDerivation rec {
   #   # As is the case with RViz2, OGRE does not yet support it.
   #   "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
   # ];
-
-  # postInstall = ''
-  #   mkdir ~/.gz/tools/configs -p
-  #   cd ~/.gz/tools/configs/
-  #   ln -s $out/share/gz/*.yaml .
-  # '';
-  # postInstall = ''
-  #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
-  # '';
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/gui";

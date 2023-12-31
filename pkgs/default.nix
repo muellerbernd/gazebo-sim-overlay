@@ -1,7 +1,8 @@
 self: super:
-with self.lib; {
+{
   gazebo_sim = self.libsForQt5.callPackage ./ignition-gazebo { };
   gazebo_classic = self.libsForQt5.callPackage ./gazebo-classic { };
+  gazebo_new = self.callPackage ./gazebo-new { };
 
   # gz-cmake_3 = self.callPackage ./gz-cmake/3.nix { };
 
@@ -55,6 +56,7 @@ with self.lib; {
     rendering = self.callPackage ./ignition/rendering/8.nix { };
     gui = self.libsForQt5.callPackage ./ignition/gui/8.nix { };
     sensors = self.callPackage ./ignition/sensors/8.nix { };
+    launch = self.callPackage ./ignition/launch/7.nix { };
   };
   sdformat_9 = self.callPackage ./sdformat/9.nix { };
   sdformat_13 = self.callPackage ./sdformat/13.nix { };

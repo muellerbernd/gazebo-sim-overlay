@@ -1,8 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
-, majorVersion ? "7", version ? "7.0.0"
-, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4=", ignition-math
-, ignition-cmake, ignition-utils, ignition-plugin, ignition-common, sdformat
-, dart, bullet, eigen, ... }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, pkg-config
+, majorVersion ? "7"
+, version ? "7.0.0"
+, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
+, ignition-math
+, ignition-cmake
+, ignition-utils
+, ignition-plugin
+, ignition-common
+, sdformat
+, eigen
+, ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "gz-physics${majorVersion}";
@@ -18,8 +30,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ignition-common ];
-  propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
+  propagatedBuildInputs = [ pkg-config eigen ];
+  # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
   buildInputs = [
     sdformat
     ignition-cmake
@@ -27,8 +39,6 @@ stdenv.mkDerivation rec {
     ignition-utils
     ignition-plugin
     ignition-common
-    # dart
-    # bullet
     eigen
   ];
 

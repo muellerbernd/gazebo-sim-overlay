@@ -1,5 +1,5 @@
 { lib
-, mkDerivation
+, pkgs
 , ignition
 , ignition-cmake ? ignition.cmake
 , ignition-common ? ignition.common
@@ -7,21 +7,34 @@
 , ignition-transport ? ignition.transport
 , ignition-msgs ? ignition.msgs
 , ignition-fuel-tools ? ignition.fuel-tools
-, ignition-gazebo
+, ignition-plugin ? ignition.plugin
+, ignition-physics ? ignition.physics
+, ignition-rendering ? ignition.rendering
+, ignition-gui ? ignition.gui
+, ignition-sensors ? ignition.sensors
+, ignition-tools ? ignition.tools
+, gz-launch ? ignition.launch
+, gazebo_sim
 }:
 
-mkDerivation {
-  pname = "gazebo-new";
+pkgs.symlinkJoin {
+  name = "gazebo_new";
 
-  buildInputs = [
+  paths = [
     ignition-cmake
     ignition-common
     ignition-msgs
-
+    ignition-plugin
+    ignition-physics
+    ignition-rendering
+    ignition-gui
+    ignition-sensors
+    ignition-tools
     ignition-math
     ignition-transport
     ignition-fuel-tools
-    ignition-gazebo
+    gazebo_sim
+    gz-launch
   ];
 
   meta = with lib; {
