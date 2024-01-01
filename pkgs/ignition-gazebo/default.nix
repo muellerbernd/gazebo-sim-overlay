@@ -38,8 +38,9 @@
 , ignition-gui ? ignition.gui
 , ignition-sensors ? ignition.sensors
 , ignition-tools ? ignition.tools
-, wrapQtAppsHook
 , sdformat
+, wrapQtAppsHook
+, full
 , bullet
 , eigen
 , python311Packages
@@ -58,7 +59,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
+  # cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
+  cmakeFlags = ["-DQT_QML_DEBUG=True"];
 
   nativeBuildInputs = [ cmake pkg-config ronn wrapQtAppsHook ];
 
@@ -72,7 +74,6 @@ stdenv.mkDerivation rec {
     libtar
     gts
     libusb1
-    qtbase
     gdal
     libuuid
     graphviz
@@ -92,6 +93,7 @@ stdenv.mkDerivation rec {
     ignition-tools
     qwt
     qtbase
+    full
     qtquickcontrols2
     eigen
     python311Packages.pybind11
@@ -110,27 +112,6 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [ ./cmd.patch ];
-
-  # QT_QPA_PLATFORM_PLUGIN_PATH="${qtbase.bin}/lib/qt-${qtbase.version}/plugins";
-  qtWrapperArgs = [ "--set QT_QPA_PLATFORM xcb" ];
-  # qtWrapperArgs = [
-  #   # Let the gazebo binary see neighboring binaries.
-  #   # It attempts to run gzclient from PATH.
-  #   "--prefix PATH : ${placeholder "out"}/bin"
-  #
-  #   # Prevent Gazebo from attempting to use Wayland.
-  #   # As is the case with RViz2, OGRE does not yet support it.
-  #   "--set WAYLAND_DISPLAY dummy" # "dummy" is arbitrary - it just doesn't exist.
-  # ];
-
-  # postInstall = ''
-  #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
-  # '';
-  # postInstall = ''
-  #   mkdir ~/.gz/tools/configs -p
-  #   cd ~/.gz/tools/configs/
-  #   ln -s $out/share/gz/*.yaml .
-  # '';
 
   meta = with lib; {
     homepage = "http://gazebosim.org/";

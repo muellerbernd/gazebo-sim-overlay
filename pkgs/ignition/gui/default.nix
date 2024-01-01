@@ -19,10 +19,11 @@
 , ignition-tools
 , eigen
 , qtbase
+, full
 , qtquickcontrols2
+, qtquickcontrols
 , qwt
 , wrapQtAppsHook
-, qtdeclarative
 , fontconfig
 , ...
 }:
@@ -38,6 +39,7 @@ stdenv.mkDerivation rec {
     rev = "${pname}_${version}";
     hash = srcHash;
   };
+  # src = builtins.fetchGit "/home/bernd/git/gz-gui";
 
   nativeBuildInputs = [ cmake wrapQtAppsHook pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
@@ -51,12 +53,12 @@ stdenv.mkDerivation rec {
     # ignition-rendering
     # ignition-msgs
     ignition-tools
-    qtdeclarative
   ];
   buildInputs = [
     eigen
     qtbase
     qtquickcontrols2
+    qtquickcontrols
     qwt
     protobuf
     tinyxml-2
@@ -70,6 +72,16 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [ ./gz-gui.patch ./cmd.patch ];
+
+  qtWrapperArgs = [ "--prefix QT_QPA_PLATFORM : xcb" ];
+
+  # dontWrapQtApps = true;
+
+  # makeWrapperArgs = [
+  #   "\${qtWrapperArgs[@]}"
+  #   # import Qt.labs.platform failed without this
+  #   "--prefix QML2_IMPORT_PATH : ${qtquickcontrols2.bin}/${qtbase.qtQmlPrefix}"
+  # ];
 
   doCheck = false;
   preCheck =
