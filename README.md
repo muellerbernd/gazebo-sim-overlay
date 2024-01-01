@@ -45,47 +45,33 @@ CURRENTLY NOT WORKING !!!
 
 - [ ] get gz-sim working
 
-## Errors
-
-gz gui -l
-Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
-Library error: [/nix/store/s8qixldk9fbj5g8gvrm3qhpjsxsyy6ml-gz-gui8-8.0.0/nix/store/s8qixldk9fbj5g8gvrm3qhpjsxsyy6ml-gz-gui8-8.0.0/lib/libgz-gui8.so.8.0.0] not found.
-
-gz model --list
-Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
-Library error for [/nix/store/20ad7vivzg9wyanlmdc3rwys0ywn4g04-gazebo-sim-gz-sim8_8.0.0/nix/store/20ad7vivzg9wyanlmdc3rwys0ywn4g04-gazebo-sim-gz-sim8_8.0.0/lib/libgz-sim8-gz.so.8.0.0]: /nix/store/20ad7vivzg9wyanlmdc3rwys0ywn4g04-gazebo-sim-gz-sim8_8.0.0/nix/store/20ad7vivzg9wyanlmdc3rwys0ywn4g04-gazebo-sim-gz-sim8_8.0.0/lib/libgz-sim8-gz.so.8.0.0: cannot open shared object file: No such file or directory
-
-gz msg -l
-Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
-Library error: [/nix/store/ga0a19a4jqs9m2sd0k6kxxk23s62xixa-gz-msgs10-10.0.0/nix/store/ga0a19a4jqs9m2sd0k6kxxk23s62xixa-gz-msgs10-10.0.0/lib/libgz-msgs10.so.10.0.0] not found.
-
-gz plugin -l
-Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
-/nix/store/s15r0a6a5ssqd06kkbfn24c0dlysdww5-gz-plugin2-2.0.2/lib/ruby/gz/cmdplugin2.rb:42:in ``': No such file or directory - /nix/store/s15r0a6a5ssqd06kkbfn24c0dlysdww5-gz-plugin2-2.0.2/nix/store/s15r0a6a5ssqd06kkbfn24c0dlysdww5-gz-plugin2-2.0.2/libexec/gz/plugin2/gz-plugin (Errno::ENOENT)
-        from /nix/store/s15r0a6a5ssqd06kkbfn24c0dlysdww5-gz-plugin2-2.0.2/lib/ruby/gz/cmdplugin2.rb:42:in `execute'
-        from /nix/store/qi4n9b256w2jggyysn50qjrypllsdwlb-gazebo_new/bin/gz:308:in `<main>'
-
-gz topic -l
-Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
-/nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/lib/ruby/gz/cmdtransport13.rb:43:in ``': No such file or directory - /nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/libexec/gz/transport13/gz-transport-topic (Errno::ENOENT)
-        from /nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/lib/ruby/gz/cmdtransport13.rb:43:in `execute'
-        from /nix/store/qi4n9b256w2jggyysn50qjrypllsdwlb-gazebo_new/bin/gz:308:in `<main>'
-
-gz service -l
-Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
-/nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/lib/ruby/gz/cmdtransport13.rb:43:in ``': No such file or directory - /nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/libexec/gz/transport13/gz-transport-service (Errno::ENOENT)
-        from /nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/lib/ruby/gz/cmdtransport13.rb:43:in `execute'
-        from /nix/store/qi4n9b256w2jggyysn50qjrypllsdwlb-gazebo_new/bin/gz:308:in `<main>'
-
-gz param -l
-Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
-Library error for [/nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/lib/libgz-transport13-parameters.so.13.0.0]: /nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/nix/store/98hk93bsqp09c0h71sxlwspks6fbjwzv-gz-transport13-13.0.0/lib/libgz-transport13-parameters.so.13.0.0: cannot open shared object file: No such file or directory
-
 ## current errors
 
 ```bash
-gz sim
+gz sim -s
 Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
-qt.qpa.plugin: Could not find the Qt platform plugin "xcb" in ""
-This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+[Err] [Physics.cc:816] Failed to find plugin [gz-physics-dartsim-plugin]. Have you checked the GZ_SIM_PHYSICS_ENGINE_PATH environment variable?
+
+gz gui -v
+Library error: libgz-tools2-backward.so not found. Improved backtrace generation will be disabled
+[GUI] [Wrn] [Application.cc:904] [QT] QQmlApplicationEngine failed to load component
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:21:1: module "QtQuick.Layouts" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:20:1: module "QtQuick.Dialogs" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:19:1: module "QtQuick.Controls.Material" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:18:1: module "QtQuick.Controls" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:21:1: module "QtQuick.Layouts" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:20:1: module "QtQuick.Dialogs" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:19:1: module "QtQuick.Controls.Material" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:18:1: module "QtQuick.Controls" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:21:1: module "QtQuick.Layouts" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:20:1: module "QtQuick.Dialogs" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:19:1: module "QtQuick.Controls.Material" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:18:1: module "QtQuick.Controls" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:21:1: module "QtQuick.Layouts" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:20:1: module "QtQuick.Dialogs" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:19:1: module "QtQuick.Controls.Material" is not installed
+[GUI] [Wrn] [Application.cc:904] [QT] qrc:qml/Main.qml:18:1: module "QtQuick.Controls" is not installed
+[GUI] [Err] [MainWindow.cc:116] Internal error: Failed to instantiate QML file [qrc:qml/Main.qml]
+[GUI] [Err] [Application.cc:207] Failed to initialize main window.
+
 ```

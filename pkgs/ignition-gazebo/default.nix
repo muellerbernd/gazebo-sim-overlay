@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   # cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
   cmakeFlags = ["-DQT_QML_DEBUG=True"];
 
-  nativeBuildInputs = [ cmake pkg-config ronn wrapQtAppsHook ];
+  nativeBuildInputs = [ cmake pkg-config ronn ];
 
   buildInputs = [
     libGL
@@ -112,6 +112,8 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [ ./cmd.patch ];
+
+  dontWrapQtApps = true;
 
   meta = with lib; {
     homepage = "http://gazebosim.org/";

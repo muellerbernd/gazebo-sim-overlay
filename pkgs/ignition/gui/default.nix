@@ -19,11 +19,11 @@
 , ignition-tools
 , eigen
 , qtbase
-, full
 , qtquickcontrols2
 , qtquickcontrols
 , qwt
 , wrapQtAppsHook
+, wrapGAppsHook
 , fontconfig
 , ...
 }:
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   };
   # src = builtins.fetchGit "/home/bernd/git/gz-gui";
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook pkg-config ];
+  nativeBuildInputs = [ cmake wrapGAppsHook pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [ pkg-config ];
   propagatedNativeBuildInputs = [
@@ -73,9 +73,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gz-gui.patch ./cmd.patch ];
 
-  qtWrapperArgs = [ "--prefix QT_QPA_PLATFORM : xcb" ];
-
-  # dontWrapQtApps = true;
+  dontWrapQtApps = true;
 
   # makeWrapperArgs = [
   #   "\${qtWrapperArgs[@]}"

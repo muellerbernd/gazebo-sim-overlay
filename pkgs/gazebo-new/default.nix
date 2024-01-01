@@ -33,7 +33,7 @@ pkgs.symlinkJoin {
     ignition-fuel-tools
     ignition-physics
     ignition-gui
-    gazebo_sim
+    # gazebo_sim
     # gz-launch
   ];
 

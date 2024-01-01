@@ -13,6 +13,7 @@
 , ignition-common
 , sdformat
 , eigen
+, bullet
 , ...
 }:
 
@@ -28,7 +29,7 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
   propagatedBuildInputs = [ eigen ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
@@ -40,6 +41,7 @@ stdenv.mkDerivation rec {
     ignition-plugin
     ignition-common
     eigen
+    bullet
   ];
 
   meta = with lib; {

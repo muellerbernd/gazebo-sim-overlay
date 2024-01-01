@@ -11,6 +11,9 @@
 , ruby
 , ronn
 , wrapQtAppsHook
+, wrapGAppsHook
+, qtbase
+, qtquickcontrols2
 , ...
 }:
 
@@ -26,15 +29,20 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [ cmake pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ];
+  # propagatedBuildInputs = [ pkg-config ];
   propagatedNativeBuildInputs = [ ignition-cmake ];
   buildInputs = [ ignition-cmake ruby ronn ];
 
-  # installPhase = ''
-  #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
-  # '';
+  # dontWrapQtApps = true;
+
+  # makeWrapperArgs = [
+  #   "\${qtWrapperArgs[@]}"
+  #   # import Qt.labs.platform failed without this
+  #   "--prefix QML2_IMPORT_PATH : ${qtquickcontrols2.bin}/${qtbase.qtQmlPrefix}"
+  #   "--prefix QT_QPA_PLATFORM_PLUGIN_PATH=${qtbase.bin}/lib/qt-${qtbase.version}/plugins/platforms"
+  # ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/tools";
