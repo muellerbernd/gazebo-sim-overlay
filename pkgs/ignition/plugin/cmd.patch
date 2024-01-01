@@ -1,0 +1,13 @@
+diff --git a/loader/src/cmd/CMakeLists.txt b/loader/src/cmd/CMakeLists.txt
+index 5dd1066..5b750dc 100644
+--- a/loader/src/cmd/CMakeLists.txt
++++ b/loader/src/cmd/CMakeLists.txt
+@@ -52,7 +52,7 @@ set(cmd_script_configured "${CMAKE_CURRENT_BINARY_DIR}/cmd${GZ_DESIGNATION}${PRO
+ 
+ # Set the library_location variable to the relative path to the library file
+ # within the install directory structure.
+-set(plugin_exe_location "../../../${EXE_INSTALL_DIR}/$<TARGET_FILE_NAME:${plugin_executable}>")
++set(plugin_exe_location "${EXE_INSTALL_DIR}/$<TARGET_FILE_NAME:${plugin_executable}>")
+ 
+ configure_file(
+   "cmd${GZ_DESIGNATION}.rb.in"

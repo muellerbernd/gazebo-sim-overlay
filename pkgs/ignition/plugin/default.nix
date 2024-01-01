@@ -26,18 +26,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
   # pkg-config is needed to use some CMake modules in this package
-  # propagatedBuildInputs = [ pkg-config ];
+  propagatedBuildInputs = [ pkg-config ];
   buildInputs = [ ignition-cmake ignition-utils ];
 
-  # postInstall = ''
-  #   export HOME=$TMP
-  #   mkdir ~/.gz/tools/configs -p
-  #   cd ~/.gz/tools/configs/
-  #   ln -s $out/share/gz/*.yaml .
-  # '';
-  # postInstall = ''
-  #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
-  # '';
+  patches = [ ./cmd.patch ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/plugin";
