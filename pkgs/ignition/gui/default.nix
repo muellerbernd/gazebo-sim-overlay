@@ -22,7 +22,8 @@
 , qtquickcontrols2
 , qwt
 , wrapQtAppsHook
-, xorg
+, qtdeclarative
+, fontconfig
 , ...
 }:
 
@@ -50,6 +51,7 @@ stdenv.mkDerivation rec {
     # ignition-rendering
     # ignition-msgs
     ignition-tools
+    qtdeclarative
   ];
   buildInputs = [
     eigen
@@ -69,8 +71,19 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gz-gui.patch ./cmd.patch ];
 
-  # QT_QPA_PLATFORM_PLUGIN_PATH="${qtbase.bin}/lib/qt-${qtbase.version}/plugins";
-  qtWrapperArgs = [ "--set QT_QPA_PLATFORM xcb" ];
+  doCheck = false;
+  preCheck =
+    /* bash */ ''
+    export QT_QPA_PLATFORM_PLUGIN_PATH=${qtbase.bin}/lib/qt-${qtbase.version}/plugins/platforms
+    export XDG_RUNTIME_DIR=$(mktemp -d)
+    # export QT_PLUGIN_PATH="${qtbase.bin}/${qtbase.qtPluginPrefix}"
+    export QT_QPA_PLATFORM=offscreen
+  '';
+  nativeCheckInputs = [ fontconfig ];
+  # Env = [
+  #   "FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf"
+  #   "FONTCONFIG_PATH=${fontconfig.out}/etc/fonts/"
+  # ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/gui";
