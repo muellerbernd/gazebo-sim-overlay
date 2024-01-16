@@ -22,6 +22,7 @@
 , qtquickcontrols2
 , qtquickcontrols
 , qwt
+, qt5Full
 , wrapQtAppsHook
 , wrapGAppsHook
 , fontconfig
@@ -56,7 +57,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     eigen
-    qtbase
+    qt5Full
     qtquickcontrols2
     qtquickcontrols
     qwt
@@ -82,14 +83,14 @@ stdenv.mkDerivation rec {
   # ];
 
   doCheck = false;
-  preCheck =
-    /* bash */ ''
-    export QT_QPA_PLATFORM_PLUGIN_PATH=${qtbase.bin}/lib/qt-${qtbase.version}/plugins/platforms
-    export XDG_RUNTIME_DIR=$(mktemp -d)
-    # export QT_PLUGIN_PATH="${qtbase.bin}/${qtbase.qtPluginPrefix}"
-    export QT_QPA_PLATFORM=offscreen
-  '';
-  nativeCheckInputs = [ fontconfig ];
+  # preCheck =
+  #   /* bash */ ''
+  #   export QT_QPA_PLATFORM_PLUGIN_PATH=${qt5Full.bin}/lib/qt-${qt5Full.version}/plugins/platforms
+  #   export XDG_RUNTIME_DIR=$(mktemp -d)
+  #   # export QT_PLUGIN_PATH="${qtbase.bin}/${qtbase.qtPluginPrefix}"
+  #   export QT_QPA_PLATFORM=offscreen
+  # '';
+  # nativeCheckInputs = [ fontconfig ];
   # Env = [
   #   "FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf"
   #   "FONTCONFIG_PATH=${fontconfig.out}/etc/fonts/"
