@@ -43,11 +43,18 @@ stdenv.mkDerivation rec {
         "https://github.com/gazebosim/gz-common/commit/dedc51888e0af28267a87a2ce888aa4189efacf4.patch";
       hash = "sha256-p+EEHIYaxQ0aZ7wMyz/TuDWUQmHfIB4vOPwrUSsZ+DE=";
     })
-  ++ lib.optional (lib.versionAtLeast version "4") [
+  ++ lib.optional (majorVersion == "4") [
     (fetchpatch {
       url = "https://github.com/gazebosim/gz-common/pull/521.patch";
       hash = "sha256-NlUyAfGugYuNYURY1NjgStNsJ+jrLuaHmJ8Gp9QBSmQ=";
     })
+  ]
+  ++ lib.optional (majorVersion == "3") [
+    (fetchpatch {
+      url = "https://github.com/gazebosim/gz-common/commit/1243852c4bd8525ffc760a620e7d97f94cc2375c.patch";
+      hash = "sha256-Smk1EWcBB520kFmyrs+nka8Fj7asedhqagMDfq2liwY=";
+    })
+
   ];
 
   nativeBuildInputs = [ cmake ];
