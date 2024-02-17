@@ -20,12 +20,14 @@
 , eigen
 , qtbase
 , qtquickcontrols2
-, qtquickcontrols
+, qtdeclarative
 , qwt
 , qt5Full
+, qttools
 , wrapQtAppsHook
 , wrapGAppsHook
 , fontconfig
+, autoPatchelfHook
 , ...
 }:
 
@@ -42,7 +44,14 @@ stdenv.mkDerivation rec {
   };
   # src = builtins.fetchGit "/home/bernd/git/gz-gui";
 
-  nativeBuildInputs = [ cmake wrapGAppsHook pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+    pkg-config
+    wrapGAppsHook
+    qtbase
+    autoPatchelfHook
+  ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [ pkg-config ];
   propagatedNativeBuildInputs = [
@@ -55,11 +64,14 @@ stdenv.mkDerivation rec {
     # ignition-msgs
     ignition-tools
   ];
+  propagatedBuildInputs = [
+    qtbase
+    qtquickcontrols2
+    qtdeclarative
+  ];
   buildInputs = [
     eigen
-    qt5Full
-    qtquickcontrols2
-    qtquickcontrols
+    # qtquickcontrols
     qwt
     protobuf
     tinyxml-2
@@ -74,7 +86,32 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gz-gui.patch ./cmd.patch ];
 
-  dontWrapQtApps = true;
+  qtWrapperArgs = [ ''--set LD_LIBRARY_PATH : ${lib.makeLibraryPath [ qt5Full ]}'' ];
+
+  # dontWrapQtApps = true;
+  #
+  # makeWrapperArgs =
+  #   let
+  #     listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
+  #   in
+  #   [
+  #     "\${qtWrapperArgs[@]}"
+  #     # import Qt.labs.platform failed without this
+  #     "--prefix QML2_IMPORT_PATH : ${qtquickcontrols2.bin}/${qtbase.qtQmlPrefix}"
+  #     "QT_PLUGIN_PATH=${listToQtVar qtbase.qtPluginPrefix [ qtbase ]}"
+  #   ];
+
+  # doCheck = false;
+  # preCheck =
+  #   let
+  #     listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
+  #   in
+  #   ''
+  #     export QT_PLUGIN_PATH=${listToQtVar qtbase.qtPluginPrefix [ qtbase ]}
+  #     export QML2_IMPORT_PATH=${listToQtVar qtbase.qtQmlPrefix ([ qtdeclarative ] )}
+  #     export XDG_RUNTIME_DIR=$PWD
+  #   '';
+
 
   # makeWrapperArgs = [
   #   "\${qtWrapperArgs[@]}"
@@ -82,7 +119,6 @@ stdenv.mkDerivation rec {
   #   "--prefix QML2_IMPORT_PATH : ${qtquickcontrols2.bin}/${qtbase.qtQmlPrefix}"
   # ];
 
-  doCheck = false;
   # preCheck =
   #   /* bash */ ''
   #   export QT_QPA_PLATFORM_PLUGIN_PATH=${qt5Full.bin}/lib/qt-${qt5Full.version}/plugins/platforms
