@@ -29,13 +29,17 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [ pkg-config ];
   propagatedNativeBuildInputs = [ ignition-cmake ];
   buildInputs = [ ignition-cmake ruby ronn ];
 
-  # dontWrapQtApps = true;
+  dontWrapQtApps = true;
+
+  postFixup = ''
+    wrapQtApp $out/bin/gz
+  '';
 
   # makeWrapperArgs = [
   #   "\${qtWrapperArgs[@]}"
