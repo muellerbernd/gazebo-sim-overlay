@@ -6,17 +6,11 @@
     # nixpkgs.url = "github:muellerbernd/nixpkgs/nix-ros-overlay";
 
     flake-utils.url = "github:numtide/flake-utils";
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
     nixgl.url = "github:guibou/nixGL";
-
   };
   outputs = { self, nixpkgs, flake-utils, nixgl, ... }:
     with nixpkgs.lib;
     with flake-utils.lib;
-
     eachSystem allSystems
       (system:
         let
