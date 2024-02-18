@@ -46,11 +46,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    wrapQtAppsHook
     pkg-config
-    wrapGAppsHook
-    qtbase
-    autoPatchelfHook
   ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [ pkg-config ];
@@ -71,7 +67,6 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     eigen
-    # qtquickcontrols
     qwt
     protobuf
     tinyxml-2
@@ -86,9 +81,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gz-gui.patch ./cmd.patch ];
 
-  qtWrapperArgs = [ ''--set LD_LIBRARY_PATH : ${lib.makeLibraryPath [ qt5Full ]}'' ];
+  # qtWrapperArgs = [ ''--set LD_LIBRARY_PATH : ${lib.makeLibraryPath [ qt5Full ]}'' ];
 
-  # dontWrapQtApps = true;
+  dontWrapQtApps = true;
   #
   # makeWrapperArgs =
   #   let

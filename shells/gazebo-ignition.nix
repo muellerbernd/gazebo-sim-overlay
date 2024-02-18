@@ -35,8 +35,8 @@ pkgs.mkShell {
     ];
   shellHook = ''
     export GZ_CONFIG_PATH=${pkgs.gazebo_new}/share/gz
+    export GZ_SIM_PHYSICS_ENGINE_PATH=${pkgs.ignition.physics}
   '';
-  # export GZ_SIM_PHYSICS_ENGINE_PATH=${pkgs.ignition.physics}
   # export QT_QPA_PLATFORM_PLUGIN_PATH=${pkgs.libsForQt5.full}/lib/qt-${pkgs.libsForQt5.qt5.qtbase.version}/plugins/platforms
   # export QT_QPA_PLATFORM_PLUGIN_PATH=${pkgs.libsForQt5.qt5.qtbase.bin}/lib/qt-*/plugins/platforms
   # export QT_PLUGIN_PATH=${pkgs.libsForQt5.qt5.qtbase}/${pkgs.libsForQt5.qt5.qtbase.qtPluginPrefix}
