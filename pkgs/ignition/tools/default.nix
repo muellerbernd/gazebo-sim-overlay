@@ -1,9 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , cmake
-, pkg-config
 , majorVersion ? "2"
 , version ? "2.0.0"
 , srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
@@ -11,9 +9,8 @@
 , ruby
 , ronn
 , wrapQtAppsHook
-, wrapGAppsHook
-, qtbase
 , qtquickcontrols2
+, qtgraphicaleffects
 , ...
 }:
 
@@ -29,10 +26,10 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [ pkg-config ];
-  propagatedNativeBuildInputs = [ ignition-cmake ];
+  propagatedNativeBuildInputs = [ qtquickcontrols2 qtgraphicaleffects];
   buildInputs = [ ignition-cmake ruby ronn ];
 
   dontWrapQtApps = true;
