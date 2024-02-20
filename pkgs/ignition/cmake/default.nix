@@ -26,6 +26,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-fgSAOZoQmZt/nAx2eBDyC+4+0m++crlZ2BGRH4UcuQY=";
   });
 
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
+  ];
+
   nativeBuildInputs = [ cmake ];
   # pkg-config is needed to use some CMake modules in this package
   propagatedBuildInputs = [ pkg-config ]

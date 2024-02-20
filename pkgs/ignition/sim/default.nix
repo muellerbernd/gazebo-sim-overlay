@@ -59,9 +59,6 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
-  cmakeFlags = ["-DQT_QML_DEBUG=True"];
-
   nativeBuildInputs = [ cmake pkg-config ronn ];
 
   buildInputs = [
@@ -111,9 +108,12 @@ stdenv.mkDerivation rec {
     # sdformat
   ];
 
-  patches = [ ./cmd.patch ];
+  # patches = [ ./cmd.patch ];
 
   dontWrapQtApps = true;
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
+  ];
 
   meta = with lib; {
     homepage = "http://gazebosim.org/";

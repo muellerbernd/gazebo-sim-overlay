@@ -25,6 +25,7 @@
 , qtquickcontrols2
 , qwt
 , wrapQtAppsHook
+, eigen
 , ...
 }:
 
@@ -45,6 +46,7 @@ stdenv.mkDerivation rec {
   # propagatedBuildInputs = [ pkg-config ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
   buildInputs = [
+    eigen
     ignition-fuel-tools
     ignition-math
     ignition-cmake
@@ -63,6 +65,9 @@ stdenv.mkDerivation rec {
     qtbase
     qtquickcontrols2
     qwt
+  ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
 
   meta = with lib; {

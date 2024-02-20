@@ -32,11 +32,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [
-    eigen
-    # bullet
-    libdart
-  ];
+  # propagatedBuildInputs = [
+  #   eigen
+  #   # bullet
+  #   libdart
+  # ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
   buildInputs = [
     sdformat
@@ -46,8 +46,12 @@ stdenv.mkDerivation rec {
     ignition-plugin
     ignition-common
     eigen
-    # bullet
+    bullet
     libdart
+  ];
+
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
 
   meta = with lib; {

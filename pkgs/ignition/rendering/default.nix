@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ];
+  # propagatedBuildInputs = [ pkg-config ];
   # propagatedNativeBuildInputs = [
   # ];
   buildInputs = [
@@ -49,6 +49,9 @@ stdenv.mkDerivation rec {
     xorg.libX11
     boost
     libGLU
+  ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
 
   meta = with lib; {

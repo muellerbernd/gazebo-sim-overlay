@@ -24,12 +24,15 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ];
+  # propagatedBuildInputs = [ pkg-config ];
   buildInputs = [ ignition-cmake ignition-utils ];
 
-  patches = [ ./cmd.patch ];
+  # patches = [ ./cmd.patch ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
+  ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/plugin";

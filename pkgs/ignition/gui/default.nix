@@ -80,9 +80,13 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-    ./fix_cmake_plugins.patch
+    # ./fix_cmake_plugins.patch
     ./gz-gui.patch
-    ./cmd.patch
+    # ./cmd.patch
+  ];
+
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
 
   # qtWrapperArgs = [ ''--set LD_LIBRARY_PATH : ${lib.makeLibraryPath [ qt5Full ]}'' ];

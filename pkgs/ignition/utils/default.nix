@@ -19,6 +19,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ignition-cmake ];
 
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
+  ];
+
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/common";
     description = "Classes and functions for robot applications";

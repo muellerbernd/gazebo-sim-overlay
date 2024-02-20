@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake wrapQtAppsHook ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [ pkg-config ];
-  propagatedNativeBuildInputs = [ qtquickcontrols2 qtgraphicaleffects];
+  propagatedNativeBuildInputs = [ qtquickcontrols2 qtgraphicaleffects ];
   buildInputs = [ ignition-cmake ruby ronn ];
 
   dontWrapQtApps = true;
@@ -44,6 +44,9 @@ stdenv.mkDerivation rec {
   #   "--prefix QML2_IMPORT_PATH : ${qtquickcontrols2.bin}/${qtbase.qtQmlPrefix}"
   #   "--prefix QT_QPA_PLATFORM_PLUGIN_PATH=${qtbase.bin}/lib/qt-${qtbase.version}/plugins/platforms"
   # ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
+  ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/tools";
