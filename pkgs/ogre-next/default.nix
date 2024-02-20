@@ -7,24 +7,11 @@
 , freetype
 , freeimage
 , zziplib
-, xorgproto
-, libXrandr
 , libXaw
-, freeglut
-, libXt
-, libpng
 , boost
-, ois
 , libX11
-, libXmu
-, libSM
 , pkg-config
-, libXxf86vm
-, libICE
 , libXrender
-, withNvidiaCg ? false
-, nvidia_cg_toolkit
-, withSamples ? false
 , ninja
 , tinyxml
 , rapidjson
@@ -33,11 +20,15 @@
 , cppunit
 , poco
 , tbb
+, vulkan-loader
 , vulkan-headers
+, shaderc
 , SDL2
 , doxygen
 , mesa
 , graphviz
+, glslang
+, libglvnd
 }:
 
 stdenv.mkDerivation rec {
@@ -85,7 +76,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     ninja
     cmake
-    # pkg-config
+    pkg-config
+    doxygen
+    glslang
+    pkg-config
+
   ];
 
   buildInputs = [
@@ -97,6 +92,8 @@ stdenv.mkDerivation rec {
     poco
     tbb
     vulkan-headers
+    vulkan-loader
+    shaderc
     mesa
     SDL2
     doxygen
@@ -104,6 +101,7 @@ stdenv.mkDerivation rec {
     #
     libGLU
     libGL
+    libglvnd
     freetype
     freeimage
     zziplib
@@ -112,6 +110,8 @@ stdenv.mkDerivation rec {
     libX11
     libXrender
   ];
+
+  propagatedNativeBuildInputs = [ openvr ];
 
   meta = with lib; {
     description = "3D Object-Oriented Graphics Rendering Engine";

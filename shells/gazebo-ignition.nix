@@ -30,7 +30,7 @@ pkgs.mkShell {
       # pkgs.gazebo_sim
       # pkgs.gazebo_test
       pkgs.gazebo_new
-      pkgs.ogre-next
+      # pkgs.ogre-next
       nixgl
     ];
   shellHook = ''

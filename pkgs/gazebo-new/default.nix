@@ -13,8 +13,8 @@
 , ignition-gui ? ignition.gui
 , ignition-sensors ? ignition.sensors
 , ignition-tools ? ignition.tools
-, gz-launch ? ignition.launch
-, gazebo_sim
+, ignition-launch ? ignition.launch
+, ignition-sim ? ignition.sim
 }:
 
 pkgs.symlinkJoin {
@@ -33,8 +33,8 @@ pkgs.symlinkJoin {
     ignition-fuel-tools
     ignition-physics
     ignition-gui
-    gazebo_sim
-    gz-launch
+    ignition-sim
+    ignition-launch
   ];
 
   meta = with lib; {

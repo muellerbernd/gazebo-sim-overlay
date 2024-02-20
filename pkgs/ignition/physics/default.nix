@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   # pkg-config is needed to use some CMake modules in this package
   propagatedBuildInputs = [
     eigen
-    bullet
+    # bullet
     libdart
   ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     ignition-plugin
     ignition-common
     eigen
-    bullet
+    # bullet
     libdart
   ];
 
