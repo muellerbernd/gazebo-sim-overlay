@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d5c4b005..83ad9bd8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -92,7 +92,7 @@ gz_find_package (Qt5
+ )
+ 
+ set(GZ_GUI_PLUGIN_RELATIVE_INSTALL_DIR
+-  ${GZ_LIB_INSTALL_DIR}/gz-${GZ_DESIGNATION}-${PROJECT_VERSION_MAJOR}/plugins
++  gz-${GZ_DESIGNATION}-${PROJECT_VERSION_MAJOR}/plugins
+ )
+ 
+ set(GZ_GUI_PLUGIN_INSTALL_DIR
+
