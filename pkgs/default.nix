@@ -4,12 +4,7 @@ self: super:
   gazebo_classic = self.libsForQt5.callPackage ./gazebo-classic { };
   gazebo_new = self.callPackage ./gazebo-new { };
   gazebo_test = self.libsForQt5.callPackage ./test { };
-
-  # gz-cmake_3 = self.callPackage ./gz-cmake/3.nix { };
-
-  # gz-math_7 = self.callPackage ./gz-math/7.nix { };
-  #
-  # gz-utils_2 = self.callPackage ./gz-utils/2.nix { };
+  libdart = self.callPackage ./libdart { };
 
   ignition = {
     cmake0 = self.callPackage ./ignition/cmake/0.nix { };
@@ -65,6 +60,6 @@ self: super:
   sdformat = self.sdformat_14;
 
   ogre1_9 = self.callPackage ./ogre/1.9.nix { };
-  # ogre = self.ogre1_9;
+  ogre-next = self.callPackage ./ogre-next { };
 }
 
