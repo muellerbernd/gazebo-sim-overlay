@@ -14,6 +14,7 @@
 , sdformat
 , eigen
 , bullet
+, libdart
 , ...
 }:
 
@@ -31,7 +32,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ eigen ];
+  propagatedBuildInputs = [
+    eigen
+    bullet
+    libdart
+  ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
   buildInputs = [
     sdformat
@@ -42,6 +47,7 @@ stdenv.mkDerivation rec {
     ignition-common
     eigen
     bullet
+    libdart
   ];
 
   meta = with lib; {
