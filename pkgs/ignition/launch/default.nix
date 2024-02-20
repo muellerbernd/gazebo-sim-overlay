@@ -15,13 +15,16 @@
 , ignition-msgs
 , ignition-gui
 , ignition-rendering
-, gazebo_sim
+, ignition-sim
+, ignition-fuel-tools
+, ignition-physics
+, ignition-sensors
+, sdformat
 , libwebsockets
-, libsForQt5
-, qtbase ? libsForQt5.qt5.qtbase
-, qtquickcontrols2 ? libsForQt5.qt5.qtquickcontrols2
-, qwt ? libsForQt5.qwt
-, wrapQtAppsHook ? libsForQt5.wrapQtAppsHook
+, qtbase
+, qtquickcontrols2
+, qwt
+, wrapQtAppsHook
 , ...
 }:
 
@@ -37,11 +40,12 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ];
+  # propagatedBuildInputs = [ pkg-config ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
   buildInputs = [
+    ignition-fuel-tools
     ignition-math
     ignition-cmake
     ignition-common
@@ -51,8 +55,11 @@ stdenv.mkDerivation rec {
     ignition-msgs
     ignition-gui
     ignition-rendering
-    gazebo_sim
+    ignition-physics
+    ignition-sim
+    ignition-sensors
     libwebsockets
+    sdformat
     qtbase
     qtquickcontrols2
     qwt

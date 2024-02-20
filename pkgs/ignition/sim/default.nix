@@ -106,9 +106,9 @@ stdenv.mkDerivation rec {
     tbb
     ogre
     ffmpeg
-    ignition-fuel-tools
-    ignition-physics
-    sdformat
+    # ignition-fuel-tools
+    # ignition-physics
+    # sdformat
   ];
 
   patches = [ ./cmd.patch ];

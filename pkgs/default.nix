@@ -51,7 +51,7 @@ self: super:
     rendering = self.callPackage ./ignition/rendering/8.nix { };
     gui = self.libsForQt5.callPackage ./ignition/gui/8.nix { };
     sensors = self.callPackage ./ignition/sensors/8.nix { };
-    launch = self.callPackage ./ignition/launch/7.nix { };
+    launch = self.libsForQt5.callPackage ./ignition/launch/7.nix { };
     sim = self.libsForQt5.callPackage ./ignition/sim { };
   };
   sdformat_9 = self.callPackage ./sdformat/9.nix { };

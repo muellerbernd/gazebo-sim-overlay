@@ -12,5 +12,9 @@ callPackage ./. ({
   ignition-msgs = ignition.msgs;
   ignition-math = ignition.math;
   ignition-gui = ignition.gui;
+  ignition-sim = ignition.sim;
   ignition-rendering = ignition.rendering;
+  ignition-fuel-tools = ignition.fuel-tools;
+  ignition-physics = ignition.physics;
+  ignition-sensors = ignition.sensors;
 } // args)
