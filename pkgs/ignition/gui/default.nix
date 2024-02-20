@@ -50,16 +50,16 @@ stdenv.mkDerivation rec {
   ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [ pkg-config ];
-  propagatedNativeBuildInputs = [
-    ignition-cmake
-    # ignition-math
-    # ignition-common
-    # ignition-plugin
-    # ignition-transport
-    # ignition-rendering
-    # ignition-msgs
-    ignition-tools
-  ];
+  # propagatedNativeBuildInputs = [
+  #   ignition-cmake
+  #   # ignition-math
+  #   # ignition-common
+  #   # ignition-plugin
+  #   # ignition-transport
+  #   # ignition-rendering
+  #   # ignition-msgs
+  #   ignition-tools
+  # ];
   propagatedBuildInputs = [
     qtbase
     qtquickcontrols2
@@ -79,7 +79,11 @@ stdenv.mkDerivation rec {
     ignition-tools
   ];
 
-  patches = [ ./gz-gui.patch ./cmd.patch ];
+  patches = [
+    ./fix_cmake_plugins.patch
+    ./gz-gui.patch
+    ./cmd.patch
+  ];
 
   # qtWrapperArgs = [ ''--set LD_LIBRARY_PATH : ${lib.makeLibraryPath [ qt5Full ]}'' ];
 
