@@ -34,6 +34,7 @@
 , ignition-fuel-tools ? ignition.fuel-tools4
 , bullet
 , withBulletEngineSupport ? false
+, wrapGAppsHook
 }:
 
 mkDerivation rec {
@@ -49,7 +50,7 @@ mkDerivation rec {
 
   cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
 
-  nativeBuildInputs = [ cmake pkg-config ronn ];
+  nativeBuildInputs = [ cmake pkg-config ronn wrapGAppsHook ];
 
   buildInputs = [
     libGL
