@@ -1,25 +1,25 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, majorVersion ? "8"
-, version ? "8.0.0"
-, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-plugin
-, ignition-common
-, ignition-math
-, ogre-next
-, ogre
-, eigen
-, freeimage
-, libGL
-, libGLU
-, xorg
-, boost
-, ...
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  majorVersion ? "8",
+  version ? "8.0.0",
+  srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4=",
+  ignition-plugin,
+  ignition-common,
+  ignition-math,
+  ogre-next,
+  ogre1_9,
+  eigen,
+  freeimage,
+  libGL,
+  libGLU,
+  xorg,
+  boost,
+  ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "gz-rendering${majorVersion}";
   inherit version;
@@ -32,9 +32,9 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [cmake pkg-config];
   # pkg-config is needed to use some CMake modules in this package
-  # propagatedBuildInputs = [ pkg-config ];
+  propagatedBuildInputs = [ogre1_9];
   # propagatedNativeBuildInputs = [
   # ];
   buildInputs = [
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ignition-plugin
     ignition-common
     # ogre-next
-    ogre
+    ogre1_9
     eigen
     freeimage
     libGL
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
             C++ library designed to provide an abstraction for different rendering
       engines. It offers unified APIs for creating 3D graphics applications.'';
     license = licenses.asl20;
-    maintainers = with maintainers; [ muellerbernd ];
+    maintainers = with maintainers; [muellerbernd];
     platforms = platforms.all;
   };
 }

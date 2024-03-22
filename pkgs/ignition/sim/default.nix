@@ -39,7 +39,7 @@
 , ignition-sensors ? ignition.sensors
 , ignition-tools ? ignition.tools
 , sdformat
-, wrapQtAppsHook
+, wrapGAppsHook
 , full
 , bullet
 , eigen
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ cmake pkg-config ronn ];
+  nativeBuildInputs = [ cmake pkg-config ronn wrapGAppsHook];
 
   buildInputs = [
     libGL
