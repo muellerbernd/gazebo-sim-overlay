@@ -1,42 +1,48 @@
-{ lib
-, stdenv
-, fetchurl
-, cmake
-, pkg-config
-, eigen
-, fmt
-, libccd
-, fcl
-, assimp
-, libGLU
-, ipopt
-, nlopt
-, pagmo2
-, ode
-, bullet
-, flann
-, tinyxml-2
-, lapack
-, doxygen
-, urdfdom
-, urdfdom-headers
-, freeglut
-, python3Packages
-, openscenegraph
-, blas
-, boost
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  eigen,
+  fmt,
+  libccd,
+  fcl,
+  assimp,
+  libGLU,
+  ipopt,
+  nlopt,
+  pagmo2,
+  ode,
+  bullet,
+  flann,
+  tinyxml-2,
+  lapack,
+  doxygen,
+  urdfdom,
+  urdfdom-headers,
+  freeglut,
+  openscenegraph,
+  blas,
+  boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdart";
-  version = "6.13.1";
+  version = "6.13.2";
 
-  src = fetchurl {
-    url = "https://github.com/dartsim/dart/archive/v${version}.tar.gz";
-    hash = "sha256-03krYbwqeuZoK22H4JtdReMlywjFUDigHlgojdw9WNg=";
+  src = fetchFromGitHub {
+    owner = "dartsim";
+    repo = "dart";
+    rev = "v${version}";
+    sha256 = "sha256-AfKPqUiW6BsM98TIzTY2ZcFP1WvURs8/dGOzanIiB9g=";
   };
+  # src = fetchurl {
+  #   url = "https://github.com/dartsim/dart/archive/v${version}.tar.gz";
+  #   hash = "sha256-Ammaj4BydiMcgP/F28P2bcHDYSNkNAyRvK1jqDfAFXY=";
+  # };
 
-  nativeBuildInputs = [ cmake doxygen pkg-config ];
+  # nativeBuildInputs = [cmake doxygen pkg-config];
+  nativeBuildInputs = [cmake doxygen pkg-config];
 
   buildInputs = [
     eigen
@@ -56,7 +62,6 @@ stdenv.mkDerivation rec {
     urdfdom
     urdfdom-headers
     freeglut
-    # python3Packages.pybind11
     openscenegraph
     blas
     boost
@@ -66,24 +71,24 @@ stdenv.mkDerivation rec {
     libccd
     fcl
   ];
-  postPatchPhase = ''
-    sed -i '9s/7/9/' cmake/DARTFindpagmo.cmake
-  '';
-
+  # postPatchPhase = ''
+  #   sed -i '9s/7/9/' cmake/DARTFindpagmo.cmake
+  # '';
+  #
   patches = [
-    ./gnu13.patch
+  #   ./gnu13.patch
     ./fix_cmake.patch
   ];
   cmakeFlags = [
     "-DDART_TREAT_WARNINGS_AS_ERRORS='off'"
-    # "-DCMAKE_INSTALL_LIBDIR='lib'"
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
 
   meta = with lib; {
     homepage = "https://dartsim.github.io";
     description = "Dynamic Animation and Robotics Toolkit";
     license = licenses.asl20;
-    maintainers = with maintainers; [ muellerbernd ];
+    maintainers = with maintainers; [muellerbernd];
     platforms = platforms.all;
   };
 }
