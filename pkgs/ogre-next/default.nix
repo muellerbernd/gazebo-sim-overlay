@@ -1,37 +1,40 @@
-{ fetchFromGitHub
-, stdenv
-, lib
-, cmake
-, libGLU
-, libGL
-, freetype
-, freeimage
-, zziplib
-, libXaw
-, boost
-, libX11
-, pkg-config
-, libXrender
-, ninja
-, tinyxml
-, rapidjson
-, renderdoc
-, openvr
-, cppunit
-, poco
-, tbb
-, vulkan-loader
-, vulkan-headers
-, shaderc
-, SDL2
-, doxygen
-, mesa
-, graphviz
-, glslang
-, libglvnd
-, libXrandr
+{
+  fetchFromGitHub,
+  stdenv,
+  lib,
+  cmake,
+  libGLU,
+  libGL,
+  freetype,
+  freeimage,
+  zziplib,
+  libXaw,
+  boost,
+  libX11,
+  pkg-config,
+  libXrender,
+  ninja,
+  tinyxml,
+  rapidjson,
+  renderdoc,
+  openvr,
+  cppunit,
+  poco,
+  tbb,
+  vulkan-loader,
+  vulkan-headers,
+  shaderc,
+  SDL2,
+  doxygen,
+  mesa,
+  graphviz,
+  glslang,
+  libglvnd,
+  libXrandr,
+  withNvidiaCg ? false,
+  nvidia_cg_toolkit,
+  withSamples ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ogre-next";
   version = "2.3.3";
@@ -43,14 +46,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-elSj35LwsLzj1ssDPsk9NW/KSXfiOGYmw9hQSAWdpFM=";
   };
 
-  cmakeFlags = [
-  "-DOGREDEPS_BUILD_FREEIMAGE=0"
-  "-DOGREDEPS_BUILD_FREETYPE=0"
-  "-DOGREDEPS_BUILD_ZLIB=0"
-  ];
+  cmakeFlags =
+    [
+      "-Bbuild"
+      "-GNinja"
+      "-DCMAKE_INSTALL_PREFIX=/usr"
+      "-DOGRE_USE_NEW_PROJECT_NAME=ON"
+      "-DOGRE_CONFIG_ENABLE_JSON=ON"
+      "-DOGRE_CONFIG_THREADS=1"
+      "-DOGRE_CONFIG_THREAD_PROVIDER=std"
+      "-DOGRE_BUILD_COMPONENT_PLANAR_REFLECTIONS=ON"
+      "-DOGRE_BUILD_COMPONENT_PROPERTY=ON"
+      "-DOGRE_BUILD_COMPONENT_SCENE_FORMAT=ON"
+      "-DOGRE_BUILD_COMPONENT_HLMS_UNLIT=ON"
+      "-DOGRE_BUILD_TESTS=ON"
+      "-DOGRE_INSTALL_SAMPLES_SOURCE=ON"
+    ]
+    ++ map (x: "-DOGRE_BUILD_PLUGIN_${x}=on")
+    (["BSP" "OCTREE" "PCZ" "PFX"] ++ lib.optional withNvidiaCg "CG")
+    ++ map (x: "-DOGRE_BUILD_RENDERSYSTEM_${x}=on") ["GL"];
 
   nativeBuildInputs = [
-    cmake
+    # cmake
     doxygen
     glslang
     graphviz
@@ -59,44 +76,49 @@ stdenv.mkDerivation rec {
     cppunit
     vulkan-headers
     shaderc
+    pkg-config
   ];
 
-  buildInputs = [
-    libX11
-    libXrandr
-    ninja
-    tinyxml
-    rapidjson
-    renderdoc
-    openvr
-    cppunit
-    poco
-    tbb
-    vulkan-headers
-    vulkan-loader
-    shaderc
-    mesa
-    SDL2
-    doxygen
-    graphviz
-    #
-    libGLU
-    libGL
-    libglvnd
-    freetype
-    freeimage
-    zziplib
-    libXaw
-    boost
-    libX11
-    libXrender
-  ];
+  buildInputs =
+    [
+      libX11
+      libXrandr
+      ninja
+      tinyxml
+      rapidjson
+      renderdoc
+      openvr
+      cppunit
+      poco
+      tbb
+      vulkan-headers
+      vulkan-loader
+      shaderc
+      mesa
+      SDL2
+      doxygen
+      graphviz
+      #
+      libGLU
+      libGL
+      libglvnd
+      freetype
+      freeimage
+      zziplib
+      libXaw
+      boost
+      libX11
+      libXrender
+    ]
+    ++ lib.optionals withNvidiaCg [
+      nvidia_cg_toolkit
+    ];
 
   meta = with lib; {
     description = "3D Object-Oriented Graphics Rendering Engine
     aka ogre v2 - scene-oriented, flexible 3D C++ engine ";
     homepage = "https://ogrecave.github.io/ogre-next/api/latest";
-    maintainers = with maintainers; [ muellerbernd ];
+    maintainers = with maintainers; [muellerbernd];
     platforms = platforms.linux;
     license = licenses.mit;
   };

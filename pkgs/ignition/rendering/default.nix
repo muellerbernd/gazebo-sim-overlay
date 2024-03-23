@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     ignition-math
     ignition-plugin
     ignition-common
-    # ogre-next
+    ogre-next
     ogre1_9
     eigen
     freeimage
