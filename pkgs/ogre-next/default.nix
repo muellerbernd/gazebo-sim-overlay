@@ -4,36 +4,23 @@
   lib,
   cmake,
   libGLU,
-  libGL,
   freetype,
   freeimage,
   zziplib,
   libXaw,
-  boost,
-  libX11,
-  pkg-config,
-  libXrender,
   ninja,
   tinyxml,
   rapidjson,
-  renderdoc,
   openvr,
   cppunit,
-  poco,
-  tbb,
-  vulkan-loader,
   vulkan-headers,
   shaderc,
   SDL2,
   doxygen,
   mesa,
   graphviz,
-  glslang,
-  libglvnd,
+  zlib,
   libXrandr,
-  withNvidiaCg ? false,
-  nvidia_cg_toolkit,
-  withSamples ? false,
 }:
 stdenv.mkDerivation rec {
   pname = "ogre-next";
@@ -48,70 +35,44 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [
-      "-Bbuild"
-      "-GNinja"
-      "-DCMAKE_INSTALL_PREFIX=/usr"
+      "-DCMAKE_BUILD_TYPE=Release"
       "-DOGRE_USE_NEW_PROJECT_NAME=ON"
       "-DOGRE_CONFIG_ENABLE_JSON=ON"
       "-DOGRE_CONFIG_THREADS=1"
       "-DOGRE_CONFIG_THREAD_PROVIDER=std"
       "-DOGRE_BUILD_COMPONENT_PLANAR_REFLECTIONS=ON"
+      "-DOGRE_BUILD_COMPONENT_OVERLAY=ON"
       "-DOGRE_BUILD_COMPONENT_PROPERTY=ON"
       "-DOGRE_BUILD_COMPONENT_SCENE_FORMAT=ON"
       "-DOGRE_BUILD_COMPONENT_HLMS_UNLIT=ON"
       "-DOGRE_BUILD_TESTS=ON"
       "-DOGRE_INSTALL_SAMPLES_SOURCE=ON"
-    ]
-    ++ map (x: "-DOGRE_BUILD_PLUGIN_${x}=on")
-    (["BSP" "OCTREE" "PCZ" "PFX"] ++ lib.optional withNvidiaCg "CG")
-    ++ map (x: "-DOGRE_BUILD_RENDERSYSTEM_${x}=on") ["GL"];
+    ];
 
   nativeBuildInputs = [
-    # cmake
+    cmake
     doxygen
-    glslang
     graphviz
     mesa
     ninja
     cppunit
     vulkan-headers
     shaderc
-    pkg-config
   ];
 
   buildInputs =
     [
-      libX11
-      libXrandr
-      ninja
-      tinyxml
-      rapidjson
-      renderdoc
-      openvr
-      cppunit
-      poco
-      tbb
-      vulkan-headers
-      vulkan-loader
-      shaderc
-      mesa
-      SDL2
-      doxygen
-      graphviz
-      #
-      libGLU
-      libGL
-      libglvnd
-      freetype
       freeimage
-      zziplib
+      freetype
       libXaw
-      boost
-      libX11
-      libXrender
-    ]
-    ++ lib.optionals withNvidiaCg [
-      nvidia_cg_toolkit
+      libXrandr
+      rapidjson
+      zziplib
+      SDL2
+      libGLU
+      tinyxml
+      zlib
+      openvr
     ];
 
   meta = with lib; {
