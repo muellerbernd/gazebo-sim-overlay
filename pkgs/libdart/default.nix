@@ -36,10 +36,6 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-AfKPqUiW6BsM98TIzTY2ZcFP1WvURs8/dGOzanIiB9g=";
   };
-  # src = fetchurl {
-  #   url = "https://github.com/dartsim/dart/archive/v${version}.tar.gz";
-  #   hash = "sha256-Ammaj4BydiMcgP/F28P2bcHDYSNkNAyRvK1jqDfAFXY=";
-  # };
 
   # nativeBuildInputs = [cmake doxygen pkg-config];
   nativeBuildInputs = [cmake doxygen pkg-config];
@@ -70,7 +66,12 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [
     libccd
     fcl
+    fmt
+    ode
+    urdfdom
+    urdfdom-headers
   ];
+
   # postPatchPhase = ''
   #   sed -i '9s/7/9/' cmake/DARTFindpagmo.cmake
   # '';
@@ -79,6 +80,7 @@ stdenv.mkDerivation rec {
   #   ./gnu13.patch
     ./fix_cmake.patch
   ];
+
   cmakeFlags = [
     "-DDART_TREAT_WARNINGS_AS_ERRORS='off'"
     "-DCMAKE_INSTALL_LIBDIR='lib'"

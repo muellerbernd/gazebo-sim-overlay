@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [cmake pkg-config libdart];
+  nativeBuildInputs = [cmake pkg-config];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [
   #   eigen
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     libdart
   ];
 
-  # patches = [./dart.patch];
+  patches = [./dart.patch];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"

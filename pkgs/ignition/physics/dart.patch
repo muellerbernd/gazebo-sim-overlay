@@ -1,12 +1,12 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 32c31fbc..f36d3fc2 100644
+index 32c31fbc..d1d75640 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -78,7 +78,6 @@ gz_find_package(DART
-     utils
+@@ -79,6 +79,7 @@ gz_find_package(DART
      utils-urdf
    CONFIG
--  VERSION 6.9
+   VERSION 6.9
++  REQUIRED
    REQUIRED_BY dartsim
    PKGCONFIG dart
    PKGCONFIG_VER_COMPARISON >=)
