@@ -70,6 +70,10 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = [ pkg-config libuuid ];
 
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
+  ];
+
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/common";
     description = "Miscellaneous libraries for Ignition Robotics";

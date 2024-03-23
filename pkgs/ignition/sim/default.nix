@@ -39,7 +39,7 @@
 , ignition-sensors ? ignition.sensors
 , ignition-tools ? ignition.tools
 , sdformat
-, wrapQtAppsHook
+, wrapGAppsHook
 , full
 , bullet
 , eigen
@@ -59,10 +59,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  # cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
-  cmakeFlags = ["-DQT_QML_DEBUG=True"];
-
-  nativeBuildInputs = [ cmake pkg-config ronn ];
+  nativeBuildInputs = [ cmake pkg-config ronn wrapGAppsHook];
 
   buildInputs = [
     libGL
@@ -106,14 +103,17 @@ stdenv.mkDerivation rec {
     tbb
     ogre
     ffmpeg
-    ignition-fuel-tools
-    ignition-physics
-    sdformat
+    # ignition-fuel-tools
+    # ignition-physics
+    # sdformat
   ];
 
-  patches = [ ./cmd.patch ];
+  # patches = [ ./cmd.patch ];
 
   dontWrapQtApps = true;
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
+  ];
 
   meta = with lib; {
     homepage = "http://gazebosim.org/";

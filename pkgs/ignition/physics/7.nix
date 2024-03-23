@@ -2,8 +2,8 @@
 
 callPackage ./. ({
   majorVersion = "7";
-  version = "7.0.0";
-  srcHash = "sha256-y+nn1esfzGuKIV8MQ0ZigYqdYsO8qmFB5cFj/rRJRt0=";
+  version = "7.1.0";
+  srcHash = "sha256-mTHw4seogXJdzg9eLqro8fbFQdVW7yPfsr1SEZEeti8=";
   ignition-cmake = ignition.cmake;
   ignition-utils = ignition.utils;
   ignition-plugin = ignition.plugin;

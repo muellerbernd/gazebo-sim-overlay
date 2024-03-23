@@ -1,8 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
-, majorVersion ? "8", version ? "8.0.0"
+{ lib
+, stdenv
+, fetchFromGitHub
+, fetchpatch
+, cmake
+, pkg-config
+, majorVersion ? "8"
+, version ? "8.0.0"
 , srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-plugin, ignition-cmake, ignition-transport, ignition-rendering
-, ignition-msgs, ignition-common, sdformat, eigen, ... }:
+, ignition-plugin
+, ignition-cmake
+, ignition-transport
+, ignition-rendering
+, ignition-msgs
+, ignition-common
+, sdformat
+, eigen
+, ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "gz-sensors${majorVersion}";
@@ -16,9 +30,9 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake pkg-config ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ];
+  # propagatedBuildInputs = [ pkg-config ];
   # propagatedNativeBuildInputs = [ ignition-cmake ];
   buildInputs = [
     ignition-cmake
@@ -29,6 +43,9 @@ stdenv.mkDerivation rec {
     ignition-common
     sdformat
     eigen
+  ];
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
 
   meta = with lib; {

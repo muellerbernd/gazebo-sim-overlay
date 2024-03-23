@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, majorVersion ? "7"
-, version ? "7.0.0"
-, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-math
-, ignition-cmake
-, ignition-utils
-, ignition-plugin
-, ignition-common
-, sdformat
-, eigen
-, bullet
-, ...
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  majorVersion ? "7",
+  version ? "7.0.0",
+  srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4=",
+  ignition-math,
+  ignition-cmake,
+  ignition-utils,
+  ignition-plugin,
+  ignition-common,
+  sdformat,
+  eigen,
+  bullet,
+  libdart,
+  ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "gz-physics${majorVersion}";
   inherit version;
@@ -29,9 +30,13 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [cmake pkg-config];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ eigen ];
+  # propagatedBuildInputs = [
+  #   eigen
+  #   # bullet
+  #   libdart
+  # ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
   buildInputs = [
     sdformat
@@ -42,6 +47,13 @@ stdenv.mkDerivation rec {
     ignition-common
     eigen
     bullet
+    libdart
+  ];
+
+  patches = [./dart.patch];
+
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
 
   meta = with lib; {
@@ -50,7 +62,7 @@ stdenv.mkDerivation rec {
       Abstract physics interface designed to support simulation and rapid
       development of robot applications.'';
     license = licenses.asl20;
-    maintainers = with maintainers; [ muellerbernd ];
+    maintainers = with maintainers; [muellerbernd];
     platforms = platforms.all;
   };
 }

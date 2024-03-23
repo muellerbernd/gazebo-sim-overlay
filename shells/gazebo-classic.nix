@@ -13,10 +13,9 @@ pkgs.mkShell {
       extra
       # nixgl
     ];
-  # shellHook = ''
-  #   # export GZ_CONFIG_PATH=${pkgs.ignition.msgs}/share/gz
-  # '';
-  # export GZ_CONFIG_PATH=${pkgs.sdformat}/share/gz:${pkgs.ignition.transport}/share/gz:${pkgs.ignition.msgs}/share/gz:${pkgs.ignition.plugin}/share/gz:${pkgs.ignition.fuel-tools}/share/gz:${pkgs.ignition.gui}/share/gz:${pkgs.gazebo_sim}/share/gz
+  shellHook = ''
+    export QT_QPA_PLATFORM=xcb
+  '';
 }
 
 # vim: set ts=2 sw=2:

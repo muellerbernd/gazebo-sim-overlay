@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ec11de7db7eb..0c55f3165204 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -260,7 +260,7 @@ if(MSVC)
+ 
+ elseif(CMAKE_COMPILER_IS_GNUCXX)
+ 
+-  # There is a known bug in GCC 12.1 and above that leads to spurious 
++  # There is a known bug in GCC 12.1 and above that leads to spurious
+   # -Wmaybe-uninitialized warnings from gcc/x86_64-linux-gnu/12/include/avxintrin.h and
+   # -Warray-bounds warnings from gcc/x86_64-linux-gnu/12/include/avx512fintrin.h.
+   # The bug is tracked here: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
+@@ -501,7 +501,7 @@ install(
+ # Generate the DART pkg-config
+ set(PC_CONFIG_IN ${DART_SOURCE_DIR}/cmake/dart.pc.in)
+ set(PC_CONFIG_OUT ${DART_BINARY_DIR}/cmake/dart.pc)
+-set(PC_CONFIG_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/pkgconfig)
++set(PC_CONFIG_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+ file(RELATIVE_PATH
+   RELATIVE_PATH_TO_INSTALL_PREFIX
+   "${PC_CONFIG_INSTALL_DIR}"

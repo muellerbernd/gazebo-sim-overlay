@@ -2,7 +2,6 @@
 , stdenv
 , fetchFromGitHub
 , cmake
-, ignition
 , ignition-cmake
 , ignition-common
 , ignition-msgs
@@ -38,14 +37,9 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs =
     [ ignition-common tinyxml-2 curl jsoncpp libyaml libzip ignition-msgs ];
 
-  # postInstall = ''
-  #   mkdir ~/.gz/tools/configs -p
-  #   cd ~/.gz/tools/configs/
-  #   ln -s $out/share/gz/*.yaml .
-  # '';
-  # postInstall = ''
-  #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
-  # '';
+  cmakeFlags = [
+    "-DCMAKE_INSTALL_LIBDIR='lib'"
+  ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/fuel_tools";
