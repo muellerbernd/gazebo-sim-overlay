@@ -18,7 +18,7 @@
 }:
 
 pkgs.symlinkJoin {
-  name = "gazebo_new";
+  name = "gazebo-sim";
 
   paths = [
     ignition-cmake

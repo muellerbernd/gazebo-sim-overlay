@@ -1,7 +1,7 @@
 self: super:
 {
   gazebo_classic = self.libsForQt5.callPackage ./gazebo-classic { };
-  gazebo_new = self.callPackage ./gazebo-new { };
+  gazebo_sim = self.callPackage ./gazebo-sim { };
 
   libdart = self.callPackage ./libdart { };
 
