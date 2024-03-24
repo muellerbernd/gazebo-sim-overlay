@@ -2,8 +2,8 @@
   description = "Gazebosim overlay for the Nix package manager";
 
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # nixpkgs.url = "github:muellerbernd/nixpkgs/nix-ros-overlay";
 
     flake-utils.url = "github:numtide/flake-utils";

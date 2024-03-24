@@ -1,7 +1,7 @@
 {pkgs}: let
   nixgl = [pkgs.nixgl.nixGLIntel];
   gz = pkgs.writeShellApplication {
-    name = "gz sim";
+    name = "gz_sim";
     runtimeInputs = with pkgs; [
       gazebo_sim
     ];
@@ -15,14 +15,12 @@ in
   pkgs.mkShell {
     name = "Gz sim development";
     buildInputs = [
-      gz
-      # pkgs.gazebo_sim
+      pkgs.gazebo_sim
       nixgl
     ];
-    shellHook = ''
-      export GZ_CONFIG_PATH=${pkgs.gazebo_sim}/share/gz
-      export QT_QPA_PLATFORM=xcb
-    '';
+    GZ_CONFIG_PATH = "${pkgs.gazebo_sim}/share/gz";
+    QT_QPA_PLATFORM = "xcb";
+    # shellHook = ''
+    # '';
   }
 # vim: set ts=2 sw=2:
-
