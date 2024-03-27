@@ -15,10 +15,10 @@ in
   pkgs.mkShell {
     name = "Gz sim development";
     buildInputs = [
-      pkgs.gazebo_sim
+      pkgs.gz-harmonic
       nixgl
     ];
-    GZ_CONFIG_PATH = "${pkgs.gazebo_sim}/share/gz";
+    GZ_CONFIG_PATH = "${pkgs.gz-harmonic}/share/gz";
     QT_QPA_PLATFORM = "xcb";
     # shellHook = ''
     # '';

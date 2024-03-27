@@ -1,7 +1,7 @@
 { pkgs }:
 let
   nixgl = [ pkgs.nixgl.nixGLIntel ];
-  extra = [ pkgs.gazebo_classic ];
+  extra = [ pkgs.gazebo ];
 in
 pkgs.mkShell {
   name = "Gz classic development";

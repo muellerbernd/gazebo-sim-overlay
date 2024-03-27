@@ -2,6 +2,8 @@ self: super:
 {
   gazebo_classic = self.libsForQt5.callPackage ./gazebo-classic { };
   gazebo_sim = self.callPackage ./gazebo-sim { };
+  gazebo = self.gazebo_classic;
+  gz-harmonic = self.gazebo_sim;
 
   libdart = self.callPackage ./libdart { };
 
