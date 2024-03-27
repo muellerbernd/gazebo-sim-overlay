@@ -14,6 +14,7 @@
 , ignition-sensors ? ignition.sensors
 , ignition-tools ? ignition.tools
 , ignition-launch ? ignition.launch
+, ignition-utils ? ignition.utils
 , ignition-sim ? ignition.sim
 }:
 
@@ -25,6 +26,7 @@ pkgs.symlinkJoin {
     ignition-common
     ignition-msgs
     ignition-plugin
+    ignition-utils
     ignition-rendering
     ignition-sensors
     ignition-tools
