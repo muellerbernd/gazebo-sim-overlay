@@ -1,36 +1,36 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, majorVersion ? "8"
-, version ? "8.0.0"
-, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-plugin
-, ignition-common
-, ignition-math
-, ignition-cmake
-, protobuf
-, tinyxml-2
-, ignition-transport
-, ignition-rendering
-, ignition-msgs
-, ignition-tools
-, eigen
-, qtbase
-, qtquickcontrols2
-, qtdeclarative
-, qwt
-, qt5Full
-, qttools
-, wrapQtAppsHook
-, wrapGAppsHook
-, fontconfig
-, autoPatchelfHook
-, ...
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  majorVersion ? "8",
+  version ? "8.0.0",
+  srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4=",
+  ignition-plugin,
+  ignition-common,
+  ignition-math,
+  ignition-cmake,
+  protobuf,
+  tinyxml-2,
+  ignition-transport,
+  ignition-rendering,
+  ignition-msgs,
+  ignition-tools,
+  eigen,
+  qtbase,
+  qtquickcontrols2,
+  qtdeclarative,
+  qwt,
+  qt5Full,
+  qttools,
+  wrapQtAppsHook,
+  wrapGAppsHook,
+  fontconfig,
+  autoPatchelfHook,
+  ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "gz-gui${majorVersion}";
   inherit version;
@@ -47,9 +47,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
+    wrapQtAppsHook
   ];
   # pkg-config is needed to use some CMake modules in this package
-  # propagatedBuildInputs = [ pkg-config ];
   # propagatedNativeBuildInputs = [
   #   ignition-cmake
   #   # ignition-math
@@ -64,6 +64,8 @@ stdenv.mkDerivation rec {
     qtbase
     qtquickcontrols2
     qtdeclarative
+    ignition-tools
+    pkg-config
   ];
   buildInputs = [
     eigen
@@ -115,7 +117,6 @@ stdenv.mkDerivation rec {
   #     export XDG_RUNTIME_DIR=$PWD
   #   '';
 
-
   # makeWrapperArgs = [
   #   "\${qtWrapperArgs[@]}"
   #   # import Qt.labs.platform failed without this
@@ -142,7 +143,7 @@ stdenv.mkDerivation rec {
       robotics applications, such as a 3D view, plots, dashboard, etc, and can be used
       together in a convenient unified interface.'';
     license = licenses.asl20;
-    maintainers = with maintainers; [ muellerbernd ];
+    maintainers = with maintainers; [muellerbernd];
     platforms = platforms.all;
   };
 }

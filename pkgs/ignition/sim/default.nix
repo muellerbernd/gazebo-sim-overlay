@@ -103,6 +103,7 @@ stdenv.mkDerivation rec {
     tbb
     ogre
     ffmpeg
+    ignition-tools
     # ignition-fuel-tools
     # ignition-physics
     # sdformat

@@ -15,6 +15,7 @@
 , ignition-common
 , sdformat
 , eigen
+, wrapQtAppsHook
 , ...
 }:
 
@@ -30,9 +31,9 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config sdformat ];
+  propagatedBuildInputs = [ pkg-config ];
   # propagatedNativeBuildInputs = [ ignition-cmake ];
   buildInputs = [
     ignition-cmake

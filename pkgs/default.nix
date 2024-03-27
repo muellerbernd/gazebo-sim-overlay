@@ -50,9 +50,9 @@ self: super:
     physics7 = self.callPackage ./ignition/physics/7.nix { };
     physics = self.ignition.physics7;
 
-    rendering = self.callPackage ./ignition/rendering/8.nix { };
+    rendering = self.libsForQt5.callPackage ./ignition/rendering/8.nix { };
     gui = self.libsForQt5.callPackage ./ignition/gui/8.nix { };
-    sensors = self.callPackage ./ignition/sensors/8.nix { };
+    sensors = self.libsForQt5.callPackage ./ignition/sensors/8.nix { };
     launch = self.libsForQt5.callPackage ./ignition/launch/7.nix { };
     sim = self.libsForQt5.callPackage ./ignition/sim { };
   };
