@@ -1,42 +1,43 @@
-{ lib
-, mkDerivation
-, fetchurl
-, cmake
-, pkg-config
-, ronn
-, libGL
-, openal
-, hdf5
-, curl
-, tinyxml
-, tinyxml-2
-, libtar
-, gts
-, libusb1
-, qtbase
-, gdal
-, libuuid
-, graphviz
-, libsForQt5
-, freeimage
-, boost
-, protobuf
-, sdformat_9
-, tbb
-, ogre1_9
-, ffmpeg_5
-, ignition
-, ignition-cmake ? ignition.cmake2
-, ignition-common ? ignition.common3
-, ignition-math ? ignition.math6
-, ignition-transport ? ignition.transport8
-, ignition-msgs ? ignition.msgs5
-, ignition-fuel-tools ? ignition.fuel-tools4
-, bullet
-, withBulletEngineSupport ? false
-, wrapGAppsHook
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  ronn,
+  libGL,
+  openal,
+  hdf5,
+  curl,
+  tinyxml,
+  tinyxml-2,
+  libtar,
+  gts,
+  libusb1,
+  qtbase,
+  gdal,
+  libuuid,
+  graphviz,
+  libsForQt5,
+  freeimage,
+  boost,
+  protobuf,
+  sdformat_9,
+  tbb,
+  ogre1_9,
+  ffmpeg_5,
+  ignition,
+  ignition-cmake ? ignition.cmake2,
+  ignition-common ? ignition.common3,
+  ignition-math ? ignition.math6,
+  ignition-transport ? ignition.transport8,
+  ignition-msgs ? ignition.msgs5,
+  ignition-fuel-tools ? ignition.fuel-tools4,
+  bullet,
+  withBulletEngineSupport ? false,
+  wrapGAppsHook,
 }:
-
 mkDerivation rec {
   pname = "gazebo";
   version = "11.14.0";
@@ -46,31 +47,42 @@ mkDerivation rec {
     hash = "sha256-fphCwEbJ4HVTVbJ0wkCoq79Olivnznt/WRlOX0tYT0U=";
   };
 
+  patches = [
+    # Allow building with graphviz 10+
+    (fetchpatch {
+      name = "fix-build-against-graphviz-10.patch";
+      url = "https://github.com/gazebosim/gazebo-classic/commit/660ae15f4af1f5ea8d9d50d4a24e4d91a94f9c2d.patch";
+      hash = "sha256-KPwuDdTEWMDbLF/FQACM/huCYlXDg43cd8QBt3E859A=";
+    })
+  ];
+
   enableParallelBuilding = true;
 
-  cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
+  cmakeFlags = ["-DUSE_HOST_CFLAGS=False"];
 
-  nativeBuildInputs = [ cmake pkg-config ronn wrapGAppsHook ];
+  nativeBuildInputs = [cmake pkg-config ronn wrapGAppsHook];
 
-  buildInputs = [
-    libGL
-    openal
-    hdf5
-    curl
-    tinyxml
-    tinyxml-2
-    libtar
-    gts
-    libusb1
-    qtbase
-    gdal
-    libuuid
-    graphviz
-    ignition-cmake
-    ignition-common
-    ignition-msgs
-    libsForQt5.qwt
-  ] ++ lib.optional withBulletEngineSupport bullet;
+  buildInputs =
+    [
+      libGL
+      openal
+      hdf5
+      curl
+      tinyxml
+      tinyxml-2
+      libtar
+      gts
+      libusb1
+      qtbase
+      gdal
+      libuuid
+      graphviz
+      ignition-cmake
+      ignition-common
+      ignition-msgs
+      libsForQt5.qwt
+    ]
+    ++ lib.optional withBulletEngineSupport bullet;
 
   propagatedBuildInputs = [
     freeimage
@@ -100,7 +112,7 @@ mkDerivation rec {
     homepage = "http://gazebosim.org/";
     description = "Multi-robot simulator for outdoor environments";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
     platforms = platforms.all;
   };
 }
