@@ -33,21 +33,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-elSj35LwsLzj1ssDPsk9NW/KSXfiOGYmw9hQSAWdpFM=";
   };
 
-  cmakeFlags =
-    [
-      "-DCMAKE_BUILD_TYPE=Release"
-      "-DOGRE_USE_NEW_PROJECT_NAME=ON"
-      "-DOGRE_CONFIG_ENABLE_JSON=ON"
-      "-DOGRE_CONFIG_THREADS=1"
-      "-DOGRE_CONFIG_THREAD_PROVIDER=std"
-      "-DOGRE_BUILD_COMPONENT_PLANAR_REFLECTIONS=ON"
-      "-DOGRE_BUILD_COMPONENT_OVERLAY=ON"
-      "-DOGRE_BUILD_COMPONENT_PROPERTY=ON"
-      "-DOGRE_BUILD_COMPONENT_SCENE_FORMAT=ON"
-      "-DOGRE_BUILD_COMPONENT_HLMS_UNLIT=ON"
-      "-DOGRE_BUILD_TESTS=ON"
-      "-DOGRE_INSTALL_SAMPLES_SOURCE=ON"
-    ];
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DOGRE_USE_NEW_PROJECT_NAME=ON"
+    "-DOGRE_CONFIG_ENABLE_JSON=ON"
+    "-DOGRE_CONFIG_THREADS=1"
+    "-DOGRE_CONFIG_THREAD_PROVIDER=std"
+    "-DOGRE_BUILD_COMPONENT_PLANAR_REFLECTIONS=ON"
+    "-DOGRE_BUILD_COMPONENT_OVERLAY=ON"
+    "-DOGRE_BUILD_COMPONENT_PROPERTY=ON"
+    "-DOGRE_BUILD_COMPONENT_SCENE_FORMAT=ON"
+    "-DOGRE_BUILD_COMPONENT_HLMS_UNLIT=ON"
+    "-DOGRE_BUILD_TESTS=ON"
+    "-DOGRE_INSTALL_SAMPLES_SOURCE=ON"
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -60,20 +59,19 @@ stdenv.mkDerivation rec {
     shaderc
   ];
 
-  buildInputs =
-    [
-      freeimage
-      freetype
-      libXaw
-      libXrandr
-      rapidjson
-      zziplib
-      SDL2
-      libGLU
-      tinyxml
-      zlib
-      openvr
-    ];
+  buildInputs = [
+    freeimage
+    freetype
+    libXaw
+    libXrandr
+    rapidjson
+    zziplib
+    SDL2
+    libGLU
+    tinyxml
+    zlib
+    openvr
+  ];
 
   meta = with lib; {
     description = "3D Object-Oriented Graphics Rendering Engine

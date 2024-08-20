@@ -1,20 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, majorVersion ? "2"
-, version ? "2.0.0"
-, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-cmake
-, ruby
-, ronn
-, wrapQtAppsHook
-, qtquickcontrols2
-, qtgraphicaleffects
-, pkg-config
-, ...
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  majorVersion ? "2",
+  version ? "2.0.0",
+  srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4=",
+  ignition-cmake,
+  ruby,
+  ronn,
+  wrapQtAppsHook,
+  qtquickcontrols2,
+  qtgraphicaleffects,
+  pkg-config,
+  ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "gz-tools${majorVersion}";
   inherit version;
@@ -27,11 +27,11 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [cmake wrapQtAppsHook];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ];
-  propagatedNativeBuildInputs = [ qtquickcontrols2 qtgraphicaleffects ];
-  buildInputs = [ ignition-cmake ruby ronn ];
+  propagatedBuildInputs = [pkg-config];
+  propagatedNativeBuildInputs = [qtquickcontrols2 qtgraphicaleffects];
+  buildInputs = [ignition-cmake ruby ronn];
 
   dontWrapQtApps = true;
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ignitionrobotics.org/libs/tools";
     description = "Command line tools for the Gazebo libraries.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ muellerbernd ];
+    maintainers = with maintainers; [muellerbernd];
     platforms = platforms.all;
   };
 }

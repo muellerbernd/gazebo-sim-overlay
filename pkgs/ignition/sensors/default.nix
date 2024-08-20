@@ -1,24 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, majorVersion ? "8"
-, version ? "8.0.0"
-, srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4="
-, ignition-plugin
-, ignition-cmake
-, ignition-transport
-, ignition-rendering
-, ignition-msgs
-, ignition-common
-, sdformat
-, eigen
-, wrapQtAppsHook
-, ...
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  majorVersion ? "8",
+  version ? "8.0.0",
+  srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4=",
+  ignition-plugin,
+  ignition-cmake,
+  ignition-transport,
+  ignition-rendering,
+  ignition-msgs,
+  ignition-common,
+  sdformat,
+  eigen,
+  wrapQtAppsHook,
+  ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "gz-sensors${majorVersion}";
   inherit version;
@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [cmake wrapQtAppsHook];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [ pkg-config ];
+  propagatedBuildInputs = [pkg-config];
   # propagatedNativeBuildInputs = [ ignition-cmake ];
   buildInputs = [
     ignition-cmake
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       Provides numerous sensor models designed to generate realistic data
       from simulation environments.'';
     license = licenses.asl20;
-    maintainers = with maintainers; [ muellerbernd ];
+    maintainers = with maintainers; [muellerbernd];
     platforms = platforms.all;
   };
 }

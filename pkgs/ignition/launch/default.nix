@@ -1,34 +1,34 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, majorVersion ? "7"
-, version ? "7.0.0"
-, srcHash ? "sha256-6UawCCH/Zc41yUbbPEz1qIF+cV6XMOTN4+FJO/0uTds="
-, ignition-math
-, ignition-cmake
-, ignition-utils
-, ignition-plugin
-, ignition-common
-, ignition-transport
-, ignition-msgs
-, ignition-gui
-, ignition-rendering
-, ignition-sim
-, ignition-fuel-tools
-, ignition-physics
-, ignition-sensors
-, sdformat
-, libwebsockets
-, qtbase
-, qtquickcontrols2
-, qwt
-, wrapQtAppsHook
-, eigen
-, ...
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  majorVersion ? "7",
+  version ? "7.0.0",
+  srcHash ? "sha256-6UawCCH/Zc41yUbbPEz1qIF+cV6XMOTN4+FJO/0uTds=",
+  ignition-math,
+  ignition-cmake,
+  ignition-utils,
+  ignition-plugin,
+  ignition-common,
+  ignition-transport,
+  ignition-msgs,
+  ignition-gui,
+  ignition-rendering,
+  ignition-sim,
+  ignition-fuel-tools,
+  ignition-physics,
+  ignition-sensors,
+  sdformat,
+  libwebsockets,
+  qtbase,
+  qtquickcontrols2,
+  qwt,
+  wrapQtAppsHook,
+  eigen,
+  ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "gz-launch${majorVersion}";
   inherit version;
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook pkg-config ];
+  nativeBuildInputs = [cmake wrapQtAppsHook pkg-config];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [ pkg-config ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     description = ''
       Gazebo Launch : Run and manage programs and plugins'';
     license = licenses.asl20;
-    maintainers = with maintainers; [ muellerbernd ];
+    maintainers = with maintainers; [muellerbernd];
     platforms = platforms.all;
   };
 }
