@@ -40,6 +40,7 @@
   ignition-gui ? ignition.gui,
   ignition-sensors ? ignition.sensors,
   ignition-tools ? ignition.tools,
+  ignition-utils ? ignition.utils,
   sdformat,
   wrapGAppsHook,
   full,
@@ -90,26 +91,26 @@ stdenv.mkDerivation rec {
       gdal
       libuuid
       graphviz
-      ignition-cmake
-      ignition-common
-      ignition-plugin
-      ignition-physics
-      ignition-rendering
-      ignition-gui
-      ignition-sensors
-      sdformat
-      ignition-math
-      ignition-transport
-      ignition-msgs
-      ignition-fuel-tools
-      ignition-physics
-      ignition-tools
       qwt
       qtbase
       full
       qtquickcontrols2
       eigen
       python311Packages.pybind11
+      ignition-cmake
+      sdformat
+      ignition-common
+      ignition-plugin
+      ignition-utils
+      ignition-math
+      ignition-transport
+      ignition-msgs
+      ignition-fuel-tools
+      ignition-gui
+      ignition-rendering
+      ignition-sensors
+      ignition-physics
+      ignition-tools
     ]
     ++ lib.optional withBulletEngineSupport bullet;
 

@@ -17,7 +17,7 @@ callPackage ./. ({
     ignition-gui = ignition.gui8;
     ignition-sensors = ignition.sensors8;
     ignition-tools = ignition.tools2;
-    ignition-utils = ignition.utils2;
+    ignition-utils = ignition.utils1;
     ignition-sim = ignition.sim6;
     ignition-launch = ignition.launch7;
   }

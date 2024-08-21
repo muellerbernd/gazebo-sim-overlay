@@ -24,6 +24,7 @@
   qtdeclarative,
   qwt,
   wrapQtAppsHook,
+  patchelf,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -46,6 +47,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
     wrapQtAppsHook
+    patchelf
   ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedNativeBuildInputs = [
@@ -58,6 +60,9 @@ stdenv.mkDerivation rec {
   #   # ignition-msgs
   #   ignition-tools
   # ];
+  postInstall = lib.optional (majorVersion == "6") ''
+    patchelf --print-rpath "$out/lib/ign-gui-6/plugins/libGrid3D.so"
+  '';
   propagatedBuildInputs = [
     qtbase
     qtquickcontrols2
@@ -88,6 +93,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
   ];
 
   # qtWrapperArgs = [ ''--set LD_LIBRARY_PATH : ${lib.makeLibraryPath [ qt5Full ]}'' ];

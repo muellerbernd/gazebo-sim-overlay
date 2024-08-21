@@ -19,7 +19,10 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "gz-physics${majorVersion}";
+  pname =
+    if (lib.versionAtLeast version "7")
+    then "gz-physics${majorVersion}"
+    else "ignition-physics${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
