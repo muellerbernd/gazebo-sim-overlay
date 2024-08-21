@@ -5,9 +5,9 @@
 } @ args:
 callPackage ./generic.nix (args
   // {
-    version = "12.0.0";
-    srcHash = "";
-    gz-cmake = ignition.cmake;
-    gz-math = ignition.math;
-    gz-utils = ignition.utils;
+    version = "12.8.0";
+    srcHash = "sha256-XA1leXOP8U+En41uEBRoqPCrxDAAsrgEAXD+CCpjBIk=";
+    gz-cmake = ignition.cmake2;
+    gz-math = ignition.math6;
+    gz-utils = ignition.utils1;
   })
