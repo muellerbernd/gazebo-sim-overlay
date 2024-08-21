@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   cmake,
   pkg-config,
   majorVersion ? "8",
@@ -21,7 +22,10 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "gz-rendering${majorVersion}";
+  pname =
+    if (lib.versionAtLeast version "8")
+    then "gz-rendering${majorVersion}"
+    else "ignition-rendering${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -53,6 +57,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
+
+  patches = lib.optional (majorVersion == "6") [./graphicsAPI.patch];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/rendering";

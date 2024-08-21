@@ -1,0 +1,12 @@
+diff --git a/include/gz/rendering/GraphicsAPI.hh b/include/gz/rendering/GraphicsAPI.hh
+index 505e401..bd2c5c8 100644
+--- a/include/gz/rendering/GraphicsAPI.hh
++++ b/include/gz/rendering/GraphicsAPI.hh
+@@ -18,6 +18,7 @@
+ #define IGNITION_RENDERING_GRAPHICSAPI_HH_
+ 
+ #include <string>
++#include <cstdint>
+ #include "ignition/rendering/config.hh"
+ #include "ignition/rendering/Export.hh"
+ 
