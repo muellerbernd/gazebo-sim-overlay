@@ -38,14 +38,15 @@
     inherit lib;
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+    legacyPackages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
     formatter = forEachSystem (pkgs: pkgs.alejandra);
     # Your custom packages and modifications, exported as overlays
     overlays = import ./overlays {inherit inputs;};
     # checks
-    checks = self.packages;
+    # checks = self.legacyPackages;
+
     # dev shells
     devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
   };
