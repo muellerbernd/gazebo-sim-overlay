@@ -19,9 +19,11 @@
   ignition-utils ? ignition.utils,
   ignition-sim ? ignition.sim,
   makeWrapper,
+  majorVersion ? "8",
+  ...
 }:
 symlinkJoin {
-  name = "sim";
+  name = "gz-sim_${majorVersion}";
 
   paths = [
     ignition-cmake

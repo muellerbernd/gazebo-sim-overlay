@@ -1,9 +1,9 @@
 {pkgs ? import <nixpkgs> {}, ...}: rec{
   gazebo_classic = pkgs.libsForQt5.callPackage ./gazebo-classic {};
-  gazebo_sim = pkgs.callPackage ./gazebo-sim {};
+  # gazebo_sim = pkgs.callPackage ./gazebo-sim {};
   gazebo = gazebo_classic;
   gazebo_11 = gazebo_classic;
-  gz-harmonic = gazebo_sim;
+  gz-harmonic = pkgs.callPackage ./gazebo-sim/8.nix {};
 
   libdart = pkgs.callPackage ./libdart {};
 
