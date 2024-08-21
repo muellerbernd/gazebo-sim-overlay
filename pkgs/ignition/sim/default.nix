@@ -1,6 +1,5 @@
 {
   lib,
-  fetchurl,
   fetchFromGitHub,
   stdenv,
   cmake,
@@ -60,11 +59,6 @@ stdenv.mkDerivation rec {
     else "gz-sim${majorVersion}";
   inherit version;
 
-  # src = fetchurl {
-  #   url = "https://github.com/gazebosim/gz-sim/archive/refs/tags/${version}.tar.gz";
-  #   hash = srcHash;
-  # };
-
   src = fetchFromGitHub rec {
     name = "${rev}-source";
     owner = "gazebosim";
@@ -122,9 +116,6 @@ stdenv.mkDerivation rec {
     ogre
     ffmpeg
     ignition-tools
-    # ignition-fuel-tools
-    # ignition-physics
-    # sdformat
   ];
 
   # patches = [ ./cmd.patch ];

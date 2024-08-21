@@ -40,9 +40,10 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  postFixup = lib.optional (lib.versionAtLeast version "2") ''
-    wrapQtApp $out/bin/gz
-  '';
+  postFixup =
+    if (lib.versionAtLeast majorVersion "2")
+    then ''wrapQtApp $out/bin/gz''
+    else ''wrapQtApp $out/bin/ign'';
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"

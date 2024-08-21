@@ -40,10 +40,11 @@ symlinkJoin {
     ignition-physics
     ignition-gui
     ignition-sim
-    ignition-launch
+    # ignition-launch
   ];
   buildInputs = [makeWrapper];
-  postBuild = ''
-    wrapProgram $out/bin/gz --set GZ_CONFIG_PATH "$out/share/gz"
-  '';
+  postBuild =
+    if (lib.versionAtLeast majorVersion "8")
+    then ''wrapProgram $out/bin/gz --set GZ_CONFIG_PATH "$out/share/gz"''
+    else ''wrapProgram $out/bin/ign --set IGN_CONFIG_PATH "$out/share/ignition"'';
 }
