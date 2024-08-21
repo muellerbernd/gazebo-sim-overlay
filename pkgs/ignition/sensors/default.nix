@@ -20,8 +20,14 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "gz-sensors${majorVersion}";
+  pname =
+    if (lib.versionAtLeast version "8")
+    then "gz-sensors${majorVersion}"
+    else "ignition-sensors${majorVersion}";
   inherit version;
+
+  # pname = "gz-sensors${majorVersion}";
+  # inherit version;
 
   src = fetchFromGitHub rec {
     name = "${rev}-source";
