@@ -16,7 +16,12 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "gz-tools${majorVersion}";
+  # pname = "gz-tools${majorVersion}";
+  # inherit version;
+  pname =
+    if (lib.versionAtLeast version "2")
+    then "gz-tools${majorVersion}"
+    else "ignition-tools";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -35,7 +40,7 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  postFixup = ''
+  postFixup = lib.optional (lib.versionAtLeast version "2") ''
     wrapQtApp $out/bin/gz
   '';
 
