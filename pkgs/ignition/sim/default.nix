@@ -55,7 +55,7 @@
 stdenv.mkDerivation rec {
   pname =
     if (majorVersion < "7")
-    then "ignition-sim${majorVersion}"
+    then "ignition-gazebo${majorVersion}"
     else "gz-sim${majorVersion}";
   inherit version;
 

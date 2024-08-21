@@ -4,6 +4,7 @@
   gazebo = gazebo_classic;
   gazebo_11 = gazebo_classic;
   gz-harmonic = pkgs.callPackage ./gazebo-sim/8.nix {};
+  ignition-fortress = pkgs.callPackage ./gazebo-sim/6.nix {};
 
   libdart = pkgs.callPackage ./libdart {};
 
@@ -45,6 +46,7 @@
     utils2 = pkgs.callPackage ./ignition/utils/2.nix {};
     utils = utils2;
 
+    plugin1 = pkgs.callPackage ./ignition/plugin/1.nix {};
     plugin2 = pkgs.callPackage ./ignition/plugin/2.nix {};
     plugin = plugin2;
 
@@ -60,6 +62,7 @@
     launch7 = pkgs.libsForQt5.callPackage ./ignition/launch/7.nix {};
     launch = launch7;
     sim8 = pkgs.libsForQt5.callPackage ./ignition/sim/8.nix {};
+    sim6 = pkgs.libsForQt5.callPackage ./ignition/sim/6.nix {};
     sim = sim8;
   };
   sdformat_9 = pkgs.callPackage ./sdformat/9.nix {};

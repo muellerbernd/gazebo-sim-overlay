@@ -13,8 +13,14 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "gz-plugin${majorVersion}";
+  pname =
+    if (majorVersion < "2")
+    then "ignition-plugin${majorVersion}"
+    else "gz-plugin${majorVersion}";
   inherit version;
+
+  # pname = "gz-plugin${majorVersion}";
+  # inherit version;
 
   src = fetchFromGitHub rec {
     name = "${rev}-source";
