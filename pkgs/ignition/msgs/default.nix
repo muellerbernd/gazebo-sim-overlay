@@ -17,7 +17,7 @@
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "8")
+    if (lib.versionAtLeast version "9")
     then "gz-msgs${majorVersion}"
     else "ignition-msgs${majorVersion}";
   inherit version;
