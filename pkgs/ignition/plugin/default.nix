@@ -15,7 +15,7 @@
 stdenv.mkDerivation rec {
   pname =
     if (majorVersion < "2")
-    then "ignition-plugin${majorVersion}"
+    then "ignition-plugin"
     else "gz-plugin${majorVersion}";
   inherit version;
 
