@@ -6,14 +6,14 @@
 callPackage ./. ({
     majorVersion = "6";
     version = "6.0.0";
-    srcHash = "";
-    ignition-math = ignition.math;
-    ignition-plugin = ignition.plugin;
-    ignition-common = ignition.common;
-    ignition-transport = ignition.transport;
-    ignition-rendering = ignition.rendering;
-    ignition-msgs = ignition.msgs;
+    srcHash = "sha256-P8woNbRuR6hzz6vtWvryOrgGKq/tTQYchZm9pU85u24=";
+    ignition-math = ignition.math6;
+    ignition-plugin = ignition.plugin1;
+    ignition-common = ignition.common4;
+    ignition-transport = ignition.transport11;
+    ignition-rendering = ignition.rendering6;
+    ignition-msgs = ignition.msgs8;
     ignition-tools = ignition.tools;
-    ignition-cmake = ignition.cmake;
+    ignition-cmake = ignition.cmake2;
   }
   // args)

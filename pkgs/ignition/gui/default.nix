@@ -23,16 +23,14 @@
   qtquickcontrols2,
   qtdeclarative,
   qwt,
-  qt5Full,
-  qttools,
   wrapQtAppsHook,
-  wrapGAppsHook,
-  fontconfig,
-  autoPatchelfHook,
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "gz-gui${majorVersion}";
+  pname =
+    if (lib.versionAtLeast version "8")
+    then "gz-gui${majorVersion}"
+    else "ignition-gui${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -79,9 +77,10 @@ stdenv.mkDerivation rec {
     ignition-rendering
     ignition-msgs
     ignition-tools
+    ignition-cmake
   ];
 
-  patches = [
+  patches = lib.optional (lib.versionAtLeast version "8") [
     # ./fix_cmake_plugins.patch
     ./gz-gui.patch
     # ./cmd.patch
