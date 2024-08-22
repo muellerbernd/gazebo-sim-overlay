@@ -10,6 +10,7 @@
   srcHash ? "sha256-JHRa84uED+dqu0EHrVFTh6o7eiVpgPbTYqpv8vZtJM4=",
   python3,
   libuuid,
+  ffmpeg,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -43,7 +44,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [cmake];
   # pkg-config is needed to use some CMake modules in this package
   propagatedBuildInputs =
-    [pkg-config libuuid]
+    [pkg-config libuuid ffmpeg]
     ++ lib.optional (lib.versionAtLeast version "3") [python3];
 
   meta = with lib; {
