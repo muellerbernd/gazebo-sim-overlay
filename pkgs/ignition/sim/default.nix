@@ -115,6 +115,7 @@ stdenv.mkDerivation rec {
     ignition-tools
     libuuid
     sdformat
+    ignition-fuel-tools
   ];
 
   # patches = [ ./cmd.patch ];
