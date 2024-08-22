@@ -114,6 +114,7 @@ stdenv.mkDerivation rec {
     tbb
     ffmpeg
     ignition-tools
+    libuuid
   ];
 
   # patches = [ ./cmd.patch ];
