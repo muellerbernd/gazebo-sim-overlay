@@ -113,6 +113,7 @@ stdenv.mkDerivation rec {
     tbb
     ffmpeg
     ignition-tools
+    qtquickcontrols2
     libuuid
     sdformat
   ];
