@@ -23,7 +23,6 @@
   freeimage,
   boost,
   protobuf,
-  jsoncpp,
   tbb,
   ffmpeg,
   ignition,
@@ -116,7 +115,6 @@ stdenv.mkDerivation rec {
     ignition-tools
     libuuid
     sdformat
-    jsoncpp
   ];
 
   # patches = [ ./cmd.patch ];
