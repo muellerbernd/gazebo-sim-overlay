@@ -5,7 +5,7 @@
 } @ args:
 callPackage ./. ({
     majorVersion = "13";
-    version = "13.0.0";
-    srcHash = "sha256-m0EpsLYXm3oRWJ3x7n20aP8DHsMyKAQSStWdFmVUWZo=";
+    version = "13.4.0";
+    srcHash = "sha256-2Akd3vKr07IdgoJppvUV1nZlHE4RdQfI2R18ihHTDHk=";
   }
   // args)

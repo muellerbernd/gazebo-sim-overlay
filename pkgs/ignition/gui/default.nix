@@ -69,8 +69,6 @@ stdenv.mkDerivation rec {
     qtdeclarative
     ignition-tools
     pkg-config
-  ];
-  buildInputs = [
     eigen
     qwt
     protobuf

@@ -21,10 +21,14 @@
   qwt,
   qtquickcontrols2,
   freeimage,
+  freeglut,
   boost,
   protobuf,
   tbb,
   ffmpeg,
+  qtdeclarative,
+  qtgraphicaleffects,
+  qtquickcontrols,
   ignition,
   ignition-cmake ? ignition.cmake,
   ignition-common ? ignition.common,
@@ -41,7 +45,6 @@
   ignition-utils ? ignition.utils,
   sdformat,
   wrapGAppsHook,
-  full,
   bullet,
   eigen,
   python311Packages,
@@ -70,8 +73,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [cmake pkg-config ronn wrapGAppsHook];
 
-  buildInputs =
+  propagatedBuildInputs =
     [
+      freeimage
+      freeglut
       libGL
       openal
       hdf5
@@ -86,9 +91,12 @@ stdenv.mkDerivation rec {
       graphviz
       qwt
       qtbase
-      full
+      qtdeclarative
+      qtgraphicaleffects
+      qtquickcontrols
       qtquickcontrols2
       eigen
+      protobuf
       python311Packages.pybind11
       ignition-cmake
       ignition-common
@@ -103,22 +111,9 @@ stdenv.mkDerivation rec {
       ignition-sensors
       ignition-physics
       ignition-tools
+      sdformat
     ]
     ++ lib.optional withBulletEngineSupport bullet;
-
-  propagatedBuildInputs = [
-    freeimage
-    boost
-    protobuf
-    tbb
-    ffmpeg
-    ignition-tools
-    qtquickcontrols2
-    libuuid
-    sdformat
-  ];
-
-  # patches = [ ./cmd.patch ];
 
   dontWrapQtApps = true;
   cmakeFlags = [

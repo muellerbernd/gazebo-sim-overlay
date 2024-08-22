@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [ pkg-config ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
-  buildInputs = [
+  propagatedBuildInputs = [
     eigen
     ignition-fuel-tools
     ignition-math

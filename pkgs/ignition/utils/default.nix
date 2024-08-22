@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [cmake ignition-cmake];
+  nativeBuildInputs = [cmake];
+  propagatedBuildInputs = [ignition-cmake];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"

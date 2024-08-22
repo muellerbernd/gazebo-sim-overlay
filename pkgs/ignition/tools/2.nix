@@ -5,8 +5,8 @@
 } @ args:
 callPackage ./. ({
     majorVersion = "2";
-    version = "2.0.0";
-    srcHash = "sha256-TPDVluvC76X0bli8CMiCxUoAXNl/V4Cc6hrsge9ajsU=";
+    version = "2.0.1";
+    srcHash = "sha256-sV/T53oVk1fgjwqn/SRTaPTukt+vAlGGxGvTN8+G6Mo=";
     ignition-cmake = ignition.cmake;
   }
   // args)

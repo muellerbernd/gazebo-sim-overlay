@@ -56,9 +56,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [cmake];
   propagatedNativeBuildInputs = [ignition-cmake assimp];
-  buildInputs =
-    [ignition-math tinyxml-2 gts freeimage ffmpeg]
-    ++ lib.optional (lib.versionAtLeast version "4") ignition-utils
+  propagatedBuildInputs =
+    [pkg-config libuuid ignition-math tinyxml-2 gts freeimage ffmpeg]
+    ++ lib.optional (lib.versionAtLeast version "4") [ignition-utils]
     ++ lib.optional (lib.versionAtLeast version "5") [
       ignition-cmake
       ignition-math
@@ -66,7 +66,6 @@ stdenv.mkDerivation rec {
       assimp
       gdal
     ];
-  propagatedBuildInputs = [pkg-config libuuid] ++ lib.optional (lib.versionAtLeast version "4") [ignition-utils];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"

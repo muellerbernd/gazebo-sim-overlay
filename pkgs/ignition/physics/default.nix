@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   #   libdart
   # ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
-  buildInputs = [
+  propagatedBuildInputs = [
     sdformat
     ignition-cmake
     ignition-math
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     libdart
   ];
 
-  patches = [./dart.patch];
+  # patches = [./dart.patch];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"

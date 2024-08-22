@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [cmake];
   propagatedNativeBuildInputs =
-    [ignition-cmake]
+    [ignition-cmake eigen]
     ++ lib.optional (lib.versionAtLeast version "7") [
       # gz-cmake_3
       # gz-math_7
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       ignition-utils
     ];
 
-  buildInputs = [ignition-utils eigen];
+  # buildInputs = [ignition-utils eigen];
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];

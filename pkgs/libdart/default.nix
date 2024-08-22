@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   # nativeBuildInputs = [cmake doxygen pkg-config];
   nativeBuildInputs = [cmake doxygen pkg-config];
 
-  buildInputs = [
+  propagatedBuildInputs = [
     eigen
     fmt
     assimp
@@ -61,15 +61,6 @@ stdenv.mkDerivation rec {
     openscenegraph
     blas
     boost
-  ];
-
-  propagatedBuildInputs = [
-    libccd
-    fcl
-    fmt
-    ode
-    urdfdom
-    urdfdom-headers
   ];
 
   # postPatchPhase = ''

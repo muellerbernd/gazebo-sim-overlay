@@ -5,8 +5,8 @@
 } @ args:
 callPackage ./. ({
     majorVersion = "7";
-    version = "7.0.0";
-    srcHash = "sha256-6UawCCH/Zc41yUbbPEz1qIF+cV6XMOTN4+FJO/0uTds=";
+    version = "7.1.0";
+    srcHash = "sha256-En3V8i/Ie8+KnSHGlm9Bap7REdLhYBaVHVbOM+/Pzno=";
     ignition-cmake = ignition.cmake;
     ignition-utils = ignition.utils;
     ignition-plugin = ignition.plugin;

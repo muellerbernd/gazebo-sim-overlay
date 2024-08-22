@@ -34,9 +34,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [cmake wrapQtAppsHook];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [pkg-config];
+  propagatedBuildInputs = [pkg-config ignition-cmake ruby];
   propagatedNativeBuildInputs = [qtquickcontrols2 qtgraphicaleffects];
-  buildInputs = [ignition-cmake ruby ronn];
+  buildInputs = [ronn];
 
   dontWrapQtApps = true;
 

@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [cmake wrapQtAppsHook];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [pkg-config];
+  # propagatedBuildInputs = [pkg-config];
   # propagatedNativeBuildInputs = [ ignition-cmake ];
-  buildInputs = [
+  propagatedBuildInputs = [
     ignition-cmake
     ignition-plugin
     ignition-transport

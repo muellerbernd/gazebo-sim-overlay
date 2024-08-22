@@ -47,7 +47,14 @@ stdenv.mkDerivation rec {
       python3
     ];
   propagatedNativeBuildInputs = [ignition-cmake];
-  propagatedBuildInputs = [protobuf ignition-math tinyxml-2];
+  propagatedBuildInputs = [
+    protobuf
+    ignition-math
+    tinyxml-2
+    ignition-cmake
+    ignition-math
+    ignition-utils
+  ];
 
   # postInstall = ''
   #   mkdir ~/.gz/tools/configs -p
@@ -57,9 +64,9 @@ stdenv.mkDerivation rec {
   # postInstall = ''
   #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
   # '';
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR='lib'"
-  ];
+  # cmakeFlags = [
+  #   "-DCMAKE_INSTALL_LIBDIR='lib'"
+  # ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/msgs";

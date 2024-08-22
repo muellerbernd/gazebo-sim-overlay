@@ -20,6 +20,7 @@
   version ? "11.4.1",
   srcHash ? "sha256-wQ/ugKYopWgSaa6tqPrp8oQexPpnA6fa28L383OGNXM=",
   python3,
+pkg-config,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -52,8 +53,20 @@ stdenv.mkDerivation rec {
     [ignition-math sqlite libsodium ignition-utils ignition-cmake ignition-msgs]
     ++ lib.optional (lib.versionAtLeast version "13") [python3];
   propagatedBuildInputs =
-    [protobuf cppzmq zeromq libuuid]
-    ++ lib.optional (lib.versionAtLeast version "13") [ignition-tools];
+    [
+      ignition-math
+      ignition-utils
+      ignition-cmake
+      ignition-msgs
+      sqlite
+      libsodium
+      protobuf
+      cppzmq
+      zeromq
+      libuuid
+      pkg-config
+    ]
+    ++ lib.optional (lib.versionAtLeast version "13") [python3 ignition-tools];
 
   dontWrapQtApps = true;
   # postInstall = ''
