@@ -91,7 +91,6 @@ stdenv.mkDerivation rec {
       eigen
       python311Packages.pybind11
       ignition-cmake
-      sdformat
       ignition-common
       ignition-plugin
       ignition-utils
@@ -115,6 +114,7 @@ stdenv.mkDerivation rec {
     ffmpeg
     ignition-tools
     libuuid
+    sdformat
   ];
 
   # patches = [ ./cmd.patch ];
