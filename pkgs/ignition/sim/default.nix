@@ -24,7 +24,6 @@
   boost,
   protobuf,
   tbb,
-  ogre,
   ffmpeg,
   ignition,
   ignition-cmake ? ignition.cmake,
@@ -113,7 +112,6 @@ stdenv.mkDerivation rec {
     boost
     protobuf
     tbb
-    ogre
     ffmpeg
     ignition-tools
   ];

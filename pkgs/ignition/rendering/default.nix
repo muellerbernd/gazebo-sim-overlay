@@ -13,6 +13,7 @@
   ignition-math,
   ogre-next,
   ogre1_9,
+  ogre,
   eigen,
   freeimage,
   libGL,
@@ -47,6 +48,7 @@ stdenv.mkDerivation rec {
     ignition-common
     ogre-next
     ogre1_9
+    ogre
     eigen
     freeimage
     libGL
