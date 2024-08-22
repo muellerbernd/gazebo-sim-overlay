@@ -12,6 +12,7 @@
   libuuid,
   ffmpeg,
   jsoncpp,
+  libzip,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -45,7 +46,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [cmake];
   # pkg-config is needed to use some CMake modules in this package
   propagatedBuildInputs =
-    [pkg-config libuuid ffmpeg jsoncpp]
+    [pkg-config libuuid ffmpeg jsoncpp libzip]
     ++ lib.optional (lib.versionAtLeast version "3") [python3];
 
   meta = with lib; {
