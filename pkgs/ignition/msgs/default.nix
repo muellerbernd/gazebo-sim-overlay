@@ -13,6 +13,8 @@
   version ? "10.0.0",
   srcHash ? "sha256-hG4UJfcq6DsyMqTWIcUQ15UCQNfdzTzwvJBpR9kmu84=",
   python3,
+  python3Packages,
+  zlib,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -36,6 +38,9 @@ stdenv.mkDerivation rec {
       url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch";
       hash = "sha256-QnR1WtB4gbgyJKbQ4doMhfSjJBksEeQ3Us4y9KqCWeY=";
     })
+    lib.optional
+    # (majorVersion == "10")
+    # [./CMake.patch]
   ];
 
   nativeBuildInputs =
@@ -48,9 +53,12 @@ stdenv.mkDerivation rec {
     ];
   propagatedNativeBuildInputs = [ignition-cmake];
   propagatedBuildInputs = [
-    protobuf
-    ignition-math
     tinyxml-2
+    protobuf
+    python3Packages.protobuf
+    python3Packages.pytest
+    zlib
+    ignition-math
     ignition-cmake
     ignition-math
     ignition-utils
@@ -64,9 +72,9 @@ stdenv.mkDerivation rec {
   # postInstall = ''
   #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
   # '';
-  # cmakeFlags = [
-  #   "-DCMAKE_INSTALL_LIBDIR='lib'"
-  # ];
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Debug"
+  ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/msgs";
