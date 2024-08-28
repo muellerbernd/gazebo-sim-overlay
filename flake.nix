@@ -13,9 +13,7 @@
     nixgl,
     ...
   } @ inputs: let
-    inherit (self) outputs;
-
-    lib = nixpkgs.lib;
+    inherit (nixpkgs) lib;
     forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
     pkgsFor = lib.genAttrs (import systems) (
       system:
