@@ -1,6 +1,7 @@
 {
   callPackage,
   ignition,
+  ogre-next2_20,
   ...
 } @ args:
 callPackage ./. ({
@@ -11,5 +12,6 @@ callPackage ./. ({
     ignition-plugin = ignition.plugin1;
     ignition-common = ignition.common4;
     ignition-cmake = ignition.cmake2;
+    ogre2 = ogre-next2_20;
   }
   // args)

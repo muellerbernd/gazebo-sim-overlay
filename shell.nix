@@ -31,7 +31,6 @@ in {
     name = "Gz sim development";
     buildInputs = [
       pkgs.ignition-fortress
-      nixgl
     ];
     QT_QPA_PLATFORM = "xcb";
     shellHook = ''

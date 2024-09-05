@@ -11,7 +11,7 @@
   ignition-plugin,
   ignition-common,
   ignition-math,
-  ogre-next,
+  ogre2,
   ogre1_9,
   ogre,
   eigen,
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     ignition-math
     ignition-plugin
     ignition-common
-    ogre-next
+    ogre2
     ogre1_9
     ogre
     eigen

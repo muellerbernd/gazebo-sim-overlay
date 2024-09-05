@@ -76,5 +76,6 @@
   sdformat_14 = pkgs.callPackage ./sdformat/14.nix {};
   sdformat = sdformat_14;
   ogre1_9 = pkgs.callPackage ./ogre/1.9.nix {};
-  ogre-next = pkgs.callPackage ./ogre-next {};
+  ogre-next = pkgs.callPackage ./ogre-next/default.nix {};
+  ogre-next2_20 = pkgs.callPackage ./ogre-next/2.2.0.nix {};
 }
