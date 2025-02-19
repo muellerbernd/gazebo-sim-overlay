@@ -20,7 +20,7 @@ in {
   default = pkgs.mkShell {
     name = "Gz sim development";
     buildInputs = [
-      pkgs.gz-harmonic
+      pkgs.gz-ionic
       nixgl
     ];
     QT_QPA_PLATFORM = "xcb";
