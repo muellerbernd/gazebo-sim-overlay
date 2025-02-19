@@ -49,6 +49,9 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
     patchelf
   ];
+
+  buildInputs = [cmake];
+
   # pkg-config is needed to use some CMake modules in this package
   # propagatedNativeBuildInputs = [
   #   ignition-cmake
@@ -83,7 +86,7 @@ stdenv.mkDerivation rec {
     ignition-cmake
   ];
 
-  patches = lib.optional (lib.versionAtLeast version "8") [
+  patches = lib.optional (lib.versionAtLeast version "8.0.0" && lib.versionOlder version "9.0.0") [
     # ./fix_cmake_plugins.patch
     ./gz-gui.patch
     # ./cmd.patch

@@ -115,6 +115,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withBulletEngineSupport bullet;
 
+  buildInputs = [cmake];
+  
   dontWrapQtApps = true;
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"

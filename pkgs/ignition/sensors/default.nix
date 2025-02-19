@@ -51,6 +51,9 @@ stdenv.mkDerivation rec {
     sdformat
     eigen
   ];
+
+  buildInputs = [cmake];
+
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];

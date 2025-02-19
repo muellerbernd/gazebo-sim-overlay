@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       ignition-utils
     ];
 
-  # buildInputs = [ignition-utils eigen];
+  buildInputs = [cmake];
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
