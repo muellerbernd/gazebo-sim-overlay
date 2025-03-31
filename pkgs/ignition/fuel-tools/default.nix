@@ -35,6 +35,8 @@ stdenv.mkDerivation rec {
   propagatedNativeBuildInputs = [ignition-cmake];
   propagatedBuildInputs = [ignition-common tinyxml-2 curl jsoncpp libyaml libzip ignition-msgs];
 
+  buildInputs = [cmake];
+  
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];

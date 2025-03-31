@@ -59,6 +59,8 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
 
+  buildInputs = [cmake];
+
   patches = lib.optional (majorVersion == "6") [./graphicsAPI.patch];
 
   meta = with lib; {

@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
+  spdlog,
   ignition,
   ignition-cmake ? ignition.cmake,
   majorVersion ? "1",
@@ -26,8 +27,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [cmake];
-  propagatedBuildInputs = [ignition-cmake];
+  propagatedBuildInputs = [ignition-cmake] ++ lib.optional (lib.versionAtLeast (toString version) "3.0.0") spdlog;
 
+  buildInputs = [cmake];
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];

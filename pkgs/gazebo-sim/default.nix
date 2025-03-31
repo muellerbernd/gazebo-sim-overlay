@@ -15,9 +15,9 @@
   ignition-gui ? ignition.gui,
   ignition-sensors ? ignition.sensors,
   ignition-tools ? ignition.tools,
-  ignition-launch ? ignition.launch,
   ignition-utils ? ignition.utils,
   ignition-sim ? ignition.sim,
+  sdformat ? ignition.sdformat,
   makeWrapper,
   majorVersion ? "8",
   ...
@@ -40,7 +40,6 @@ symlinkJoin {
     ignition-physics
     ignition-gui
     ignition-sim
-    # ignition-launch
   ];
   buildInputs = [makeWrapper];
   postBuild =

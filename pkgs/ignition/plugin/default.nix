@@ -40,6 +40,8 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
 
+  buildInputs = [cmake];
+
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/plugin";
     description = "Cross-platform C++ library for dynamically loading plugins.";

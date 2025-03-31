@@ -40,6 +40,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [cmake];
+  buildInputs = [cmake];
   # pkg-config is needed to use some CMake modules in this package
   propagatedBuildInputs =
     [pkg-config]

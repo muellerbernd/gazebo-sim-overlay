@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   # pkg-config is needed to use some CMake modules in this package
   propagatedBuildInputs = [pkg-config ignition-cmake ruby];
   propagatedNativeBuildInputs = [qtquickcontrols2 qtgraphicaleffects];
-  buildInputs = [ronn];
+  buildInputs = [ronn cmake];
 
   dontWrapQtApps = true;
 
@@ -44,7 +44,6 @@ stdenv.mkDerivation rec {
     if (lib.versionAtLeast majorVersion "2")
     then ''wrapQtApp $out/bin/gz''
     else ''wrapQtApp $out/bin/ign'';
-
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];

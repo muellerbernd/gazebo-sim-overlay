@@ -53,6 +53,8 @@ stdenv.mkDerivation rec {
     libdart
   ];
 
+  buildInputs = [cmake];
+
   # patches = [./dart.patch];
 
   cmakeFlags = [

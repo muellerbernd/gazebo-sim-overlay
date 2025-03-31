@@ -54,6 +54,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
+  buildInputs = [cmake];
   nativeBuildInputs = [cmake];
   propagatedNativeBuildInputs = [ignition-cmake assimp];
   propagatedBuildInputs =
