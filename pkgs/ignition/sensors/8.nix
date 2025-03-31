@@ -1,6 +1,7 @@
 {
   callPackage,
   ignition,
+  sdformat_14,
   ...
 } @ args:
 callPackage ./. ({
@@ -13,5 +14,6 @@ callPackage ./. ({
     ignition-msgs = ignition.msgs10;
     ignition-cmake = ignition.cmake3;
     ignition-common = ignition.common5;
+    sdformat = sdformat_14;
   }
   // args)
