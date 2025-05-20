@@ -31,12 +31,13 @@ stdenv.mkDerivation rec {
   };
 
   # Don't require Protobuf 3
-  patches = lib.optional (lib.versionOlder version "10.0.0") [
-    (fetchpatch {
-      url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch";
-      hash = "sha256-QnR1WtB4gbgyJKbQ4doMhfSjJBksEeQ3Us4y9KqCWeY=";
-    })
-  ];
+  patches =
+    lib.optional (lib.versionOlder version "10.0.0") [
+      (fetchpatch {
+        url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch";
+        hash = "sha256-QnR1WtB4gbgyJKbQ4doMhfSjJBksEeQ3Us4y9KqCWeY=";
+      })
+    ];
 
   nativeBuildInputs =
     [cmake]

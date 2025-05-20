@@ -20,7 +20,7 @@
   version ? "11.4.1",
   srcHash ? "sha256-wQ/ugKYopWgSaa6tqPrp8oQexPpnA6fa28L383OGNXM=",
   python3,
-pkg-config,
+  pkg-config,
   ...
 }:
 stdenv.mkDerivation rec {

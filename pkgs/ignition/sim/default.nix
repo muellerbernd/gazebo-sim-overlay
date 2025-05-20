@@ -1,6 +1,7 @@
 {
   lib,
   fetchFromGitHub,
+  fetchpatch,
   stdenv,
   cmake,
   pkg-config,
@@ -114,9 +115,17 @@ stdenv.mkDerivation rec {
       sdformat
     ]
     ++ lib.optional withBulletEngineSupport bullet;
+  patches =
+    lib.optional
+    (majorVersion == "9") [
+      (fetchpatch {
+        url = "https://github.com/gazebosim/gz-sim/commit/5ee6a396cfb87c7b6588ad96083233032980e639.patch";
+        hash = "sha256-o9o5YJ4cnHibX+LF/SSRLG0R9QBTKdvkxLFykwBtQwc=";
+      })
+    ];
 
   buildInputs = [cmake];
-  
+
   dontWrapQtApps = true;
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
