@@ -87,12 +87,19 @@ stdenv.mkDerivation rec {
   ];
 
   patches =
-    lib.optional (lib.versionAtLeast version "8.0.0" && lib.versionOlder version "9.0.0") [
-      # ./fix_cmake_plugins.patch
-      ./gz-gui.patch
-      # ./cmd.patch
-    ]
-    ++ lib.optional
+    # lib.optional (lib.versionAtLeast version "8.0.0" && lib.versionOlder version "9.0.0") [
+    #   # ./fix_cmake_plugins.patch
+    #   ./gz-gui.patch
+    #   # ./cmd.patch
+    # ]
+    lib.optional
+    (majorVersion == "8") [
+      (fetchpatch {
+        url = "https://github.com/gazebosim/gz-gui/pull/677.patch";
+        hash = "sha256-9nX3/Yyxp5WSE8VvY+TWcfPFNlS8pdbtex0mujqiilw=";
+      })
+    ] ++
+    lib.optional
     (majorVersion == "9") [
       (fetchpatch {
         url = "https://github.com/gazebosim/gz-gui/pull/677.patch";

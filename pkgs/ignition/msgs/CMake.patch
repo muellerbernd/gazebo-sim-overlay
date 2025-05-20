@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 32effa0..8749c50 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -175,7 +175,7 @@ file(
+ # Install cmake support files
+ install(
+   DIRECTORY cmake/
+-  DESTINATION "${PROJECT_CMAKE_EXTRAS_RELATIVE_INSTALL_DIR}"
++  DESTINATION "${PROJECT_CMAKE_EXTRAS_INSTALL_DIR}"
+ )
+ 
+ #============================================================================

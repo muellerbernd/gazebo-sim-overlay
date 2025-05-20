@@ -5,10 +5,8 @@
 } @ args:
 callPackage ./. ({
     majorVersion = "8";
-    version = "8.0.0";
-    srcHash = "sha256-l/DUgeXZfeBJWOLEveME/NrAqoi619gQrwAReYy7olc=";
-    # version = "8.3.0";
-    # srcHash = "sha256-V0zaL6qrd510hMECCr3/mMkyqf4yu2aaKLRZ6Rw0s/4=";
+    version = "8.4.0";
+    srcHash = "sha256-gf9XZzAX2g6r9ThIA0v2H2X/+uu9VnwvyvrdL5ZazM0=";
     ignition-math = ignition.math7;
     ignition-plugin = ignition.plugin2;
     ignition-common = ignition.common5;

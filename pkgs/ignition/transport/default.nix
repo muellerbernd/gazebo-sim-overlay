@@ -45,7 +45,17 @@ stdenv.mkDerivation rec {
       url = "https://github.com/gazebosim/gz-transport/commit/3d68f46329ec6e4efe20c5125caceae83d4f8e45.patch";
       hash = "sha256-23qSKsMSVL4sXFQrTggyUmxBJm/6RsKsB5EI09GRNKQ=";
     })
-    ++ lib.optional (lib.versionAtLeast version "13") [./cmd.patch];
+    ++ lib.optional (lib.versionAtLeast version "13") [./cmd.patch]
+    ++ lib.optional (majorVersion == "13") [
+      (fetchpatch {
+        url = "https://github.com/gazebosim/gz-transport/commit/8fa2a83498ef45ef1afd31a7dacd141a282023b4.patch";
+        hash = "sha256-LIAP2WvYcwyugxfoEkx0f5KZPGTs77fdMxCnGSmglgQ=";
+      })
+      (fetchpatch {
+        url = "https://github.com/gazebosim/gz-transport/commit/eb7a232bb205051af9a29b2277a23503d38a0fbb.patch";
+        hash = "sha256-JShmdWJEIpr7xlEZCJVaA6hjFyXuGtnbQZ3G6tw619A=";
+      })
+    ];
 
   nativeBuildInputs = [cmake];
   # propagatedNativeBuildInputs = [ ignition-cmake ];
