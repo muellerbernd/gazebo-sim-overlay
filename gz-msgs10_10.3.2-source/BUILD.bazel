@@ -1,0 +1,267 @@
+load(
+    "@gz//bazel/skylark:build_defs.bzl",
+    "GZ_FEATURES",
+    "GZ_ROOT",
+    "GZ_VISIBILITY",
+    "gz_configure_file",
+    "gz_configure_header",
+    "gz_export_header",
+    "gz_include_header",
+)
+load(
+    "@gz//bazel/lint:lint.bzl",
+    "add_lint_tests",
+)
+load(
+    "@gz//msgs/tools:gz_msgs_generate.bzl",
+    "gz_proto_factory",
+    "gz_proto_library",
+)
+load("@rules_license//rules:license.bzl", "license")
+load("@rules_python//python:proto.bzl", "py_proto_library")
+
+package(
+    default_applicable_licenses = [GZ_ROOT + "msgs:license"],
+    default_visibility = GZ_VISIBILITY,
+    features = GZ_FEATURES,
+)
+
+license(
+    name = "license",
+    package_name = "gz-msgs",
+)
+
+licenses(["notice"])
+
+exports_files(["LICENSE"])
+
+gz_configure_header(
+    name = "msgs_config_hh",
+    src = "core/include/gz/msgs/config.hh.in",
+    out = "include/gz/msgs/config.hh",
+    cmakelists = ["CMakeLists.txt"],
+    package = "msgs",
+)
+
+gz_export_header(
+    name = "include/gz/msgs/Export.hh",
+    export_base = "GZ_MSGS",
+    lib_name = "gz-msgs",
+    visibility = ["//visibility:private"],
+)
+
+public_headers_no_gen = glob([
+    "core/include/gz/msgs/*.hh",
+    "core/include/gz/msgs/convert/*.hh",
+    "core/include/gz/msgs/detail/*.hh",
+])
+
+protos = glob(["proto/gz/msgs/*.proto"])
+
+gz_include_header(
+    name = "msgs_hh_genrule",
+    out = "include/gz/msgs.hh",
+    hdrs = public_headers_no_gen + [
+        "include/gz/msgs/config.hh",
+        "include/gz/msgs/Export.hh",
+    ],
+)
+
+# Custom Gazebo Protoc plugin
+cc_binary(
+    name = "gz_msgs_gen",
+    srcs = [
+        "core/generator_lite/Generator.cc",
+        "core/generator_lite/Generator.hh",
+        "core/generator_lite/generator_main.cc",
+    ],
+    deps = [
+        "@com_google_protobuf//:protobuf",
+        "@com_google_protobuf//:protoc_lib",
+    ],
+)
+
+# Create a library of our protobuf message files
+proto_library(
+    name = "gzmsgs_proto",
+    srcs = protos,
+    strip_import_prefix = "proto",
+    deps = [
+        "@com_google_protobuf//:any_proto",
+    ],
+)
+
+py_proto_library(
+    name = "gzmsgs_proto_py_pb2",
+    deps = [":gzmsgs_proto"]
+)
+
+gz_proto_library(
+    name = "gzmsgs_cc_proto",
+    proto_deps = [":gzmsgs_proto"],
+    deps = [
+        "@com_google_protobuf//:protobuf",
+    ],
+)
+
+gz_proto_factory(
+    name = "gzmsgs_proto_factory",
+    cc_output = "core/src/RegisterMsgs.cc",
+    hh_output = "include/gz/msgs/MessageTypes.hh",
+    deps = [":gzmsgs_proto"],
+)
+
+public_headers = public_headers_no_gen + [
+    "include/gz/msgs/config.hh",
+    "include/gz/msgs/Export.hh",
+    "include/gz/msgs.hh",
+    "include/gz/msgs/MessageTypes.hh",
+]
+
+cc_library(
+    name = "msgs",
+    srcs = [
+        "core/src/DynamicFactory.cc",
+        "core/src/DynamicFactory.hh",
+        "core/src/Factory.cc",
+        "core/src/MessageFactory.cc",
+        "core/src/RegisterMsgs.cc",
+        "core/src/impl/InstallationDirectories.cc",
+    ],
+    hdrs = public_headers,
+    copts = [
+        "-Wno-duplicate-decl-specifier",
+        "-fexceptions",
+    ],
+    includes = [
+        "core/include",
+        "core/src",
+        "include",
+    ],
+    deps = [
+        ":gzmsgs_cc_proto",
+        ":gzmsgs_proto_factory",
+        GZ_ROOT + "math",
+        "@com_google_protobuf//:protobuf",
+        "@tinyxml2",
+    ],
+)
+
+test_sources = glob(
+    include = ["src/*_TEST.cc"],
+    exclude = [],
+)
+
+[cc_test(
+    name = src.replace("/", "_").replace(".cc", "").replace("src_", ""),
+    srcs = [src],
+    data = [
+        "test/desc",
+    ],
+    defines = [
+        'GZ_MSGS_TEST_PATH=\\"msgs/test\\"',
+    ],
+    deps = [
+        ":msgs",
+        GZ_ROOT + "common/testing",
+        "@gtest",
+        "@gtest//:gtest_main",
+    ],
+) for src in test_sources]
+
+cc_test(
+    name = "INTEGRATION_headers",
+    srcs = ["test/integration/headers.cc"],
+    deps = [
+        ":gzmsgs_cc_proto",
+        "@gtest",
+        "@gtest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "INTEGRATION_image_msg",
+    srcs = ["test/integration/image_msg.cc"],
+    deps = [
+        ":gzmsgs_cc_proto",
+        "@gtest",
+        "@gtest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "INTEGRATION_Utility",
+    srcs = ["test/integration/Utility_TEST.cc"],
+    deps = [
+        ":msgs",
+        GZ_ROOT + "common/testing",
+        "@gtest",
+        "@gtest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "INTEGRATION_Factory",
+    srcs = ["test/integration/Factory_TEST.cc"],
+    data = ["test/desc/stringmsg.desc"],
+    defines = [
+        'GZ_MSGS_TEST_PATH=\\"msgs/test\\"',
+    ],
+    deps = [
+        ":msgs",
+        GZ_ROOT + "common/testing",
+        "@gtest",
+        "@gtest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "INTEGRATION_descriptors",
+    srcs = ["test/integration/descriptors.cc"],
+    data = ["test/desc"],
+    defines = [
+        'GZ_MSGS_TEST_PATH=\\"msgs/test\\"',
+    ],
+    deps = [
+        ":msgs",
+        GZ_ROOT + "common/testing",
+        "@gtest",
+        "@gtest//:gtest_main",
+    ],
+)
+
+gz_configure_file(
+    name = "msgs_yaml",
+    src = "conf/msgs.yaml.in",
+    out = "msgs.yaml",
+    defines = [
+        "PROJECT_NAME_NO_VERSION_LOWER=msgs",
+        "gz_library_path=msgs/cmdmsgs",
+    ],
+    package = "msgs",
+)
+
+gz_configure_file(
+    name = "msgs_rb",
+    src = "core/src/cmd/cmdmsgs.rb.in",
+    out = "cmdmsgs.rb",
+    defines = [
+        "library_location=libgz-msgs.so",
+    ],
+    package = "msgs",
+)
+
+cc_binary(
+    name = "gz-msgs",
+    srcs = ["core/src/gz.cc"],
+    data = [
+        "cmdmsgs.rb",
+        "msgs.yaml",
+        ":gzmsgs_proto",
+    ],
+    linkshared = True,
+    linkstatic = True,
+    deps = [":msgs"],
+)
+
+add_lint_tests()
