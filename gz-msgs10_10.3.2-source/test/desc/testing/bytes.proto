@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-package testing;
-
-message FooBytes
-{
-  bytes data    = 1;
-}

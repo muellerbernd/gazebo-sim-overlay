@@ -1,5 +1,0 @@
-install(
-  DIRECTORY gz
-  DESTINATION ${GZ_DATA_INSTALL_DIR}/protos
-  COMPONENT proto
-  FILES_MATCHING PATTERN "*.proto")
