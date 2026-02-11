@@ -28,8 +28,10 @@ in
       pkgs.gz-ionic
       nixgl
     ];
-    QT_QPA_PLATFORM = "xcb";
-    shellHook = "";
+    shellHook = "
+      unset QT_QPA_PLATFORM
+      unset QT_PLUGIN_PATH
+    ";
   };
   harmonic = pkgs.mkShell {
     name = "Gz sim development";
@@ -37,8 +39,10 @@ in
       pkgs.gz-harmonic
       nixgl
     ];
-    QT_QPA_PLATFORM = "xcb";
-    shellHook = "";
+    shellHook = "
+      unset QT_QPA_PLATFORM
+      unset QT_PLUGIN_PATH
+    ";
   };
   fortress = pkgs.mkShell {
     name = "Gz sim development";
@@ -46,7 +50,9 @@ in
       pkgs.ignition-fortress
       nixgl
     ];
-    QT_QPA_PLATFORM = "xcb";
-    shellHook = "";
+    shellHook = "
+      unset QT_QPA_PLATFORM
+      unset QT_PLUGIN_PATH
+    ";
   };
 }
