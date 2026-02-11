@@ -2,8 +2,9 @@
   callPackage,
   ignition,
   ...
-} @ args:
-callPackage ./. ({
+}@args:
+callPackage ./. (
+  {
     majorVersion = "6";
     ignition-cmake = ignition.cmake2;
     ignition-common = ignition.common4;
@@ -20,4 +21,5 @@ callPackage ./. ({
     ignition-utils = ignition.utils1;
     ignition-sim = ignition.sim6;
   }
-  // args)
+  // args
+)

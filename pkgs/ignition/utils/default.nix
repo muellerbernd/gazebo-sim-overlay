@@ -12,10 +12,7 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname =
-    if (majorVersion < "2")
-    then "ignition-utils${majorVersion}"
-    else "gz-utils${majorVersion}";
+  pname = if (majorVersion < "2") then "ignition-utils${majorVersion}" else "gz-utils${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -26,10 +23,13 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [cmake];
-  propagatedBuildInputs = [ignition-cmake] ++ lib.optional (lib.versionAtLeast (toString version) "3.0.0") spdlog;
+  nativeBuildInputs = [ cmake ];
+  propagatedBuildInputs = [
+    ignition-cmake
+  ]
+  ++ lib.optional (lib.versionAtLeast (toString version) "3.0.0") spdlog;
 
-  buildInputs = [cmake];
+  buildInputs = [ cmake ];
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ignitionrobotics.org/libs/common";
     description = "Classes and functions for robot applications";
     license = licenses.asl20;
-    maintainers = with maintainers; [lopsided98];
+    maintainers = with maintainers; [ lopsided98 ];
     platforms = platforms.all;
   };
 }

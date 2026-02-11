@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     description = "3D Object-Oriented Graphics Rendering Engine
     aka ogre v2 - scene-oriented, flexible 3D C++ engine ";
     homepage = "https://ogrecave.github.io/ogre-next/api/latest";
-    maintainers = with maintainers; [muellerbernd];
+    maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.linux;
     license = licenses.mit;
   };

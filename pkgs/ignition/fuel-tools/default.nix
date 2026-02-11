@@ -18,9 +18,10 @@
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "9")
-    then "gz-fuel-tools${majorVersion}"
-    else "ignition-fuel-tools${majorVersion}";
+    if (lib.versionAtLeast version "9") then
+      "gz-fuel-tools${majorVersion}"
+    else
+      "ignition-fuel-tools${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -31,12 +32,20 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [cmake];
-  propagatedNativeBuildInputs = [ignition-cmake];
-  propagatedBuildInputs = [ignition-common tinyxml-2 curl jsoncpp libyaml libzip ignition-msgs];
+  nativeBuildInputs = [ cmake ];
+  propagatedNativeBuildInputs = [ ignition-cmake ];
+  propagatedBuildInputs = [
+    ignition-common
+    tinyxml-2
+    curl
+    jsoncpp
+    libyaml
+    libzip
+    ignition-msgs
+  ];
 
-  buildInputs = [cmake];
-  
+  buildInputs = [ cmake ];
+
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
@@ -45,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ignitionrobotics.org/libs/fuel_tools";
     description = "Classes and tools for interacting with Ignition Fuel";
     license = licenses.asl20;
-    maintainers = with maintainers; [lopsided98];
+    maintainers = with maintainers; [ lopsided98 ];
     platforms = platforms.all;
   };
 }

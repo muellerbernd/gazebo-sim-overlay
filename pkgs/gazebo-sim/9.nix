@@ -2,8 +2,9 @@
   callPackage,
   ignition,
   ...
-} @ args:
-callPackage ./. ({
+}@args:
+callPackage ./. (
+  {
     majorVersion = "9";
     version = "9.0.0";
     srcHash = "sha256-B8H5lnQKJx9lULMcBVCsuEOGDeRYBh/biiiBUW91wAk=";
@@ -23,4 +24,5 @@ callPackage ./. ({
     ignition-sim = ignition.sim9;
     sdformat = ignition.sdformat15;
   }
-  // args)
+  // args
+)

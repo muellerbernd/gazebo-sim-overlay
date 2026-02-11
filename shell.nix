@@ -1,7 +1,12 @@
-{pkgs ? import <nixpkgs> {}, ...}: let
-  nixgl = [pkgs.nixgl.nixGLIntel];
-  extra = [pkgs.gazebo];
-in {
+{
+  pkgs ? import <nixpkgs> { },
+  ...
+}:
+let
+  nixgl = [ pkgs.nixgl.nixGLIntel ];
+  extra = [ pkgs.gazebo ];
+in
+{
   # classic = pkgs.mkShell {
   #   name = "Gz classic development";
   #   buildInputs =
@@ -24,8 +29,7 @@ in {
       nixgl
     ];
     QT_QPA_PLATFORM = "xcb";
-    shellHook = ''
-    '';
+    shellHook = "";
   };
   harmonic = pkgs.mkShell {
     name = "Gz sim development";
@@ -34,8 +38,7 @@ in {
       nixgl
     ];
     QT_QPA_PLATFORM = "xcb";
-    shellHook = ''
-    '';
+    shellHook = "";
   };
   fortress = pkgs.mkShell {
     name = "Gz sim development";
@@ -44,7 +47,6 @@ in {
       nixgl
     ];
     QT_QPA_PLATFORM = "xcb";
-    shellHook = ''
-    '';
+    shellHook = "";
   };
 }

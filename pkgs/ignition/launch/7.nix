@@ -2,8 +2,9 @@
   callPackage,
   ignition,
   ...
-} @ args:
-callPackage ./. ({
+}@args:
+callPackage ./. (
+  {
     majorVersion = "7";
     version = "7.1.0";
     srcHash = "sha256-En3V8i/Ie8+KnSHGlm9Bap7REdLhYBaVHVbOM+/Pzno=";
@@ -21,4 +22,5 @@ callPackage ./. ({
     ignition-physics = ignition.physics;
     ignition-sensors = ignition.sensors;
   }
-  // args)
+  // args
+)

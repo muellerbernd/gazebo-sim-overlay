@@ -2,8 +2,9 @@
   callPackage,
   ignition,
   ...
-} @ args:
-callPackage ./. ({
+}@args:
+callPackage ./. (
+  {
     majorVersion = "8";
     version = "8.0.0";
     srcHash = "sha256-B8H5lnQKJx9lULMcBVCsuEOGDeRYBh/biiiBUW91wBk=";
@@ -23,4 +24,5 @@ callPackage ./. ({
     ignition-sim = ignition.sim8;
     ignition-launch = ignition.launch7;
   }
-  // args)
+  // args
+)

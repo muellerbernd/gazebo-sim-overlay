@@ -3,8 +3,9 @@
   ignition,
   sdformat_14,
   ...
-} @ args:
-callPackage ./. ({
+}@args:
+callPackage ./. (
+  {
     majorVersion = "7";
     version = "7.3.0";
     srcHash = "sha256-PTalEQc9C/QsYMO+XK7aOzZUzC01jxiW6bjdItB5hlM=";
@@ -15,4 +16,5 @@ callPackage ./. ({
     ignition-math = ignition.math7;
     sdformat = sdformat_14;
   }
-  // args)
+  // args
+)

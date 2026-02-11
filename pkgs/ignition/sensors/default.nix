@@ -21,9 +21,10 @@
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "8")
-    then "gz-sensors${majorVersion}"
-    else "ignition-sensors${majorVersion}";
+    if (lib.versionAtLeast version "8") then
+      "gz-sensors${majorVersion}"
+    else
+      "ignition-sensors${majorVersion}";
   inherit version;
 
   # pname = "gz-sensors${majorVersion}";
@@ -37,7 +38,10 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [cmake wrapQtAppsHook];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [pkg-config];
   # propagatedNativeBuildInputs = [ ignition-cmake ];
@@ -52,7 +56,7 @@ stdenv.mkDerivation rec {
     eigen
   ];
 
-  buildInputs = [cmake];
+  buildInputs = [ cmake ];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
@@ -64,7 +68,7 @@ stdenv.mkDerivation rec {
       Provides numerous sensor models designed to generate realistic data
       from simulation environments.'';
     license = licenses.asl20;
-    maintainers = with maintainers; [muellerbernd];
+    maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.all;
   };
 }

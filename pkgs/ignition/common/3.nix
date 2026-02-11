@@ -3,8 +3,9 @@
   ignition,
   ffmpeg_5,
   ...
-} @ args:
-callPackage ./. ({
+}@args:
+callPackage ./. (
+  {
     majorVersion = "3";
     version = "3.15.1";
     srcHash = "sha256-WhgCwbRgw6y4+LWpjBTauvDLpFbUvA3SJIMF9m9pdPY=";
@@ -13,4 +14,5 @@ callPackage ./. ({
     ignition-cmake = ignition.cmake2;
     ffmpeg = ffmpeg_5;
   }
-  // args)
+  // args
+)

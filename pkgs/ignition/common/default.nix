@@ -23,9 +23,10 @@
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "5")
-    then "gz-common${majorVersion}"
-    else "ignition-common${majorVersion}";
+    if (lib.versionAtLeast version "5") then
+      "gz-common${majorVersion}"
+    else
+      "ignition-common${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -54,19 +55,29 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  buildInputs = [cmake];
-  nativeBuildInputs = [cmake];
-  propagatedNativeBuildInputs = [ignition-cmake assimp];
-  propagatedBuildInputs =
-    [pkg-config libuuid ignition-math tinyxml-2 gts freeimage ffmpeg]
-    ++ lib.optional (lib.versionAtLeast version "4") [ignition-utils]
-    ++ lib.optional (lib.versionAtLeast version "5") [
-      ignition-cmake
-      ignition-math
-      ignition-utils
-      assimp
-      gdal
-    ];
+  buildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake ];
+  propagatedNativeBuildInputs = [
+    ignition-cmake
+    assimp
+  ];
+  propagatedBuildInputs = [
+    pkg-config
+    libuuid
+    ignition-math
+    tinyxml-2
+    gts
+    freeimage
+    ffmpeg
+  ]
+  ++ lib.optional (lib.versionAtLeast version "4") [ ignition-utils ]
+  ++ lib.optional (lib.versionAtLeast version "5") [
+    ignition-cmake
+    ignition-math
+    ignition-utils
+    assimp
+    gdal
+  ];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
@@ -84,7 +95,7 @@ stdenv.mkDerivation rec {
       Base64 encoding/decoding to thread pools.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [lopsided98];
+    maintainers = with maintainers; [ lopsided98 ];
     platforms = platforms.all;
   };
 }

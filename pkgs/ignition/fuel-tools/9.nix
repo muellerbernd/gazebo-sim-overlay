@@ -1,8 +1,9 @@
 {
   callPackage,
   ignition,
-} @ args:
-callPackage ./. ({
+}@args:
+callPackage ./. (
+  {
     majorVersion = "9";
     version = "9.1.1";
     srcHash = "sha256-XQoBcCtzwzzPypS1kIeTCIbjtxrzaW3JvZLCYbwXAOk=";
@@ -10,4 +11,5 @@ callPackage ./. ({
     ignition-msgs = ignition.msgs10;
     ignition-cmake = ignition.cmake3;
   }
-  // args)
+  // args
+)

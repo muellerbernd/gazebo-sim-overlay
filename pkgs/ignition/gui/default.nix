@@ -29,9 +29,7 @@
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "8")
-    then "gz-gui${majorVersion}"
-    else "ignition-gui${majorVersion}";
+    if (lib.versionAtLeast version "8") then "gz-gui${majorVersion}" else "ignition-gui${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -50,7 +48,7 @@ stdenv.mkDerivation rec {
     patchelf
   ];
 
-  buildInputs = [cmake];
+  buildInputs = [ cmake ];
 
   # pkg-config is needed to use some CMake modules in this package
   # propagatedNativeBuildInputs = [
@@ -92,15 +90,13 @@ stdenv.mkDerivation rec {
     #   ./gz-gui.patch
     #   # ./cmd.patch
     # ]
-    lib.optional
-    (majorVersion == "8") [
+    lib.optional (majorVersion == "8") [
       (fetchpatch {
         url = "https://github.com/gazebosim/gz-gui/pull/677.patch";
         hash = "sha256-9nX3/Yyxp5WSE8VvY+TWcfPFNlS8pdbtex0mujqiilw=";
       })
-    ] ++
-    lib.optional
-    (majorVersion == "9") [
+    ]
+    ++ lib.optional (majorVersion == "9") [
       (fetchpatch {
         url = "https://github.com/gazebosim/gz-gui/pull/677.patch";
         hash = "sha256-9nX3/Yyxp5WSE8VvY+TWcfPFNlS8pdbtex0mujqiilw=";
@@ -164,7 +160,7 @@ stdenv.mkDerivation rec {
       robotics applications, such as a 3D view, plots, dashboard, etc, and can be used
       together in a convenient unified interface.'';
     license = licenses.asl20;
-    maintainers = with maintainers; [muellerbernd];
+    maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.all;
   };
 }

@@ -2,8 +2,9 @@
   callPackage,
   ignition,
   ...
-} @ args:
-callPackage ./. ({
+}@args:
+callPackage ./. (
+  {
     majorVersion = "13";
     version = "13.4.1";
     srcHash = "sha256-hCP+yVoyl1c3KNmQ5jKrYvPT1IlAy9JkCh0c0mOF+KM=";
@@ -12,4 +13,5 @@ callPackage ./. ({
     ignition-math = ignition.math7;
     ignition-utils = ignition.utils2;
   }
-  // args)
+  // args
+)

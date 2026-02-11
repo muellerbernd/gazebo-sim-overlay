@@ -18,10 +18,7 @@
 stdenv.mkDerivation rec {
   # pname = "gz-tools${majorVersion}";
   # inherit version;
-  pname =
-    if (lib.versionAtLeast version "2")
-    then "gz-tools${majorVersion}"
-    else "ignition-tools";
+  pname = if (lib.versionAtLeast version "2") then "gz-tools${majorVersion}" else "ignition-tools";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -32,18 +29,29 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [cmake wrapQtAppsHook];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
   # pkg-config is needed to use some CMake modules in this package
-  propagatedBuildInputs = [pkg-config ignition-cmake ruby];
-  propagatedNativeBuildInputs = [qtquickcontrols2 qtgraphicaleffects];
-  buildInputs = [ronn cmake];
+  propagatedBuildInputs = [
+    pkg-config
+    ignition-cmake
+    ruby
+  ];
+  propagatedNativeBuildInputs = [
+    qtquickcontrols2
+    qtgraphicaleffects
+  ];
+  buildInputs = [
+    ronn
+    cmake
+  ];
 
   dontWrapQtApps = true;
 
   postFixup =
-    if (lib.versionAtLeast majorVersion "2")
-    then ''wrapQtApp $out/bin/gz''
-    else ''wrapQtApp $out/bin/ign'';
+    if (lib.versionAtLeast majorVersion "2") then "wrapQtApp $out/bin/gz" else "wrapQtApp $out/bin/ign";
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
@@ -52,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ignitionrobotics.org/libs/tools";
     description = "Command line tools for the Gazebo libraries.";
     license = licenses.asl20;
-    maintainers = with maintainers; [muellerbernd];
+    maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.all;
   };
 }

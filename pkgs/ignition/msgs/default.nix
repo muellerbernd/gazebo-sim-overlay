@@ -17,9 +17,10 @@
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "9")
-    then "gz-msgs${majorVersion}"
-    else "ignition-msgs${majorVersion}";
+    if (lib.versionAtLeast version "9") then
+      "gz-msgs${majorVersion}"
+    else
+      "ignition-msgs${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -43,15 +44,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [cmake]
-    ++ lib.optional (lib.versionAtLeast version "8") [
-      ignition-cmake
-      ignition-math
-      ignition-utils
-      python3
-    ];
-  propagatedNativeBuildInputs = [ignition-cmake];
+  nativeBuildInputs = [
+    cmake
+  ]
+  ++ lib.optional (lib.versionAtLeast version "8") [
+    ignition-cmake
+    ignition-math
+    ignition-utils
+    python3
+  ];
+  propagatedNativeBuildInputs = [ ignition-cmake ];
   propagatedBuildInputs = [
     protobuf
     ignition-math
@@ -61,7 +63,7 @@ stdenv.mkDerivation rec {
     ignition-utils
   ];
 
-  buildInputs = [cmake];
+  buildInputs = [ cmake ];
 
   # postInstall = ''
   #   mkdir ~/.gz/tools/configs -p
@@ -79,7 +81,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ignitionrobotics.org/libs/msgs";
     description = "Protobuf messages and functions for robot applications.";
     license = licenses.asl20;
-    maintainers = with maintainers; [lopsided98];
+    maintainers = with maintainers; [ lopsided98 ];
     platforms = platforms.all;
   };
 }

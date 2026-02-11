@@ -38,7 +38,11 @@ stdenv.mkDerivation rec {
   };
 
   # nativeBuildInputs = [cmake doxygen pkg-config];
-  nativeBuildInputs = [cmake doxygen pkg-config];
+  nativeBuildInputs = [
+    cmake
+    doxygen
+    pkg-config
+  ];
 
   propagatedBuildInputs = [
     eigen
@@ -81,7 +85,7 @@ stdenv.mkDerivation rec {
     homepage = "https://dartsim.github.io";
     description = "Dynamic Animation and Robotics Toolkit";
     license = licenses.asl20;
-    maintainers = with maintainers; [muellerbernd];
+    maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.all;
   };
 }

@@ -24,9 +24,10 @@
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "8")
-    then "gz-rendering${majorVersion}"
-    else "ignition-rendering${majorVersion}";
+    if (lib.versionAtLeast version "8") then
+      "gz-rendering${majorVersion}"
+    else
+      "ignition-rendering${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -37,7 +38,10 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [cmake pkg-config];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedNativeBuildInputs = [
   # ];
@@ -59,9 +63,9 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
 
-  buildInputs = [cmake];
+  buildInputs = [ cmake ];
 
-  patches = lib.optional (majorVersion == "6") [./graphicsAPI.patch];
+  patches = lib.optional (majorVersion == "6") [ ./graphicsAPI.patch ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/rendering";
@@ -69,7 +73,7 @@ stdenv.mkDerivation rec {
             C++ library designed to provide an abstraction for different rendering
       engines. It offers unified APIs for creating 3D graphics applications.'';
     license = licenses.asl20;
-    maintainers = with maintainers; [muellerbernd];
+    maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.all;
   };
 }
