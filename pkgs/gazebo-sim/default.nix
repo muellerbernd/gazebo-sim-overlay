@@ -41,9 +41,10 @@ symlinkJoin {
     ignition-gui
     ignition-sim
   ];
-  buildInputs = [makeWrapper];
+  buildInputs = [ makeWrapper ];
   postBuild =
-    if (lib.versionAtLeast majorVersion "8")
-    then ''wrapProgram $out/bin/gz --set GZ_CONFIG_PATH "$out/share/gz"''
-    else ''wrapProgram $out/bin/ign --set IGN_CONFIG_PATH "$out/share/ignition"'';
+    if (lib.versionAtLeast majorVersion "8") then
+      ''wrapProgram $out/bin/gz --set GZ_CONFIG_PATH "$out/share/gz"''
+    else
+      ''wrapProgram $out/bin/ign --set IGN_CONFIG_PATH "$out/share/ignition"'';
 }

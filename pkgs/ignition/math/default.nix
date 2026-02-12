@@ -15,9 +15,10 @@
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "7")
-    then "gz-math${majorVersion}"
-    else "ignition-math${majorVersion}";
+    if (lib.versionAtLeast version "7") then
+      "gz-math${majorVersion}"
+    else
+      "ignition-math${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -28,17 +29,19 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [cmake];
-  propagatedNativeBuildInputs =
-    [ignition-cmake eigen]
-    ++ lib.optional (lib.versionAtLeast version "7") [
-      # gz-cmake_3
-      # gz-math_7
-      # gz-utils_2
-      ignition-utils
-    ];
+  nativeBuildInputs = [ cmake ];
+  propagatedNativeBuildInputs = [
+    ignition-cmake
+    eigen
+  ]
+  ++ lib.optional (lib.versionAtLeast version "7") [
+    # gz-cmake_3
+    # gz-math_7
+    # gz-utils_2
+    ignition-utils
+  ];
 
-  buildInputs = [cmake];
+  buildInputs = [ cmake ];
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
@@ -46,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ignitionrobotics.org/libs/math";
     description = "Math classes and functions for robot applications";
     license = licenses.asl20;
-    maintainers = with maintainers; [muellerbernd];
+    maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.all;
   };
 }

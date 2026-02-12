@@ -27,27 +27,27 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [cmake gz-cmake ruby];
-  buildInputs = [gz-math gz-utils urdfdom];
-  propagatedBuildInputs =
-    [gz-math]
-    ++ lib.singleton
-    (
-      if lib.versionAtLeast version "10.0.0"
-      then tinyxml-2
-      else tinyxml
-    )
-    ++ lib.singleton (
-      if lib.versionAtLeast version "14.0.0"
-      then python311Packages.psutil
-      else ""
-    );
+  nativeBuildInputs = [
+    cmake
+    gz-cmake
+    ruby
+  ];
+  buildInputs = [
+    gz-math
+    gz-utils
+    urdfdom
+  ];
+  propagatedBuildInputs = [
+    gz-math
+  ]
+  ++ lib.singleton (if lib.versionAtLeast version "10.0.0" then tinyxml-2 else tinyxml)
+  ++ lib.singleton (if lib.versionAtLeast version "14.0.0" then python311Packages.psutil else "");
 
   meta = with lib; {
     homepage = "http://sdformat.org/";
     description = "Simulation Description Format (SDF) parser and description files";
     license = licenses.asl20;
-    maintainers = with maintainers; [lopsided98];
+    maintainers = with maintainers; [ lopsided98 ];
     platforms = platforms.unix;
   };
 }

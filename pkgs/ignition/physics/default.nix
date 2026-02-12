@@ -20,9 +20,10 @@
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "7")
-    then "gz-physics${majorVersion}"
-    else "ignition-physics${majorVersion}";
+    if (lib.versionAtLeast version "7") then
+      "gz-physics${majorVersion}"
+    else
+      "ignition-physics${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -33,7 +34,10 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [cmake pkg-config];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [
   #   eigen
@@ -53,7 +57,7 @@ stdenv.mkDerivation rec {
     libdart
   ];
 
-  buildInputs = [cmake];
+  buildInputs = [ cmake ];
 
   # patches = [./dart.patch];
 
@@ -67,7 +71,7 @@ stdenv.mkDerivation rec {
       Abstract physics interface designed to support simulation and rapid
       development of robot applications.'';
     license = licenses.asl20;
-    maintainers = with maintainers; [muellerbernd];
+    maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.all;
   };
 }

@@ -58,31 +58,35 @@ mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  cmakeFlags = ["-DUSE_HOST_CFLAGS=False"];
+  cmakeFlags = [ "-DUSE_HOST_CFLAGS=False" ];
 
-  nativeBuildInputs = [cmake pkg-config ronn wrapGAppsHook];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    ronn
+    wrapGAppsHook
+  ];
 
-  buildInputs =
-    [
-      libGL
-      openal
-      hdf5
-      curl
-      tinyxml
-      tinyxml-2
-      libtar
-      gts
-      libusb1
-      qtbase
-      gdal
-      libuuid
-      graphviz
-      ignition-cmake
-      ignition-common
-      ignition-msgs
-      libsForQt5.qwt
-    ]
-    ++ lib.optional withBulletEngineSupport bullet;
+  buildInputs = [
+    libGL
+    openal
+    hdf5
+    curl
+    tinyxml
+    tinyxml-2
+    libtar
+    gts
+    libusb1
+    qtbase
+    gdal
+    libuuid
+    graphviz
+    ignition-cmake
+    ignition-common
+    ignition-msgs
+    libsForQt5.qwt
+  ]
+  ++ lib.optional withBulletEngineSupport bullet;
 
   propagatedBuildInputs = [
     freeimage
@@ -112,7 +116,7 @@ mkDerivation rec {
     homepage = "http://gazebosim.org/";
     description = "Multi-robot simulator for outdoor environments";
     license = licenses.asl20;
-    maintainers = with maintainers; [lopsided98];
+    maintainers = with maintainers; [ lopsided98 ];
     platforms = platforms.all;
   };
 }

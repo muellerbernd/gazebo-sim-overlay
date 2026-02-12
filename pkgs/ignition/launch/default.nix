@@ -41,7 +41,11 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [cmake wrapQtAppsHook pkg-config];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+    pkg-config
+  ];
   # pkg-config is needed to use some CMake modules in this package
   # propagatedBuildInputs = [ pkg-config ];
   # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
@@ -72,10 +76,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/launch";
-    description = ''
-      Gazebo Launch : Run and manage programs and plugins'';
+    description = "Gazebo Launch : Run and manage programs and plugins";
     license = licenses.asl20;
-    maintainers = with maintainers; [muellerbernd];
+    maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.all;
   };
 }

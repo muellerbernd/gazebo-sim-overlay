@@ -17,9 +17,10 @@
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "9")
-    then "gz-msgs${majorVersion}"
-    else "ignition-msgs${majorVersion}";
+    if (lib.versionAtLeast version "9") then
+      "gz-msgs${majorVersion}"
+    else
+      "ignition-msgs${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -31,22 +32,28 @@ stdenv.mkDerivation rec {
   };
 
   # Don't require Protobuf 3
-  patches = lib.optional (lib.versionOlder version "10.0.0") [
+  patches = lib.optional (majorVersion == "10") [
+    # (fetchpatch {
+    #   url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch";
+    #   hash = "sha256-QnR1WtB4gbgyJKbQ4doMhfSjJBksEeQ3Us4y9KqCWeY=";
+    # })
+    ./CMake.patch
     (fetchpatch {
-      url = "https://github.com/gazebosim/gz-msgs/commit/0c0926c37042ac8f5aeb49ac36101acd3e084c6b.patch";
-      hash = "sha256-QnR1WtB4gbgyJKbQ4doMhfSjJBksEeQ3Us4y9KqCWeY=";
+      url = "https://github.com/gazebosim/gz-msgs/commit/ebdd05f6d51c990876085bcc9db9f79df59d375a.patch";
+      hash = "sha256-ojSQdTUty+jQDdmq9B+hMyEKqUCgNwBI9O7eTKlWIQQ=";
     })
   ];
 
-  nativeBuildInputs =
-    [cmake]
-    ++ lib.optional (lib.versionAtLeast version "8") [
-      ignition-cmake
-      ignition-math
-      ignition-utils
-      python3
-    ];
-  propagatedNativeBuildInputs = [ignition-cmake];
+  nativeBuildInputs = [
+    cmake
+  ]
+  ++ lib.optional (lib.versionAtLeast version "8") [
+    ignition-cmake
+    ignition-math
+    ignition-utils
+    python3
+  ];
+  propagatedNativeBuildInputs = [ ignition-cmake ];
   propagatedBuildInputs = [
     protobuf
     ignition-math
@@ -56,7 +63,7 @@ stdenv.mkDerivation rec {
     ignition-utils
   ];
 
-  buildInputs = [cmake];
+  buildInputs = [ cmake ];
 
   # postInstall = ''
   #   mkdir ~/.gz/tools/configs -p
@@ -74,7 +81,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ignitionrobotics.org/libs/msgs";
     description = "Protobuf messages and functions for robot applications.";
     license = licenses.asl20;
-    maintainers = with maintainers; [lopsided98];
+    maintainers = with maintainers; [ lopsided98 ];
     platforms = platforms.all;
   };
 }

@@ -20,14 +20,15 @@
   version ? "11.4.1",
   srcHash ? "sha256-wQ/ugKYopWgSaa6tqPrp8oQexPpnA6fa28L383OGNXM=",
   python3,
-pkg-config,
+  pkg-config,
   ...
 }:
 stdenv.mkDerivation rec {
   pname =
-    if (lib.versionAtLeast version "13.0.0")
-    then "gz-transport${majorVersion}"
-    else "ignition-transport${majorVersion}";
+    if (lib.versionAtLeast version "13.0.0") then
+      "gz-transport${majorVersion}"
+    else
+      "ignition-transport${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -45,28 +46,47 @@ stdenv.mkDerivation rec {
       url = "https://github.com/gazebosim/gz-transport/commit/3d68f46329ec6e4efe20c5125caceae83d4f8e45.patch";
       hash = "sha256-23qSKsMSVL4sXFQrTggyUmxBJm/6RsKsB5EI09GRNKQ=";
     })
-    ++ lib.optional (lib.versionAtLeast version "13") [./cmd.patch];
+    ++ lib.optional (lib.versionAtLeast version "13") [ ./cmd.patch ]
+    ++ lib.optional (majorVersion == "13") [
+      (fetchpatch {
+        url = "https://github.com/gazebosim/gz-transport/commit/8fa2a83498ef45ef1afd31a7dacd141a282023b4.patch";
+        hash = "sha256-LIAP2WvYcwyugxfoEkx0f5KZPGTs77fdMxCnGSmglgQ=";
+      })
+      (fetchpatch {
+        url = "https://github.com/gazebosim/gz-transport/commit/eb7a232bb205051af9a29b2277a23503d38a0fbb.patch";
+        hash = "sha256-JShmdWJEIpr7xlEZCJVaA6hjFyXuGtnbQZ3G6tw619A=";
+      })
+    ];
 
-  nativeBuildInputs = [cmake];
+  nativeBuildInputs = [ cmake ];
   # propagatedNativeBuildInputs = [ ignition-cmake ];
-  buildInputs =
-    [cmake ignition-math sqlite libsodium ignition-utils ignition-cmake ignition-msgs]
-    ++ lib.optional (lib.versionAtLeast version "13") [python3];
-  propagatedBuildInputs =
-    [
-      ignition-math
-      ignition-utils
-      ignition-cmake
-      ignition-msgs
-      sqlite
-      libsodium
-      protobuf
-      cppzmq
-      zeromq
-      libuuid
-      pkg-config
-    ]
-    ++ lib.optional (lib.versionAtLeast version "13") [python3 ignition-tools];
+  buildInputs = [
+    cmake
+    ignition-math
+    sqlite
+    libsodium
+    ignition-utils
+    ignition-cmake
+    ignition-msgs
+  ]
+  ++ lib.optional (lib.versionAtLeast version "13") [ python3 ];
+  propagatedBuildInputs = [
+    ignition-math
+    ignition-utils
+    ignition-cmake
+    ignition-msgs
+    sqlite
+    libsodium
+    protobuf
+    cppzmq
+    zeromq
+    libuuid
+    pkg-config
+  ]
+  ++ lib.optional (lib.versionAtLeast version "13") [
+    python3
+    ignition-tools
+  ];
 
   dontWrapQtApps = true;
   # postInstall = ''
@@ -85,7 +105,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ignitionrobotics.org/libs/transport";
     description = "Provides fast and efficient asyncronous message passing, services, and data logging.";
     license = licenses.asl20;
-    maintainers = with maintainers; [lopsided98];
+    maintainers = with maintainers; [ lopsided98 ];
     platforms = platforms.all;
   };
 }

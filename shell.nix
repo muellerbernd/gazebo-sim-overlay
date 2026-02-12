@@ -1,31 +1,37 @@
-{pkgs ? import <nixpkgs> {}, ...}: let
-  nixgl = [pkgs.nixgl.nixGLIntel];
-  extra = [pkgs.gazebo];
-in {
-  classic = pkgs.mkShell {
-    name = "Gz classic development";
-    buildInputs =
-      if
-        pkgs.lib.strings.hasInfix "/run/current-system/sw"
-        (builtins.getEnv "NIX-PROFILES")
-      then [extra]
-      else [
-        extra
-        # nixgl
-      ];
-    shellHook = ''
-      export QT_QPA_PLATFORM=xcb
-    '';
-  };
+{
+  pkgs ? import <nixpkgs> { },
+  ...
+}:
+let
+  nixgl = [ pkgs.nixgl.nixGLIntel ];
+  extra = [ pkgs.gazebo ];
+in
+{
+  # classic = pkgs.mkShell {
+  #   name = "Gz classic development";
+  #   buildInputs =
+  #     if
+  #       pkgs.lib.strings.hasInfix "/run/current-system/sw"
+  #       (builtins.getEnv "NIX-PROFILES")
+  #     then [extra]
+  #     else [
+  #       extra
+  #       # nixgl
+  #     ];
+  #   shellHook = ''
+  #     export QT_QPA_PLATFORM=xcb
+  #   '';
+  # };
   default = pkgs.mkShell {
     name = "Gz sim development";
     buildInputs = [
       pkgs.gz-ionic
       nixgl
     ];
-    QT_QPA_PLATFORM = "xcb";
-    shellHook = ''
-    '';
+    shellHook = "
+      unset QT_QPA_PLATFORM
+      unset QT_PLUGIN_PATH
+    ";
   };
   harmonic = pkgs.mkShell {
     name = "Gz sim development";
@@ -33,9 +39,10 @@ in {
       pkgs.gz-harmonic
       nixgl
     ];
-    QT_QPA_PLATFORM = "xcb";
-    shellHook = ''
-    '';
+    shellHook = "
+      unset QT_QPA_PLATFORM
+      unset QT_PLUGIN_PATH
+    ";
   };
   fortress = pkgs.mkShell {
     name = "Gz sim development";
@@ -43,8 +50,9 @@ in {
       pkgs.ignition-fortress
       nixgl
     ];
-    QT_QPA_PLATFORM = "xcb";
-    shellHook = ''
-    '';
+    shellHook = "
+      unset QT_QPA_PLATFORM
+      unset QT_PLUGIN_PATH
+    ";
   };
 }
