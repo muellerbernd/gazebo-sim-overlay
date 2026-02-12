@@ -21,12 +21,9 @@
   graphviz,
   qwt,
   qtquickcontrols2,
-  freeimage,
+  # freeimage,
   freeglut,
-  boost,
   protobuf,
-  tbb,
-  ffmpeg,
   qtdeclarative,
   qtgraphicaleffects,
   qtquickcontrols,
@@ -45,7 +42,7 @@
   ignition-tools ? ignition.tools,
   ignition-utils ? ignition.utils,
   sdformat,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   bullet,
   eigen,
   python311Packages,
@@ -73,11 +70,11 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
     ronn
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   propagatedBuildInputs = [
-    freeimage
+    # freeimage
     freeglut
     libGL
     openal
@@ -133,9 +130,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ cmake ];
 
   dontWrapQtApps = true;
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR='lib'"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR='lib'" ];
 
   meta = with lib; {
     homepage = "http://gazebosim.org/";

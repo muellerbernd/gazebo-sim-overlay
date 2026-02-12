@@ -39,9 +39,7 @@ stdenv.mkDerivation rec {
   ];
 
   # patches = [ ./cmd.patch ];
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR='lib'"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR='lib'" ];
 
   buildInputs = [ cmake ];
 

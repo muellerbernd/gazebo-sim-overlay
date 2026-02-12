@@ -34,9 +34,7 @@ stdenv.mkDerivation rec {
         hash = "sha256-fgSAOZoQmZt/nAx2eBDyC+4+0m++crlZ2BGRH4UcuQY=";
       });
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR='lib'"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR='lib'" ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ cmake ];

@@ -1,11 +1,12 @@
 {
   fetchFromGitHub,
+  fetchpatch,
   stdenv,
   lib,
   cmake,
   libGLU,
   freetype,
-  freeimage,
+  # freeimage,
   zziplib,
   libXaw,
   ninja,
@@ -60,7 +61,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    freeimage
+    # freeimage
     freetype
     libXaw
     libXrandr
@@ -72,10 +73,17 @@ stdenv.mkDerivation rec {
     zlib
     openvr
   ];
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/OGRECave/ogre-next/commit/386cb02cfb5d8ae077e2b3edd5cc1c4942833686.patch";
+      hash = "sha256-ccRtfSJk6ttdV9vnZksOjVjmZbxSm0FlYZyMsFKCBc4=";
+    })
+  ];
 
   meta = with lib; {
-    description = "3D Object-Oriented Graphics Rendering Engine
-    aka ogre v2 - scene-oriented, flexible 3D C++ engine ";
+    description = ''
+      3D Object-Oriented Graphics Rendering Engine
+          aka ogre v2 - scene-oriented, flexible 3D C++ engine '';
     homepage = "https://ogrecave.github.io/ogre-next/api/latest";
     maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.linux;

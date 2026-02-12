@@ -5,7 +5,7 @@
 let
   nixgl = [ pkgs.nixgl.nixGLIntel ];
 in
-{
+rec {
   # classic = pkgs.mkShell {
   #   name = "Gazebo classic development";
   #   buildInputs = [
@@ -17,16 +17,14 @@ in
   #     unset QT_PLUGIN_PATH
   #   ";
   # };
-  default = pkgs.mkShell {
+  default = ionic;
+  ionic = pkgs.mkShell {
     name = "Gz sim development";
     buildInputs = [
       pkgs.gz-ionic
       nixgl
     ];
-    shellHook = "
-      unset QT_QPA_PLATFORM
-      unset QT_PLUGIN_PATH
-    ";
+    shellHook = "\n      unset QT_QPA_PLATFORM\n      unset QT_PLUGIN_PATH\n    ";
   };
   harmonic = pkgs.mkShell {
     name = "Gz sim development";
@@ -34,10 +32,7 @@ in
       pkgs.gz-harmonic
       nixgl
     ];
-    shellHook = "
-      unset QT_QPA_PLATFORM
-      unset QT_PLUGIN_PATH
-    ";
+    shellHook = "\n      unset QT_QPA_PLATFORM\n      unset QT_PLUGIN_PATH\n    ";
   };
   fortress = pkgs.mkShell {
     name = "Gz sim development";
@@ -45,9 +40,6 @@ in
       pkgs.ignition-fortress
       nixgl
     ];
-    shellHook = "
-      unset QT_QPA_PLATFORM
-      unset QT_PLUGIN_PATH
-    ";
+    shellHook = "\n      unset QT_QPA_PLATFORM\n      unset QT_PLUGIN_PATH\n    ";
   };
 }

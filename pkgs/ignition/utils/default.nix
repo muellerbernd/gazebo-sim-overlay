@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
   ++ lib.optional (lib.versionAtLeast (toString version) "3.0.0") spdlog;
 
   buildInputs = [ cmake ];
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR='lib'"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR='lib'" ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/common";

@@ -42,9 +42,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [ cmake ];
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR='lib'"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR='lib'" ];
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/math";
     description = "Math classes and functions for robot applications";

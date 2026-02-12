@@ -1,9 +1,5 @@
 # { callPackage, ignition, gz-cmake_3, gz-math_7, gz-utils_2, ... }@args:
-{
-  callPackage,
-  ignition,
-  ...
-}@args:
+{ callPackage, ignition, ... }@args:
 callPackage ./. (
   {
     majorVersion = "5";

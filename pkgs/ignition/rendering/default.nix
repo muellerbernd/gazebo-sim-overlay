@@ -12,13 +12,13 @@
   ignition-common,
   ignition-math,
   ogre-next,
-  ogre1_9,
+  # ogre1_9,
   ogre,
   eigen,
-  freeimage,
+  # freeimage,
   libGL,
   libGLU,
-  xorg,
+  libX11,
   boost,
   ...
 }:
@@ -50,18 +50,16 @@ stdenv.mkDerivation rec {
     ignition-plugin
     ignition-common
     ogre-next
-    ogre1_9
+    # ogre1_9
     ogre
     eigen
-    freeimage
+    # freeimage
     libGL
-    xorg.libX11
+    libX11
     boost
     libGLU
   ];
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR='lib'"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR='lib'" ];
 
   buildInputs = [ cmake ];
 

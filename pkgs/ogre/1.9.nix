@@ -6,7 +6,7 @@
   libGLU,
   libGL,
   freetype,
-  freeimage,
+  # freeimage,
   zziplib,
   xorgproto,
   libXrandr,
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     libGLU
     libGL
     freetype
-    freeimage
+    # freeimage
     zziplib
     xorgproto
     libXrandr
@@ -86,9 +86,7 @@ stdenv.mkDerivation rec {
     libICE
     libXrender
   ]
-  ++ lib.optionals withNvidiaCg [
-    nvidia_cg_toolkit
-  ];
+  ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ];
 
   meta = with lib; {
     description = "3D Object-Oriented Graphics Rendering Engine";

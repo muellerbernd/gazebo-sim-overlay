@@ -7,9 +7,9 @@ rec {
   # gazebo_sim = pkgs.callPackage ./gazebo-sim {};
   gazebo = gazebo_classic;
   gazebo_11 = gazebo_classic;
-  gz-harmonic = pkgs.callPackage ./gazebo-sim/8.nix { };
-  gz-ionic = pkgs.callPackage ./gazebo-sim/9.nix { };
-  ignition-fortress = pkgs.callPackage ./gazebo-sim/6.nix { };
+  gz-harmonic = pkgs.callPackage ./ignition/sim/8.nix { };
+  gz-ionic = pkgs.callPackage ./ignition/sim/9.nix { };
+  ignition-fortress = pkgs.callPackage ./ignition/sim/6.nix { };
 
   libdart = pkgs.callPackage ./libdart { };
 
@@ -44,8 +44,21 @@ rec {
     msgs11 = pkgs.callPackage ./ignition/msgs/11.nix { };
     msgs = msgs11;
 
-    tools1 = pkgs.libsForQt5.callPackage ./ignition/tools/1.nix { };
-    tools2 = pkgs.libsForQt5.callPackage ./ignition/tools/2.nix { };
+    tools1 = pkgs.callPackage ./ignition/tools/1.nix {
+      inherit (pkgs.libsForQt5)
+        wrapQtAppsHook
+        qtquickcontrols2
+        qtgraphicaleffects
+        ;
+
+    };
+    tools2 = pkgs.callPackage ./ignition/tools/2.nix {
+      inherit (pkgs.libsForQt5)
+        wrapQtAppsHook
+        qtquickcontrols2
+        qtgraphicaleffects
+        ;
+    };
     tools = tools2;
 
     transport8 = pkgs.callPackage ./ignition/transport/8.nix { };
@@ -69,23 +82,87 @@ rec {
     physics8 = pkgs.callPackage ./ignition/physics/8.nix { };
     physics = physics8;
 
-    rendering6 = pkgs.libsForQt5.callPackage ./ignition/rendering/6.nix { };
-    rendering8 = pkgs.libsForQt5.callPackage ./ignition/rendering/8.nix { };
-    rendering9 = pkgs.libsForQt5.callPackage ./ignition/rendering/9.nix { };
+    rendering6 = pkgs.callPackage ./ignition/rendering/6.nix { };
+    rendering8 = pkgs.callPackage ./ignition/rendering/8.nix { };
+    rendering9 = pkgs.callPackage ./ignition/rendering/9.nix { };
     rendering = rendering9;
-    gui6 = pkgs.libsForQt5.callPackage ./ignition/gui/6.nix { };
-    gui8 = pkgs.libsForQt5.callPackage ./ignition/gui/8.nix { };
-    gui9 = pkgs.libsForQt5.callPackage ./ignition/gui/9.nix { };
+    gui6 = pkgs.callPackage ./ignition/gui/6.nix {
+      inherit (pkgs.libsForQt5)
+        qtbase
+        qtquickcontrols2
+        qtdeclarative
+        qwt
+        wrapQtAppsHook
+        ;
+    };
+    gui8 = pkgs.callPackage ./ignition/gui/8.nix {
+      inherit (pkgs.libsForQt5)
+        qtbase
+        qtquickcontrols2
+        qtdeclarative
+        qwt
+        wrapQtAppsHook
+        ;
+    };
+    gui9 = pkgs.callPackage ./ignition/gui/9.nix {
+      inherit (pkgs.libsForQt5)
+        qtbase
+        qtquickcontrols2
+        qtdeclarative
+        qwt
+        wrapQtAppsHook
+        ;
+    };
     gui = gui9;
-    sensors6 = pkgs.libsForQt5.callPackage ./ignition/sensors/6.nix { };
-    sensors8 = pkgs.libsForQt5.callPackage ./ignition/sensors/8.nix { };
-    sensors9 = pkgs.libsForQt5.callPackage ./ignition/sensors/9.nix { };
+    sensors6 = pkgs.callPackage ./ignition/sensors/6.nix {
+      inherit (pkgs.libsForQt5) wrapQtAppsHook;
+    };
+    sensors8 = pkgs.callPackage ./ignition/sensors/8.nix {
+      inherit (pkgs.libsForQt5) wrapQtAppsHook;
+    };
+    sensors9 = pkgs.callPackage ./ignition/sensors/9.nix {
+      inherit (pkgs.libsForQt5) wrapQtAppsHook;
+    };
     sensors = sensors9;
-    launch7 = pkgs.libsForQt5.callPackage ./ignition/launch/7.nix { };
+    launch7 = pkgs.callPackage ./ignition/launch/7.nix {
+      inherit (pkgs.libsForQt5)
+        qtbase
+        qtquickcontrols2
+        qwt
+        wrapQtAppsHook
+        ;
+    };
     launch = launch7;
-    sim6 = pkgs.libsForQt5.callPackage ./ignition/sim/6.nix { };
-    sim8 = pkgs.libsForQt5.callPackage ./ignition/sim/8.nix { };
-    sim9 = pkgs.libsForQt5.callPackage ./ignition/sim/9.nix { };
+    sim6 = pkgs.callPackage ./ignition/sim/6.nix {
+      inherit (pkgs.libsForQt5)
+        qtbase
+        qwt
+        qtdeclarative
+        qtgraphicaleffects
+        qtquickcontrols
+        qtquickcontrols2
+        ;
+    };
+    sim8 = pkgs.callPackage ./ignition/sim/8.nix {
+      inherit (pkgs.libsForQt5)
+        qtbase
+        qwt
+        qtdeclarative
+        qtgraphicaleffects
+        qtquickcontrols
+        qtquickcontrols2
+        ;
+    };
+    sim9 = pkgs.callPackage ./ignition/sim/9.nix {
+      inherit (pkgs.libsForQt5)
+        qtbase
+        qwt
+        qtdeclarative
+        qtgraphicaleffects
+        qtquickcontrols
+        qtquickcontrols2
+        ;
+    };
     sim = sim9;
   };
   sdformat_9 = pkgs.callPackage ./sdformat/9.nix { };

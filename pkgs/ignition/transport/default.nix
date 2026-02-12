@@ -97,9 +97,7 @@ stdenv.mkDerivation rec {
   # postInstall = ''
   #   export GZ_CONFIG_PATH=$out/share/gz:$GZ_CONFIG_PATH
   # '';
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR='lib'"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR='lib'" ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/transport";

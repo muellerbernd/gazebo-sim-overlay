@@ -11,7 +11,7 @@
   ignition-utils,
   libuuid,
   tinyxml-2,
-  freeimage,
+  # freeimage,
   gts,
   ffmpeg,
   majorVersion ? "4",
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     ignition-math
     tinyxml-2
     gts
-    freeimage
+    # freeimage
     ffmpeg
   ]
   ++ lib.optional (lib.versionAtLeast version "4") [ ignition-utils ]
@@ -79,9 +79,7 @@ stdenv.mkDerivation rec {
     gdal
   ];
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR='lib'"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR='lib'" ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/common";

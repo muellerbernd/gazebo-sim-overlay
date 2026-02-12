@@ -20,13 +20,13 @@
   libuuid,
   graphviz,
   libsForQt5,
-  freeimage,
+  # freeimage,
   boost,
   protobuf,
   sdformat_9,
   tbb,
   ogre1_9,
-  ffmpeg_5,
+  ffmpeg_6,
   ignition,
   ignition-cmake ? ignition.cmake2,
   ignition-common ? ignition.common3,
@@ -40,11 +40,11 @@
 }:
 mkDerivation rec {
   pname = "gazebo";
-  version = "11.14.0";
+  version = "11.15.0";
 
   src = fetchurl {
     url = "https://osrf-distributions.s3.amazonaws.com/gazebo/releases/${pname}-${version}.tar.bz2";
-    hash = "sha256-fphCwEbJ4HVTVbJ0wkCoq79Olivnznt/WRlOX0tYT0U=";
+    hash = "";
   };
 
   patches = [
@@ -89,13 +89,13 @@ mkDerivation rec {
   ++ lib.optional withBulletEngineSupport bullet;
 
   propagatedBuildInputs = [
-    freeimage
+    # freeimage
     boost
     protobuf
     sdformat_9
     tbb
     ogre1_9
-    ffmpeg_5
+    ffmpeg_6
     ignition-math
     ignition-transport
     ignition-msgs
