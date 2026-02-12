@@ -58,5 +58,8 @@
 
       # dev shells
       devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
+      meta = {
+        license = nixpkgs.lib.licenses.mit;
+      };
     };
 }
