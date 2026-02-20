@@ -2,7 +2,8 @@
   description = "Gazebosim overlay for the Nix package manager";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/6318f538166fef9f5118d8d78b9b43a04bb049e4";
     nixgl.url = "github:guibou/nixGL";
     systems.url = "github:nix-systems/default-linux";
     treefmt-nix.url = "github:numtide/treefmt-nix";
