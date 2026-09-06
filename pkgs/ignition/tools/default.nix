@@ -10,14 +10,13 @@
   ruby,
   ronn,
   wrapQtAppsHook,
-  qtquickcontrols2,
-  qtgraphicaleffects,
+  qtbase ? null,
+  qtquickcontrols2 ? null,
+  qtgraphicaleffects ? null,
   pkg-config,
   ...
 }:
 stdenv.mkDerivation rec {
-  # pname = "gz-tools${majorVersion}";
-  # inherit version;
   pname = if (lib.versionAtLeast version "2") then "gz-tools${majorVersion}" else "ignition-tools";
   inherit version;
 
@@ -33,20 +32,20 @@ stdenv.mkDerivation rec {
     cmake
     wrapQtAppsHook
   ];
-  # pkg-config is needed to use some CMake modules in this package
+
   propagatedBuildInputs = [
     pkg-config
     ignition-cmake
     ruby
-  ];
-  propagatedNativeBuildInputs = [
-    qtquickcontrols2
-    qtgraphicaleffects
-  ];
+  ] 
+  ++ lib.optional (qtbase != null) qtbase
+  ++ lib.optional (qtquickcontrols2 != null) qtquickcontrols2
+  ++ lib.optional (qtgraphicaleffects != null) qtgraphicaleffects;
+
   buildInputs = [
     ronn
     cmake
-  ];
+  ] ++ lib.optional (qtbase != null) qtbase;
 
   dontWrapQtApps = true;
 

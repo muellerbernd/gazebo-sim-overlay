@@ -13,7 +13,7 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = if (majorVersion < "2") then "ignition-plugin" else "gz-plugin${majorVersion}";
+  pname = if (builtins.fromJSON majorVersion < 2) then "ignition-plugin" else "gz-plugin${majorVersion}";
   inherit version;
 
   # pname = "gz-plugin${majorVersion}";

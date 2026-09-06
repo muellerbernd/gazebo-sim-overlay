@@ -1,0 +1,28 @@
+diff --git a/log/src/cmd/CMakeLists.txt b/log/src/cmd/CMakeLists.txt
+index d28b261b..c7f5a83a 100644
+--- a/log/src/cmd/CMakeLists.txt
++++ b/log/src/cmd/CMakeLists.txt
+@@ -72,7 +72,7 @@
+ 
+ # Set the log_exe_location variable to the relative path to the executable
+ # within the install directory structure.
+-set(log_exe_location "../../../${CMAKE_INSTALL_LIBEXECDIR}/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${log_executable}>")
++set(log_exe_location "${CMAKE_INSTALL_LIBEXECDIR}/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${log_executable}>")
+ 
+ configure_file(
+   "cmdlog.rb.in"
+diff --git a/src/cmd/CMakeLists.txt b/src/cmd/CMakeLists.txt
+index 269d66f3..d0a36d09 100644
+--- a/src/cmd/CMakeLists.txt
++++ b/src/cmd/CMakeLists.txt
+@@ -125,8 +125,8 @@
+ 
+ # Set the library_location variable to the relative path to the library file
+ # within the install directory structure.
+-set(service_exe_location "../../../${CMAKE_INSTALL_LIBEXECDIR}/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${service_executable}>")
+-set(topic_exe_location "../../../${CMAKE_INSTALL_LIBEXECDIR}/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${topic_executable}>")
++set(service_exe_location "${CMAKE_INSTALL_LIBEXECDIR}/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${service_executable}>")
++set(topic_exe_location "${CMAKE_INSTALL_LIBEXECDIR}/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${topic_executable}>")
+ 
+ configure_file(
+   "cmd${GZ_DESIGNATION}.rb.in"

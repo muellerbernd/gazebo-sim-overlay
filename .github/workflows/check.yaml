@@ -21,3 +21,4 @@ jobs:
       # - run: nix flake check
       - run: nix build .\#gz-harmonic
       - run: nix build .\#gz-ionic
+      - run: nix build .\#gz-jetty

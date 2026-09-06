@@ -44,7 +44,11 @@ symlinkJoin {
   buildInputs = [ makeWrapper ];
   postBuild =
     if (lib.versionAtLeast majorVersion "8") then
-      ''wrapProgram $out/bin/gz --set GZ_CONFIG_PATH "$out/share/gz"''
+      ''
+        wrapProgram $out/bin/gz \
+          --set GZ_CONFIG_PATH "$out/share/gz" \
+          --set GZ_SIM_SYSTEM_PLUGIN_PATH "$out/lib/gz-sim-${majorVersion}"
+      ''
     else
       ''wrapProgram $out/bin/ign --set IGN_CONFIG_PATH "$out/share/ignition"'';
 }

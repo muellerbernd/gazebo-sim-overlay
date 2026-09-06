@@ -16,6 +16,7 @@
   ignition-common,
   sdformat,
   eigen,
+  qtbase ? null,
   wrapQtAppsHook,
   ...
 }:
@@ -26,9 +27,6 @@ stdenv.mkDerivation rec {
     else
       "ignition-sensors${majorVersion}";
   inherit version;
-
-  # pname = "gz-sensors${majorVersion}";
-  # inherit version;
 
   src = fetchFromGitHub rec {
     name = "${rev}-source";
@@ -42,9 +40,7 @@ stdenv.mkDerivation rec {
     cmake
     wrapQtAppsHook
   ];
-  # pkg-config is needed to use some CMake modules in this package
-  # propagatedBuildInputs = [pkg-config];
-  # propagatedNativeBuildInputs = [ ignition-cmake ];
+
   propagatedBuildInputs = [
     ignition-cmake
     ignition-plugin
@@ -54,13 +50,17 @@ stdenv.mkDerivation rec {
     ignition-common
     sdformat
     eigen
-  ];
+  ] ++ lib.optional (qtbase != null) qtbase;
 
-  buildInputs = [ cmake ];
+  buildInputs = [ cmake ] ++ lib.optional (qtbase != null) qtbase;
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
+
+  postConfigure = ''
+    find . -name "flags.make" -exec sed -i 's/-Werror//g' {} +
+  '';
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/sensors";

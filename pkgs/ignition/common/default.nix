@@ -1,8 +1,7 @@
 {
-  lib,
-  stdenv,
   fetchFromGitHub,
-  fetchpatch,
+  stdenv,
+  lib,
   cmake,
   pkg-config,
   ignition,
@@ -11,7 +10,8 @@
   ignition-utils,
   libuuid,
   tinyxml-2,
-  freeimage,
+
+  freeimage ? null,
   gts,
   ffmpeg,
   majorVersion ? "4",
@@ -29,34 +29,35 @@ stdenv.mkDerivation rec {
       "ignition-common${majorVersion}";
   inherit version;
 
-  src = fetchFromGitHub rec {
-    name = "${rev}-source";
+  src = fetchFromGitHub {
     owner = "gazebosim";
     repo = "gz-common";
     rev = "${pname}_${version}";
     hash = srcHash;
   };
 
-  patches =
-    lib.optional (majorVersion == "4") [
-      (fetchpatch {
-        url = "https://github.com/gazebosim/gz-common/pull/521.patch";
-        hash = "sha256-NlUyAfGugYuNYURY1NjgStNsJ+jrLuaHmJ8Gp9QBSmQ=";
-      })
-    ]
-    ++ lib.optional (majorVersion == "3") [
-      (fetchpatch {
-        url = "https://github.com/gazebosim/gz-common/commit/1243852c4bd8525ffc760a620e7d97f94cc2375c.patch";
-        hash = "sha256-Smk1EWcBB520kFmyrs+nka8Fj7asedhqagMDfq2liwY=";
-      })
-      (fetchpatch {
-        url = "https://github.com/gazebosim/gz-common/commit/dedc51888e0af28267a87a2ce888aa4189efacf4.patch";
-        hash = "sha256-p+EEHIYaxQ0aZ7wMyz/TuDWUQmHfIB4vOPwrUSsZ+DE=";
-      })
-    ];
 
-  buildInputs = [ cmake ];
-  nativeBuildInputs = [ cmake ];
+  postInstall = lib.optionalString (lib.versionAtLeast version "5") ''
+    mkdir -p $out/include/gz/common
+    if [ -d $out/include/gz/common${majorVersion}/gz/common ]; then
+      cp -r $out/include/gz/common${majorVersion}/gz/common/* $out/include/gz/common/
+    fi
+  '';
+
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [
+    cmake
+    libuuid
+    ignition-math
+    tinyxml-2
+    freeimage
+    gts
+    ffmpeg
+    ignition-utils
+    ignition-cmake
+    assimp
+    gdal
+  ];
   propagatedNativeBuildInputs = [
     ignition-cmake
     assimp
@@ -66,8 +67,8 @@ stdenv.mkDerivation rec {
     libuuid
     ignition-math
     tinyxml-2
-    gts
     freeimage
+    gts
     ffmpeg
   ]
   ++ lib.optional (lib.versionAtLeast version "4") [ ignition-utils ]
@@ -81,19 +82,12 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
+    "-DSKIP_graphics=OFF"
   ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/common";
     description = "Miscellaneous libraries for Ignition Robotics";
-    longDescription = ''
-      Ignition Common, a component of Ignition Robotics, provides a set of
-      libraries that cover many different use cases. An audio-visual library
-      supports processing audio and video files, a graphics library can load a
-      variety 3D mesh file formats into a generic in-memory representation, and
-      the core library of Ignition Common contains functionality that spans
-      Base64 encoding/decoding to thread pools.
-    '';
     license = licenses.asl20;
     maintainers = with maintainers; [ lopsided98 ];
     platforms = platforms.all;

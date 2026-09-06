@@ -20,7 +20,7 @@
   libuuid,
   graphviz,
   libsForQt5,
-  freeimage,
+  freeimage ? null,
   boost,
   protobuf,
   sdformat_9,
@@ -36,7 +36,7 @@
   ignition-fuel-tools ? ignition.fuel-tools4,
   bullet,
   withBulletEngineSupport ? false,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 }:
 mkDerivation rec {
   pname = "gazebo";
@@ -64,7 +64,7 @@ mkDerivation rec {
     cmake
     pkg-config
     ronn
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [
@@ -88,8 +88,7 @@ mkDerivation rec {
   ]
   ++ lib.optional withBulletEngineSupport bullet;
 
-  propagatedBuildInputs = [
-    freeimage
+  propagatedBuildInputs = lib.optional (freeimage != null) freeimage ++ [
     boost
     protobuf
     sdformat_9

@@ -23,7 +23,9 @@
   sdformat,
   libwebsockets,
   qtbase,
-  qtquickcontrols2,
+  qtdeclarative ? null,
+  qtquickcontrols2 ? null,
+  qt5compat ? null,
   qwt,
   wrapQtAppsHook,
   eigen,
@@ -46,9 +48,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
     pkg-config
   ];
-  # pkg-config is needed to use some CMake modules in this package
-  # propagatedBuildInputs = [ pkg-config ];
-  # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
+
   propagatedBuildInputs = [
     eigen
     ignition-fuel-tools
@@ -67,9 +67,11 @@ stdenv.mkDerivation rec {
     libwebsockets
     sdformat
     qtbase
-    qtquickcontrols2
     qwt
-  ];
+  ] ++ lib.optional (qtdeclarative != null) qtdeclarative
+    ++ lib.optional (qtquickcontrols2 != null) qtquickcontrols2
+    ++ lib.optional (qt5compat != null) qt5compat;
+
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
   ];
