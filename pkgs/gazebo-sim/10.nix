@@ -2,6 +2,13 @@
   callPackage,
   ignition,
   sdformat_16,
+  qtbase,
+  qtdeclarative,
+  qt5compat,
+  qtsvg,
+  qtwayland,
+  qtshadertools,
+  qtimageformats,
   ...
 }@args:
 callPackage ./. (
@@ -24,6 +31,15 @@ callPackage ./. (
     ignition-utils = ignition.utils4;
     ignition-sim = ignition.sim10;
     sdformat = sdformat_16;
+    qt6Modules = [
+      qtbase
+      qtdeclarative
+      qt5compat
+      qtsvg
+      qtwayland
+      qtshadertools
+      qtimageformats
+    ];
   }
   // args
 )
