@@ -6,13 +6,14 @@
   spdlog,
   ignition,
   ignition-cmake ? ignition.cmake,
+  cli11,
   majorVersion ? "1",
   version ? "1.5.1",
   srcHash ? "sha256-Ymlw1SBoSlHwxe/4E3jdMy8ECCFNy8YGboqTQi6UIs4=",
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = if (majorVersion < "2") then "ignition-utils${majorVersion}" else "gz-utils${majorVersion}";
+  pname = if (builtins.fromJSON majorVersion < 2) then "ignition-utils${majorVersion}" else "gz-utils${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -23,11 +24,12 @@ stdenv.mkDerivation rec {
     hash = srcHash;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake ignition-cmake ];
   propagatedBuildInputs = [
     ignition-cmake
   ]
-  ++ lib.optional (lib.versionAtLeast (toString version) "3.0.0") spdlog;
+  ++ lib.optional (lib.versionAtLeast (toString version) "3.0.0") spdlog
+  ++ lib.optional (lib.versionAtLeast (toString version) "3.0.0") cli11;
 
   buildInputs = [ cmake ];
   cmakeFlags = [

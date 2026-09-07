@@ -5,49 +5,62 @@
 let
   nixgl = [ pkgs.nixgl.nixGLIntel ];
 in
-{
-  # classic = pkgs.mkShell {
-  #   name = "Gazebo classic development";
-  #   buildInputs = [
-  #     pkgs.gazebo
-  #     nixgl
-  #   ];
-  #   shellHook = "
-  #     unset QT_QPA_PLATFORM
-  #     unset QT_PLUGIN_PATH
-  #   ";
-  # };
-  default = pkgs.mkShell {
-    name = "Gz sim development";
+rec {
+  jetty = pkgs.mkShell {
+    name = "Gz sim (Jetty) development";
+    buildInputs = [
+      pkgs.gz-jetty
+      nixgl
+      pkgs.gnumake
+    ];
+    shellHook = "
+      unset QT_QPA_PLATFORM
+      unset QT_PLUGIN_PATH
+    ";
+  };
+  default = jetty;
+  gz-jetty = jetty;
+
+  ionic = pkgs.mkShell {
+    name = "Gz sim (Ionic) development";
     buildInputs = [
       pkgs.gz-ionic
       nixgl
+      pkgs.gnumake
     ];
     shellHook = "
       unset QT_QPA_PLATFORM
       unset QT_PLUGIN_PATH
     ";
   };
+  gz-ionic = ionic;
+
   harmonic = pkgs.mkShell {
-    name = "Gz sim development";
+    name = "Gz sim (Harmonic) development";
     buildInputs = [
       pkgs.gz-harmonic
       nixgl
+      pkgs.gnumake
     ];
     shellHook = "
       unset QT_QPA_PLATFORM
       unset QT_PLUGIN_PATH
     ";
   };
+  gz-harmonic = harmonic;
+
   fortress = pkgs.mkShell {
-    name = "Gz sim development";
+    name = "Gz sim (Fortress) development";
     buildInputs = [
       pkgs.ignition-fortress
       nixgl
+      pkgs.gnumake
     ];
     shellHook = "
       unset QT_QPA_PLATFORM
       unset QT_PLUGIN_PATH
     ";
   };
+  gz-fortress = fortress;
+  ignition-fortress = fortress;
 }

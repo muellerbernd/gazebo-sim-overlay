@@ -7,17 +7,31 @@ A Nix flake providing packages and overlays for the [Gazebo simulator](https://g
 This repository provides Nix packages for multiple Gazebo versions and their dependencies, making it easy to use Gazebo in NixOS or with the Nix package manager.
 
 **Supported versions:**
-- **gz-sim (Harmonic)** – Latest stable release ✅
-- **gz-sim (Fortress)** – Previous LTS release ✅
+- **gz-sim (Jetty / Gazebo 10)** – Latest release ✅
+- **gz-sim (Ionic / Gazebo 9)** – Stable release ✅
+- **gz-sim (Harmonic / Gazebo 8)** – LTS release ✅
+- **gz-sim (Fortress / Gazebo 6)** – Previous LTS release ✅
 - **gazebo-classic** – Legacy version (EOL, currently broken) ⚠️
 
 ## Quick Start
 
+### Using gz-sim (Jetty / Gazebo 10)
+
+```bash
+# Launch a development shell with gz-sim Jetty
+nix develop git+https://github.com/muellerbernd/gazebo-sim-overlay#default -c $SHELL
+# or
+nix develop git+https://github.com/muellerbernd/gazebo-sim-overlay#jetty -c $SHELL
+
+# Start the simulator
+gz sim
+```
+
 ### Using gz-sim (Harmonic)
 
 ```bash
-# Launch a development shell with gz-sim
-nix develop git+https://github.com/muellerbernd/gazebo-sim-overlay#default -c $SHELL
+# Launch a development shell with gz-sim Harmonic
+nix develop git+https://github.com/muellerbernd/gazebo-sim-overlay#harmonic -c $SHELL
 
 # Start the simulator
 gz sim

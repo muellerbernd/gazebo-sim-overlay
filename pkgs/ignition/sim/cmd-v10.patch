@@ -1,0 +1,31 @@
+diff --git a/src/cmd/CMakeLists.txt b/src/cmd/CMakeLists.txt
+index d87e954..6b45321 100644
+--- a/src/cmd/CMakeLists.txt
++++ b/src/cmd/CMakeLists.txt
+@@ -79,7 +79,7 @@ if(ENABLE_GUI)
+   target_compile_definitions(${sim_executable} PRIVATE WITH_GUI)
+   target_compile_definitions(${sim_executable}
+     PRIVATE
+-      "GZ_SIM_GUI_EXE_RELATIVE_PATH=\"${CMAKE_INSTALL_LIBEXECDIR}/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${gui_executable}>\""
++      "GZ_SIM_GUI_EXE_RELATIVE_PATH=\"libexec/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${gui_executable}>\""
+   )
+ endif()
+ 
+@@ -194,7 +194,7 @@ set(cmd_model_script_configured "${cmd_model_script_generated}.configured")
+ 
+ # Set the library_location variable to the relative path to the library file
+ # within the install directory structure.
+-set(model_exe_location "../../../${CMAKE_INSTALL_LIBEXECDIR}/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${model_executable}>")
++set(model_exe_location "../../../libexec/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${model_executable}>")
+ 
+ configure_file(
+   "cmdmodel.rb.in"
+@@ -231,7 +231,7 @@ set(cmd_sim_script_configured "${cmd_sim_script_generated}.configured")
+ 
+ # Set the sim_exe_location variable to the relative path to the executable
+ # within the install directory structure.
+-set(sim_exe_location "../../../${CMAKE_INSTALL_LIBEXECDIR}/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${sim_executable}>")
++set(sim_exe_location "../../../libexec/gz/${GZ_DESIGNATION}${PROJECT_VERSION_MAJOR}/$<TARGET_FILE_NAME:${sim_executable}>")
+ 
+ configure_file(
+   "cmdsim.rb.in"

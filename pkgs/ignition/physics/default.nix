@@ -38,13 +38,20 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  # pkg-config is needed to use some CMake modules in this package
-  # propagatedBuildInputs = [
-  #   eigen
-  #   # bullet
-  #   libdart
-  # ];
-  # propagatedNativeBuildInputs = [ ignition-cmake ignition-common ];
+
+  buildInputs = [
+    cmake
+    ignition-common
+    ignition-math
+    ignition-cmake
+    ignition-utils
+    ignition-plugin
+    sdformat
+    eigen
+    bullet
+    libdart
+  ];
+
   propagatedBuildInputs = [
     sdformat
     ignition-cmake
@@ -56,10 +63,6 @@ stdenv.mkDerivation rec {
     bullet
     libdart
   ];
-
-  buildInputs = [ cmake ];
-
-  # patches = [./dart.patch];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"

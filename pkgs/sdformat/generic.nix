@@ -13,7 +13,7 @@
   urdfdom,
   version,
   srcHash,
-  python311Packages,
+  python3Packages,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     gz-math
   ]
   ++ lib.singleton (if lib.versionAtLeast version "10.0.0" then tinyxml-2 else tinyxml)
-  ++ lib.singleton (if lib.versionAtLeast version "14.0.0" then python311Packages.psutil else "");
+  ++ lib.singleton (if lib.versionAtLeast version "14.0.0" then python3Packages.psutil else "");
 
   meta = with lib; {
     homepage = "http://sdformat.org/";

@@ -15,11 +15,14 @@
   ogre1_9,
   ogre,
   eigen,
-  freeimage,
+  freeimage ? null,
   libGL,
   libGLU,
   xorg,
   boost,
+  libglvnd,
+  vulkan-headers,
+  vulkan-loader,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -42,10 +45,8 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  # pkg-config is needed to use some CMake modules in this package
-  # propagatedNativeBuildInputs = [
-  # ];
-  propagatedBuildInputs = [
+
+  propagatedBuildInputs = lib.optional (freeimage != null) freeimage ++ [
     ignition-math
     ignition-plugin
     ignition-common
@@ -53,25 +54,30 @@ stdenv.mkDerivation rec {
     ogre1_9
     ogre
     eigen
-    freeimage
     libGL
+    libglvnd
     xorg.libX11
+    xorg.libXext
     boost
     libGLU
+    vulkan-headers
+    vulkan-loader
   ];
+
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
+    "-DOGRE_GLSUPPORT_USE_EGL=ON"
+    "-DUSE_GLX=ON"
   ];
 
   buildInputs = [ cmake ];
 
-  patches = lib.optional (majorVersion == "6") [ ./graphicsAPI.patch ];
+  patches = (lib.optional (majorVersion == "6") [ ./graphicsAPI.patch ])
+    ++ (lib.optional (majorVersion == "10") [ ./headless_fix.patch ]);
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/rendering";
-    description = ''
-            C++ library designed to provide an abstraction for different rendering
-      engines. It offers unified APIs for creating 3D graphics applications.'';
+    description = "C++ library designed to provide an abstraction for different rendering engines.";
     license = licenses.asl20;
     maintainers = with maintainers; [ muellerbernd ];
     platforms = platforms.all;

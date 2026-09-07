@@ -1,0 +1,24 @@
+--- a/ogre2/src/Ogre2RenderEngine.cc
++++ b/ogre2/src/Ogre2RenderEngine.cc
+@@ -811,7 +811,9 @@
+   if (!this->Headless())
+   {
+     // We operate in windowed mode
+-    renderSys->setConfigOption("Full Screen", "No");
++    try {
++      renderSys->setConfigOption("Full Screen", "No");
++    } catch(Ogre::Exception&) {}
+ 
+     if (this->dataPtr->graphicsAPI == GraphicsAPI::OPENGL)
+     {
+@@ -820,7 +822,9 @@
+       ///   PBuffer limits the size of the renderable area of the RTT to the
+       ///           size of the first window created.
+       ///   FBO is the only good option
+-      renderSys->setConfigOption("RTT Preferred Mode", "FBO");
++      try {
++        renderSys->setConfigOption("RTT Preferred Mode", "FBO");
++      } catch(Ogre::Exception&) {}
+     }
+   }
+   else

@@ -19,17 +19,19 @@
   gdal,
   libuuid,
   graphviz,
-  qwt,
-  qtquickcontrols2,
-  freeimage,
+  qwt ? null,
+  qtquickcontrols2 ? null,
+  qt5compat ? null,
+  freeimage ? null,
   freeglut,
   boost,
   protobuf,
   tbb,
   ffmpeg,
   qtdeclarative,
-  qtgraphicaleffects,
-  qtquickcontrols,
+  qtgraphicaleffects ? null,
+  qtquickcontrols ? null,
+  qt5 ? null,
   ignition,
   ignition-cmake ? ignition.cmake,
   ignition-common ? ignition.common,
@@ -45,10 +47,10 @@
   ignition-tools ? ignition.tools,
   ignition-utils ? ignition.utils,
   sdformat,
-  wrapGAppsHook,
+  wrapGAppsHook3,
   bullet,
   eigen,
-  python311Packages,
+  python3Packages,
   withBulletEngineSupport ? false,
   majorVersion ? "8",
   version ? "8.0.0",
@@ -56,7 +58,7 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = if (majorVersion < "7") then "ignition-gazebo${majorVersion}" else "gz-sim${majorVersion}";
+  pname = if (builtins.fromJSON majorVersion < 7) then "ignition-gazebo${majorVersion}" else "gz-sim${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
@@ -73,11 +75,10 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
     ronn
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
-  propagatedBuildInputs = [
-    freeimage
+  propagatedBuildInputs = lib.optional (freeimage != null) freeimage ++ [
     freeglut
     libGL
     openal
@@ -91,15 +92,11 @@ stdenv.mkDerivation rec {
     gdal
     libuuid
     graphviz
-    qwt
     qtbase
     qtdeclarative
-    qtgraphicaleffects
-    qtquickcontrols
-    qtquickcontrols2
     eigen
     protobuf
-    python311Packages.pybind11
+    python3Packages.pybind11
     ignition-cmake
     ignition-common
     ignition-plugin
@@ -115,9 +112,17 @@ stdenv.mkDerivation rec {
     ignition-tools
     sdformat
   ]
+  ++ lib.optional (qwt != null) qwt
+  ++ lib.optional (qtquickcontrols2 != null) qtquickcontrols2
+  ++ lib.optional (qt5compat != null) qt5compat
+  ++ lib.optional (qtgraphicaleffects != null) qtgraphicaleffects
+  ++ lib.optional (qtquickcontrols != null) qtquickcontrols
   ++ lib.optional withBulletEngineSupport bullet;
+
   patches =
-    lib.optional (majorVersion == "9") [
+    lib.optional (builtins.fromJSON majorVersion < 10) ./cmd.patch
+    ++ lib.optional (majorVersion == "10") ./cmd-v10.patch
+    ++ lib.optional (majorVersion == "9") [
       (fetchpatch {
         url = "https://github.com/gazebosim/gz-sim/commit/5ee6a396cfb87c7b6588ad96083233032980e639.patch";
         hash = "sha256-o9o5YJ4cnHibX+LF/SSRLG0R9QBTKdvkxLFykwBtQwc=";
@@ -130,12 +135,21 @@ stdenv.mkDerivation rec {
       })
     ];
 
+  postConfigure = ''
+    find . -name "flags.make" -exec sed -i 's/-Werror//g' {} +
+  '';
+
   buildInputs = [ cmake ];
 
   dontWrapQtApps = true;
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR='lib'"
+    "-DGZ_BUILD_WARNINGS_AS_ERRORS=OFF"
+    "-DCMAKE_COMPILE_WARNING_AS_ERROR=OFF"
+    "-DCMAKE_CXX_FLAGS=-Wno-error=maybe-uninitialized"
   ];
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=maybe-uninitialized";
+  env.CXXFLAGS = "-Wno-error=maybe-uninitialized";
 
   meta = with lib; {
     homepage = "http://gazebosim.org/";

@@ -48,6 +48,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DOGRE_BUILD_SAMPLES=${toString withSamples}"
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
   ]
   ++ map (x: "-DOGRE_BUILD_PLUGIN_${x}=on") (
     [

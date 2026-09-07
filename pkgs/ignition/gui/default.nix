@@ -20,11 +20,13 @@
   ignition-tools,
   eigen,
   qtbase,
-  qtquickcontrols2,
   qtdeclarative,
-  qwt,
+  qtquickcontrols2 ? null,
+  qt5compat ? null,
+  qwt ? null,
   wrapQtAppsHook,
   patchelf,
+  libxcb-cursor ? null,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -39,7 +41,6 @@ stdenv.mkDerivation rec {
     rev = "${pname}_${version}";
     hash = srcHash;
   };
-  # src = builtins.fetchGit "/home/bernd/git/gz-gui";
 
   nativeBuildInputs = [
     cmake
@@ -48,30 +49,20 @@ stdenv.mkDerivation rec {
     patchelf
   ];
 
-  buildInputs = [ cmake ];
+  buildInputs = [ 
+    cmake 
+    qtbase
+    qtdeclarative
+  ] ++ lib.optional (qtquickcontrols2 != null) qtquickcontrols2
+    ++ lib.optional (qt5compat != null) qt5compat
+    ++ lib.optional (libxcb-cursor != null) libxcb-cursor;
 
-  # pkg-config is needed to use some CMake modules in this package
-  # propagatedNativeBuildInputs = [
-  #   ignition-cmake
-  #   # ignition-math
-  #   # ignition-common
-  #   # ignition-plugin
-  #   # ignition-transport
-  #   # ignition-rendering
-  #   # ignition-msgs
-  #   ignition-tools
-  # ];
-  postInstall = lib.optional (majorVersion == "6") ''
-    patchelf --print-rpath "$out/lib/ign-gui-6/plugins/libGrid3D.so"
-  '';
   propagatedBuildInputs = [
     qtbase
-    qtquickcontrols2
     qtdeclarative
     ignition-tools
     pkg-config
     eigen
-    qwt
     protobuf
     tinyxml-2
     ignition-math
@@ -82,14 +73,12 @@ stdenv.mkDerivation rec {
     ignition-msgs
     ignition-tools
     ignition-cmake
-  ];
+  ] ++ lib.optional (qwt != null) qwt
+    ++ lib.optional (qtquickcontrols2 != null) qtquickcontrols2
+    ++ lib.optional (qt5compat != null) qt5compat
+    ++ lib.optional (libxcb-cursor != null) libxcb-cursor;
 
   patches =
-    # lib.optional (lib.versionAtLeast version "8.0.0" && lib.versionOlder version "9.0.0") [
-    #   # ./fix_cmake_plugins.patch
-    #   ./gz-gui.patch
-    #   # ./cmd.patch
-    # ]
     lib.optional (majorVersion == "8") [
       (fetchpatch {
         url = "https://github.com/gazebosim/gz-gui/pull/677.patch";
@@ -108,50 +97,11 @@ stdenv.mkDerivation rec {
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
   ];
 
-  # qtWrapperArgs = [ ''--set LD_LIBRARY_PATH : ${lib.makeLibraryPath [ qt5Full ]}'' ];
+  postConfigure = ''
+    find . -name "flags.make" -exec sed -i 's/-Werror//g' {} +
+  '';
 
   dontWrapQtApps = true;
-  #
-  # makeWrapperArgs =
-  #   let
-  #     listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
-  #   in
-  #   [
-  #     "\${qtWrapperArgs[@]}"
-  #     # import Qt.labs.platform failed without this
-  #     "--prefix QML2_IMPORT_PATH : ${qtquickcontrols2.bin}/${qtbase.qtQmlPrefix}"
-  #     "QT_PLUGIN_PATH=${listToQtVar qtbase.qtPluginPrefix [ qtbase ]}"
-  #   ];
-
-  # doCheck = false;
-  # preCheck =
-  #   let
-  #     listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
-  #   in
-  #   ''
-  #     export QT_PLUGIN_PATH=${listToQtVar qtbase.qtPluginPrefix [ qtbase ]}
-  #     export QML2_IMPORT_PATH=${listToQtVar qtbase.qtQmlPrefix ([ qtdeclarative ] )}
-  #     export XDG_RUNTIME_DIR=$PWD
-  #   '';
-
-  # makeWrapperArgs = [
-  #   "\${qtWrapperArgs[@]}"
-  #   # import Qt.labs.platform failed without this
-  #   "--prefix QML2_IMPORT_PATH : ${qtquickcontrols2.bin}/${qtbase.qtQmlPrefix}"
-  # ];
-
-  # preCheck =
-  #   /* bash */ ''
-  #   export QT_QPA_PLATFORM_PLUGIN_PATH=${qt5Full.bin}/lib/qt-${qt5Full.version}/plugins/platforms
-  #   export XDG_RUNTIME_DIR=$(mktemp -d)
-  #   # export QT_PLUGIN_PATH="${qtbase.bin}/${qtbase.qtPluginPrefix}"
-  #   export QT_QPA_PLATFORM=offscreen
-  # '';
-  # nativeCheckInputs = [ fontconfig ];
-  # Env = [
-  #   "FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf"
-  #   "FONTCONFIG_PATH=${fontconfig.out}/etc/fonts/"
-  # ];
 
   meta = with lib; {
     homepage = "https://ignitionrobotics.org/libs/gui";

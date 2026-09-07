@@ -12,7 +12,7 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = if (majorVersion < "3") then "ignition-cmake${majorVersion}" else "gz-cmake${majorVersion}";
+  pname = if (builtins.fromJSON majorVersion < 3) then "ignition-cmake${majorVersion}" else "gz-cmake${majorVersion}";
   inherit version;
 
   src = fetchFromGitHub rec {
